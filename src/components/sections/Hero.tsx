@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Mail, Phone, MapPin, ChevronDown } from "lucide-react";
+import { ArrowUpRight, Mail, Phone, MapPin, ChevronDown, Sparkles } from "lucide-react";
 import { personal } from "../../data/portfolio";
 
 function GithubIcon({ size = 16 }: { size?: number }) {
@@ -22,7 +22,7 @@ function LinkedinIcon({ size = 16 }: { size?: number }) {
   );
 }
 
-// Interactive 3D Geometric Structure (Pure CSS 3D transforms - No AI images)
+// Interactive 3D Geometric Structure with Distinct Colors per Face
 function Geometric3DCube() {
   const [rotate, setRotate] = useState({ x: 15, y: 25 });
 
@@ -43,8 +43,8 @@ function Geometric3DCube() {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Background Soft Glow */}
-      <div className="absolute w-64 h-64 rounded-full bg-blue-600/15 blur-3xl pointer-events-none" />
+      {/* Background Colorful Glows */}
+      <div className="absolute w-72 h-72 rounded-full bg-gradient-to-tr from-blue-600/20 via-purple-600/15 to-cyan-500/20 blur-3xl pointer-events-none" />
 
       {/* 3D Rotating Container */}
       <motion.div
@@ -53,79 +53,80 @@ function Geometric3DCube() {
           rotateY: [rotate.y, rotate.y + 360],
         }}
         transition={{
-          rotateY: { duration: 24, repeat: Infinity, ease: "linear" },
-          rotateX: { duration: 4, repeat: Infinity, ease: "easeInOut" },
+          rotateY: { duration: 22, repeat: Infinity, ease: "linear" },
+          rotateX: { duration: 4.5, repeat: Infinity, ease: "easeInOut" },
         }}
         className="w-48 h-48 md:w-56 md:h-56 relative preserve-3d"
       >
-        {/* Front */}
+        {/* Front - Blue AI Face */}
         <div
-          className="absolute inset-0 border border-blue-500/40 bg-blue-500/[0.04] backdrop-blur-sm rounded-2xl flex flex-col items-center justify-center p-4 transition-all duration-300"
+          className="absolute inset-0 border border-blue-500/60 bg-blue-600/[0.08] backdrop-blur-md rounded-2xl flex flex-col items-center justify-center p-4 transition-all duration-300 shadow-[0_0_30px_rgba(59,130,246,0.25)]"
           style={{ transform: "translateZ(100px)" }}
         >
-          <div className="w-8 h-8 rounded-lg bg-blue-600/30 border border-blue-500/50 flex items-center justify-center text-blue-300 font-mono text-xs mb-2">
+          <div className="w-8 h-8 rounded-lg bg-blue-500/25 border border-blue-400/50 flex items-center justify-center text-blue-300 font-mono text-xs mb-2">
             AI
           </div>
           <span className="text-white font-display font-bold text-xs tracking-wider">MACHINE LEARNING</span>
-          <span className="text-[10px] text-blue-400 font-mono mt-1">PyTorch · Scikit-learn</span>
+          <span className="text-[10px] text-blue-300 font-mono mt-1">PyTorch · Scikit-learn</span>
         </div>
 
-        {/* Back */}
+        {/* Back - Purple Full Stack Face */}
         <div
-          className="absolute inset-0 border border-blue-400/30 bg-blue-600/[0.03] backdrop-blur-sm rounded-2xl flex flex-col items-center justify-center p-4"
+          className="absolute inset-0 border border-purple-500/60 bg-purple-600/[0.08] backdrop-blur-md rounded-2xl flex flex-col items-center justify-center p-4 shadow-[0_0_30px_rgba(168,85,247,0.25)]"
           style={{ transform: "rotateY(180deg) translateZ(100px)" }}
         >
-          <div className="w-8 h-8 rounded-lg bg-blue-600/30 border border-blue-500/50 flex items-center justify-center text-blue-300 font-mono text-xs mb-2">
+          <div className="w-8 h-8 rounded-lg bg-purple-500/25 border border-purple-400/50 flex items-center justify-center text-purple-300 font-mono text-xs mb-2">
             WEB
           </div>
           <span className="text-white font-display font-bold text-xs tracking-wider">FULL STACK</span>
-          <span className="text-[10px] text-blue-400 font-mono mt-1">React · TypeScript · Node</span>
+          <span className="text-[10px] text-purple-300 font-mono mt-1">React · TypeScript · Node</span>
         </div>
 
-        {/* Right */}
+        {/* Right - Emerald Computer Vision Face */}
         <div
-          className="absolute inset-0 border border-blue-500/30 bg-blue-500/[0.03] backdrop-blur-sm rounded-2xl flex flex-col items-center justify-center p-4"
+          className="absolute inset-0 border border-emerald-500/60 bg-emerald-600/[0.08] backdrop-blur-md rounded-2xl flex flex-col items-center justify-center p-4 shadow-[0_0_30px_rgba(16,185,129,0.25)]"
           style={{ transform: "rotateY(90deg) translateZ(100px)" }}
         >
-          <div className="w-8 h-8 rounded-lg bg-blue-600/30 border border-blue-500/50 flex items-center justify-center text-blue-300 font-mono text-xs mb-2">
+          <div className="w-8 h-8 rounded-lg bg-emerald-500/25 border border-emerald-400/50 flex items-center justify-center text-emerald-300 font-mono text-xs mb-2">
             CV
           </div>
           <span className="text-white font-display font-bold text-xs tracking-wider">COMPUTER VISION</span>
-          <span className="text-[10px] text-blue-400 font-mono mt-1">OpenCV · Retinal Imaging</span>
+          <span className="text-[10px] text-emerald-300 font-mono mt-1">OpenCV · Retinal Imaging</span>
         </div>
 
-        {/* Left */}
+        {/* Left - Cyan Data Science Face */}
         <div
-          className="absolute inset-0 border border-blue-500/30 bg-blue-500/[0.03] backdrop-blur-sm rounded-2xl flex flex-col items-center justify-center p-4"
+          className="absolute inset-0 border border-cyan-500/60 bg-cyan-600/[0.08] backdrop-blur-md rounded-2xl flex flex-col items-center justify-center p-4 shadow-[0_0_30px_rgba(6,182,212,0.25)]"
           style={{ transform: "rotateY(-90deg) translateZ(100px)" }}
         >
-          <div className="w-8 h-8 rounded-lg bg-blue-600/30 border border-blue-500/50 flex items-center justify-center text-blue-300 font-mono text-xs mb-2">
+          <div className="w-8 h-8 rounded-lg bg-cyan-500/25 border border-cyan-400/50 flex items-center justify-center text-cyan-300 font-mono text-xs mb-2">
             DS
           </div>
           <span className="text-white font-display font-bold text-xs tracking-wider">DATA SCIENCE</span>
-          <span className="text-[10px] text-blue-400 font-mono mt-1">Pandas · EDA · SQL</span>
+          <span className="text-[10px] text-cyan-300 font-mono mt-1">Pandas · EDA · SQL</span>
         </div>
 
         {/* Top */}
         <div
-          className="absolute inset-0 border border-blue-500/20 bg-blue-500/[0.02] rounded-2xl flex items-center justify-center"
+          className="absolute inset-0 border border-amber-500/30 bg-amber-500/[0.04] rounded-2xl flex items-center justify-center shadow-[0_0_20px_rgba(245,158,11,0.15)]"
           style={{ transform: "rotateX(90deg) translateZ(100px)" }}
         >
-          <span className="text-blue-400 font-mono text-[10px]">INTELLIGENT SYSTEMS</span>
+          <span className="text-amber-300 font-mono text-[10px]">INTELLIGENT SYSTEMS</span>
         </div>
 
         {/* Bottom */}
         <div
-          className="absolute inset-0 border border-blue-500/20 bg-blue-500/[0.02] rounded-2xl flex items-center justify-center"
+          className="absolute inset-0 border border-indigo-500/30 bg-indigo-500/[0.04] rounded-2xl flex items-center justify-center shadow-[0_0_20px_rgba(99,102,241,0.15)]"
           style={{ transform: "rotateX(-90deg) translateZ(100px)" }}
         >
-          <span className="text-blue-400 font-mono text-[10px]">ENGINEERED IN CODE</span>
+          <span className="text-indigo-300 font-mono text-[10px]">ENGINEERED IN CODE</span>
         </div>
       </motion.div>
 
-      {/* Orbiting Axis Rings */}
-      <div className="absolute inset-0 rounded-full border border-blue-500/20 pointer-events-none" />
-      <div className="absolute inset-6 rounded-full border border-dashed border-blue-400/20 animate-spin" style={{ animationDuration: "35s" }} />
+      {/* Orbiting Axis Rings with color gradients */}
+      <div className="absolute inset-0 rounded-full border border-blue-500/25 pointer-events-none" />
+      <div className="absolute inset-6 rounded-full border border-dashed border-purple-400/25 animate-spin" style={{ animationDuration: "35s" }} />
+      <div className="absolute inset-12 rounded-full border border-cyan-400/20 animate-spin-reverse" style={{ animationDuration: "25s" }} />
     </div>
   );
 }
@@ -133,56 +134,65 @@ function Geometric3DCube() {
 export default function Hero() {
   return (
     <section id="home" className="relative min-h-screen flex items-center pt-28 pb-16 overflow-hidden">
-      {/* Subtle blue accent background gradients */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-blue-600/10 blur-[140px] rounded-full pointer-events-none" />
+      {/* Rich Multi-Color Ambient Background Orbs */}
+      <div className="absolute top-1/4 -left-20 w-[500px] h-[500px] bg-blue-600/15 blur-[150px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/3 -right-20 w-[500px] h-[500px] bg-purple-600/15 blur-[150px] rounded-full pointer-events-none" />
+      <div className="absolute -bottom-20 left-1/3 w-[450px] h-[450px] bg-cyan-500/10 blur-[140px] rounded-full pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-6 md:px-12 w-full grid lg:grid-cols-12 gap-12 lg:gap-8 items-center relative z-10">
         
-        {/* Left Column: Authentic Developer Information */}
+        {/* Left Column */}
         <div className="lg:col-span-7 flex flex-col items-start text-left">
           
-          {/* Availability pill */}
+          {/* Availability pill with emerald pulse */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-600/10 border border-blue-500/30 text-blue-400 text-xs font-mono mb-6"
+            className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-gradient-to-r from-blue-600/15 via-purple-600/15 to-emerald-600/15 border border-blue-500/30 text-xs font-mono mb-6"
           >
-            <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-            <span>Available for Internships & Projects</span>
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+            </span>
+            <span className="text-emerald-400 font-medium">Available for Opportunities</span>
+            <span className="text-slate-600">|</span>
+            <span className="text-cyan-400">AI & DS 2024–2028</span>
           </motion.div>
 
-          {/* Main Name Heading */}
+          {/* Main Name Heading with Multi-Color Shimmer */}
           <motion.h1
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.6 }}
             className="text-4xl sm:text-6xl md:text-7xl font-bold font-display tracking-tight text-white leading-[1.08] mb-4"
           >
-            Praveen Kumar <span className="text-blue-500">E</span>
+            Praveen Kumar <span className="gradient-hero-text">E</span>
           </motion.h1>
 
-          {/* Subtitle / Role */}
+          {/* Subtitle / Role with color gradient */}
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.6 }}
-            className="text-base sm:text-lg font-mono text-blue-400/90 mb-6 tracking-wide"
+            className="text-base sm:text-lg font-mono font-medium mb-6 tracking-wide flex flex-wrap items-center gap-2"
           >
-            AI & Data Science Engineer · Full-Stack Developer
+            <span className="text-blue-400">AI & Data Science Engineer</span>
+            <span className="text-slate-600 hidden sm:inline">·</span>
+            <span className="text-purple-400">Full-Stack Developer</span>
           </motion.p>
 
-          {/* Genuine Narrative Description */}
+          {/* Narrative Description */}
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.6 }}
             className="text-slate-300 text-base md:text-lg max-w-xl leading-relaxed mb-8 font-normal"
           >
-            3rd-year B.Tech student at Shree Venkateshwara Hi-tech Engineering College. I build production-ready machine learning solutions, computer vision tools, and modern web applications with real-world impact.
+            3rd-year B.Tech student at Shree Venkateshwara Hi-tech Engineering College. I engineer production-ready machine learning solutions, medical computer vision pipelines, and high-performance web applications.
           </motion.p>
 
-          {/* Location & Quick Contact row */}
+          {/* Location & Contact row */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -190,12 +200,12 @@ export default function Hero() {
             className="flex flex-wrap items-center gap-4 text-xs font-mono text-slate-400 mb-8"
           >
             <span className="flex items-center gap-1.5">
-              <MapPin size={14} className="text-blue-400" />
+              <MapPin size={14} className="text-emerald-400" />
               {personal.location}
             </span>
             <span className="text-slate-600">·</span>
-            <a href={`tel:${personal.phone}`} className="flex items-center gap-1.5 hover:text-blue-400 transition-colors">
-              <Phone size={14} className="text-blue-400" />
+            <a href={`tel:${personal.phone}`} className="flex items-center gap-1.5 hover:text-cyan-400 transition-colors">
+              <Phone size={14} className="text-cyan-400" />
               {personal.phone}
             </a>
             <span className="text-slate-600">·</span>
@@ -205,7 +215,7 @@ export default function Hero() {
             </a>
           </motion.div>
 
-          {/* Action CTAs */}
+          {/* Action CTAs with gradient buttons */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -214,7 +224,7 @@ export default function Hero() {
           >
             <a
               href="#projects"
-              className="flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-semibold bg-blue-600 hover:bg-blue-500 text-white transition-all duration-200 shadow-lg shadow-blue-600/25 hover:shadow-blue-600/40"
+              className="flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-semibold bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white transition-all duration-200 shadow-lg shadow-blue-600/30 hover:shadow-purple-600/40"
             >
               <span>Explore Projects (11)</span>
               <ArrowUpRight size={16} />
@@ -222,7 +232,7 @@ export default function Hero() {
 
             <a
               href={`mailto:${personal.email}`}
-              className="flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-semibold bg-white/[0.04] hover:bg-white/[0.08] text-slate-200 hover:text-white border border-white/10 transition-all duration-200"
+              className="flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-semibold bg-white/[0.04] hover:bg-white/[0.08] text-slate-200 hover:text-white border border-white/10 hover:border-cyan-500/40 transition-all duration-200"
             >
               <span>Get in Touch</span>
             </a>
@@ -239,7 +249,7 @@ export default function Hero() {
               href={personal.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-10 h-10 rounded-xl bg-white/[0.03] hover:bg-blue-600/20 border border-white/10 hover:border-blue-500/40 text-slate-400 hover:text-blue-400 flex items-center justify-center transition-all duration-200"
+              className="w-10 h-10 rounded-xl bg-white/[0.03] hover:bg-blue-600/20 border border-white/10 hover:border-blue-500/40 text-slate-400 hover:text-blue-400 flex items-center justify-center transition-all duration-200 shadow-sm"
               aria-label="GitHub Profile"
             >
               <GithubIcon size={18} />
@@ -248,7 +258,7 @@ export default function Hero() {
               href={personal.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-10 h-10 rounded-xl bg-white/[0.03] hover:bg-blue-600/20 border border-white/10 hover:border-blue-500/40 text-slate-400 hover:text-blue-400 flex items-center justify-center transition-all duration-200"
+              className="w-10 h-10 rounded-xl bg-white/[0.03] hover:bg-purple-600/20 border border-white/10 hover:border-purple-500/40 text-slate-400 hover:text-purple-400 flex items-center justify-center transition-all duration-200 shadow-sm"
               aria-label="LinkedIn Profile"
             >
               <LinkedinIcon size={18} />
@@ -256,7 +266,7 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Right Column: 3D Interactive Geometric Cube */}
+        {/* Right Column: Multi-Color 3D Interactive Geometric Cube */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -264,17 +274,18 @@ export default function Hero() {
           className="lg:col-span-5 flex flex-col items-center justify-center"
         >
           <Geometric3DCube />
-          <p className="text-[11px] font-mono text-slate-500 mt-4 tracking-wider">
-            INTERACTIVE 3D · DRAG TO ROTATE
+          <p className="text-[11px] font-mono text-slate-400 mt-4 tracking-wider flex items-center gap-1.5">
+            <Sparkles size={12} className="text-cyan-400" />
+            <span>INTERACTIVE 3D · ROTATE WITH CURSOR</span>
           </p>
         </motion.div>
 
       </div>
 
-      {/* Down arrow anchor indicator */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-1 opacity-50 hover:opacity-100 transition-opacity">
+      {/* Down arrow indicator */}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-1 opacity-60 hover:opacity-100 transition-opacity">
         <a href="#about" aria-label="Scroll to About">
-          <ChevronDown size={20} className="animate-bounce text-blue-400" />
+          <ChevronDown size={20} className="animate-bounce text-cyan-400" />
         </a>
       </div>
     </section>

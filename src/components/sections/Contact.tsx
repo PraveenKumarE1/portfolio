@@ -40,20 +40,21 @@ export default function Contact() {
 
   return (
     <section id="contact" className="relative section-padding border-t border-white/[0.05]">
-      {/* Background ambient light */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-blue-600/5 blur-[140px] rounded-full pointer-events-none" />
+      {/* Background ambient multi-color light */}
+      <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-blue-600/10 blur-[150px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-10 right-1/4 w-[500px] h-[500px] bg-purple-600/10 blur-[150px] rounded-full pointer-events-none" />
 
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-14">
-          <span className="text-xs font-mono text-blue-500 uppercase tracking-widest block mb-2">
-            06 / Connect
+          <span className="text-xs font-mono text-cyan-400 uppercase tracking-widest block mb-2">
+            06 / Connect & Collaborate
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-display text-white tracking-tight">
-            Get in <span className="text-blue-500">Touch</span>
+            Get in <span className="gradient-blue-cyan">Touch</span>
           </h2>
           <p className="text-sm font-mono text-slate-400 mt-2 max-w-xl">
-            Open for software engineering roles, data science internships, freelance inquiries, and project collaborations.
+            Open for software engineering roles, data science internships, freelance projects, and AI collaborations.
           </p>
         </div>
 
@@ -62,15 +63,15 @@ export default function Contact() {
           {/* Left Column: Direct Contact Info */}
           <div className="lg:col-span-5 space-y-4">
             
-            {/* Email Card */}
-            <div className="clean-card p-5 border border-white/10 flex items-center justify-between">
+            {/* Email Card with Cyan/Blue accent */}
+            <div className="clean-card p-5 border border-white/10 hover:border-blue-500/40 flex items-center justify-between transition-all">
               <div className="flex items-center gap-3.5 min-w-0">
-                <div className="w-10 h-10 rounded-xl bg-blue-600/15 border border-blue-500/30 text-blue-400 flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-blue-600/20 border border-blue-500/40 text-cyan-400 flex items-center justify-center shrink-0 shadow-md shadow-blue-600/20">
                   <Mail size={18} />
                 </div>
                 <div className="min-w-0">
                   <span className="text-[11px] font-mono text-slate-400 uppercase tracking-wider block">Email Address</span>
-                  <a href={`mailto:${personal.email}`} className="text-xs sm:text-sm font-medium text-white hover:text-blue-400 transition-colors truncate block">
+                  <a href={`mailto:${personal.email}`} className="text-xs sm:text-sm font-medium text-white hover:text-cyan-400 transition-colors truncate block">
                     {personal.email}
                   </a>
                 </div>
@@ -85,26 +86,26 @@ export default function Contact() {
               </button>
             </div>
 
-            {/* Phone Card */}
-            <div className="clean-card p-5 border border-white/10 flex items-center gap-3.5">
-              <div className="w-10 h-10 rounded-xl bg-blue-600/15 border border-blue-500/30 text-blue-400 flex items-center justify-center shrink-0">
+            {/* Phone Card with Emerald accent */}
+            <div className="clean-card p-5 border border-white/10 hover:border-emerald-500/40 flex items-center gap-3.5 transition-all">
+              <div className="w-10 h-10 rounded-xl bg-emerald-600/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center shrink-0 shadow-md shadow-emerald-600/20">
                 <Phone size={18} />
               </div>
               <div>
-                <span className="text-[11px] font-mono text-slate-400 uppercase tracking-wider block">Phone & WhatsApp</span>
-                <a href={`tel:${personal.phone}`} className="text-xs sm:text-sm font-medium text-white hover:text-blue-400 transition-colors">
+                <span className="text-[11px] font-mono text-slate-400 uppercase tracking-wider block">Direct Phone & WhatsApp</span>
+                <a href={`tel:${personal.phone}`} className="text-xs sm:text-sm font-medium text-white hover:text-emerald-400 transition-colors">
                   {personal.phone}
                 </a>
               </div>
             </div>
 
-            {/* Location Card */}
-            <div className="clean-card p-5 border border-white/10 flex items-center gap-3.5">
-              <div className="w-10 h-10 rounded-xl bg-blue-600/15 border border-blue-500/30 text-blue-400 flex items-center justify-center shrink-0">
+            {/* Location Card with Purple accent */}
+            <div className="clean-card p-5 border border-white/10 hover:border-purple-500/40 flex items-center gap-3.5 transition-all">
+              <div className="w-10 h-10 rounded-xl bg-purple-600/20 border border-purple-500/40 text-purple-400 flex items-center justify-center shrink-0 shadow-md shadow-purple-600/20">
                 <MapPin size={18} />
               </div>
               <div>
-                <span className="text-[11px] font-mono text-slate-400 uppercase tracking-wider block">Base Location</span>
+                <span className="text-[11px] font-mono text-slate-400 uppercase tracking-wider block">Location</span>
                 <p className="text-xs sm:text-sm font-medium text-white">
                   {personal.location}
                 </p>
@@ -117,7 +118,7 @@ export default function Contact() {
                 href={personal.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="clean-card p-4 border border-white/10 flex items-center justify-center gap-2 text-xs font-mono text-slate-300 hover:text-white hover:border-blue-500/40 transition-all"
+                className="clean-card p-4 border border-white/10 flex items-center justify-center gap-2 text-xs font-mono text-slate-300 hover:text-blue-400 hover:border-blue-500/40 transition-all"
               >
                 <GithubIcon size={16} />
                 <span>GitHub</span>
@@ -128,7 +129,7 @@ export default function Contact() {
                 href={personal.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="clean-card p-4 border border-white/10 flex items-center justify-center gap-2 text-xs font-mono text-slate-300 hover:text-white hover:border-blue-500/40 transition-all"
+                className="clean-card p-4 border border-white/10 flex items-center justify-center gap-2 text-xs font-mono text-slate-300 hover:text-purple-400 hover:border-purple-500/40 transition-all"
               >
                 <LinkedinIcon size={16} />
                 <span>LinkedIn</span>
@@ -140,9 +141,9 @@ export default function Contact() {
 
           {/* Right Column: Contact Message Form */}
           <div className="lg:col-span-7">
-            <form onSubmit={handleSubmit} className="clean-card p-6 sm:p-8 border border-white/10 space-y-4">
+            <form onSubmit={handleSubmit} className="clean-card p-6 sm:p-8 border border-white/10 space-y-4 hover:border-blue-500/30 transition-all">
               <h3 className="font-display font-bold text-lg text-white mb-2">
-                Send a Message
+                Send a Direct Message
               </h3>
 
               <div>
@@ -153,7 +154,7 @@ export default function Contact() {
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   placeholder="e.g. Alex Smith"
-                  className="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-white/10 text-white placeholder-slate-600 text-sm focus:outline-none focus:border-blue-500 transition-colors"
+                  className="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-white/10 text-white placeholder-slate-600 text-sm focus:outline-none focus:border-cyan-500 transition-colors"
                 />
               </div>
 
@@ -165,7 +166,7 @@ export default function Contact() {
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   placeholder="alex@company.com"
-                  className="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-white/10 text-white placeholder-slate-600 text-sm focus:outline-none focus:border-blue-500 transition-colors"
+                  className="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-white/10 text-white placeholder-slate-600 text-sm focus:outline-none focus:border-cyan-500 transition-colors"
                 />
               </div>
 
@@ -177,13 +178,13 @@ export default function Contact() {
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   placeholder="Tell me about your project, role, or collaboration idea..."
-                  className="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-white/10 text-white placeholder-slate-600 text-sm focus:outline-none focus:border-blue-500 transition-colors resize-none"
+                  className="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-white/10 text-white placeholder-slate-600 text-sm focus:outline-none focus:border-cyan-500 transition-colors resize-none"
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl text-sm font-semibold bg-blue-600 hover:bg-blue-500 text-white transition-all shadow-lg shadow-blue-600/20 hover:shadow-blue-600/30"
+                className="w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl text-sm font-semibold bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white transition-all shadow-lg shadow-blue-600/25 hover:shadow-purple-600/35"
               >
                 <span>Send Message</span>
                 <Send size={15} />
@@ -197,7 +198,7 @@ export default function Contact() {
         <div className="pt-16 mt-16 border-t border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-400">
           <p>© {new Date().getFullYear()} Praveen Kumar E. Built with React & TypeScript.</p>
           <div className="flex items-center gap-4">
-            <a href="#home" className="hover:text-blue-400 transition-colors">Back to top ↑</a>
+            <a href="#home" className="hover:text-cyan-400 transition-colors">Back to top ↑</a>
           </div>
         </div>
       </div>

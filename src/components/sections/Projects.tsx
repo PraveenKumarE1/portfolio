@@ -38,17 +38,18 @@ export default function Projects() {
   return (
     <section id="projects" className="relative section-padding border-t border-white/[0.05]">
       {/* Background ambient lighting */}
-      <div className="absolute top-1/4 left-1/3 w-96 h-96 bg-blue-600/5 blur-[140px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-blue-600/10 blur-[150px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-10 right-1/4 w-[500px] h-[500px] bg-purple-600/10 blur-[150px] rounded-full pointer-events-none" />
 
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
           <div>
-            <span className="text-xs font-mono text-blue-500 uppercase tracking-widest block mb-2">
+            <span className="text-xs font-mono text-emerald-400 uppercase tracking-widest block mb-2">
               03 / Engineering Portfolio
             </span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-display text-white tracking-tight">
-              Featured <span className="text-blue-500">Projects</span>
+              Featured <span className="gradient-emerald-teal">Projects</span>
             </h2>
           </div>
           <p className="text-sm font-mono text-slate-400 max-w-md">
@@ -56,7 +57,7 @@ export default function Projects() {
           </p>
         </div>
 
-        {/* Filter Pills */}
+        {/* Filter Pills with Colorful Glow */}
         <div className="flex flex-wrap gap-2 mb-12">
           {filterTabs.map((tab) => (
             <button
@@ -64,7 +65,7 @@ export default function Projects() {
               onClick={() => setSelectedFilter(tab)}
               className={`px-4 py-2 rounded-xl text-xs font-mono transition-all duration-200 border ${
                 selectedFilter === tab
-                  ? "bg-blue-600 text-white border-blue-500 shadow-md shadow-blue-600/20"
+                  ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white border-blue-400 shadow-md shadow-blue-600/30 scale-105"
                   : "bg-white/[0.02] border-white/10 text-slate-400 hover:text-white hover:bg-white/[0.05]"
               }`}
             >
@@ -73,17 +74,35 @@ export default function Projects() {
           ))}
         </div>
 
-        {/* Projects Grid */}
+        {/* Projects Grid with Unique Color Theming per Project */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredProjects.map((project) => (
             <div
               key={project.id}
-              className="clean-card p-6 border border-white/10 flex flex-col justify-between group hover:border-blue-500/40 transition-all duration-300 relative"
+              className="clean-card p-6 border border-white/10 flex flex-col justify-between group transition-all duration-300 relative hover:shadow-xl"
+              style={{
+                borderColor: undefined,
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = `${project.color}60`;
+                e.currentTarget.style.boxShadow = `0 16px 32px -8px rgba(0,0,0,0.5), 0 0 25px -4px ${project.color}25`;
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)";
+                e.currentTarget.style.boxShadow = "none";
+              }}
             >
               <div>
-                {/* Header line */}
+                {/* Header line with dynamic color badges */}
                 <div className="flex items-center justify-between gap-2 mb-3">
-                  <span className="text-[11px] font-mono px-2.5 py-1 rounded-md bg-blue-600/15 border border-blue-500/30 text-blue-400">
+                  <span
+                    className="text-[11px] font-mono px-2.5 py-1 rounded-md border"
+                    style={{
+                      backgroundColor: `${project.color}15`,
+                      borderColor: `${project.color}40`,
+                      color: project.color,
+                    }}
+                  >
                     {project.category}
                   </span>
                   {project.featured && (
@@ -94,7 +113,12 @@ export default function Projects() {
                 </div>
 
                 {/* Title & Tagline */}
-                <h3 className="font-display font-bold text-lg text-white group-hover:text-blue-400 transition-colors mb-1.5">
+                <h3
+                  className="font-display font-bold text-lg text-white transition-colors mb-1.5"
+                  style={{
+                    color: undefined,
+                  }}
+                >
                   {project.title}
                 </h3>
                 <p className="text-xs font-mono text-slate-400 mb-3 line-clamp-1">
@@ -123,7 +147,7 @@ export default function Projects() {
                   )}
                 </div>
 
-                {/* Bottom Actions */}
+                {/* Bottom Actions with Accent Colors */}
                 <div className="flex items-center gap-2 pt-3 border-t border-white/[0.06]">
                   <a
                     href={project.github}
@@ -137,7 +161,13 @@ export default function Projects() {
 
                   <button
                     onClick={() => setSelectedProject(project)}
-                    className="flex items-center justify-center gap-1 py-2 px-3 rounded-lg text-xs font-mono font-medium bg-blue-600/20 hover:bg-blue-600 text-blue-400 hover:text-white border border-blue-500/40 transition-all"
+                    className="flex items-center justify-center gap-1 py-2 px-3 rounded-lg text-xs font-mono font-medium transition-all"
+                    style={{
+                      backgroundColor: `${project.color}20`,
+                      borderColor: `${project.color}50`,
+                      borderWidth: "1px",
+                      color: project.color,
+                    }}
                   >
                     <span>Overview</span>
                     <ChevronRight size={14} />
@@ -150,14 +180,14 @@ export default function Projects() {
 
       </div>
 
-      {/* Expanded Project Modal */}
+      {/* Expanded Project Modal with Color Match */}
       <AnimatePresence>
         {selectedProject && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 bg-black/80 backdrop-blur-md"
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 bg-black/85 backdrop-blur-md"
             onClick={() => setSelectedProject(null)}
           >
             <motion.div
@@ -165,7 +195,11 @@ export default function Projects() {
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.95, y: 20 }}
               transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-              className="relative w-full max-w-2xl max-h-[85vh] overflow-y-auto bg-[#0c0c14] border border-blue-500/40 rounded-2xl p-6 md:p-8 shadow-2xl text-left"
+              className="relative w-full max-w-2xl max-h-[85vh] overflow-y-auto bg-[#0c0c14] rounded-2xl p-6 md:p-8 shadow-2xl text-left border"
+              style={{
+                borderColor: `${selectedProject.color}60`,
+                boxShadow: `0 0 50px ${selectedProject.color}20`,
+              }}
               onClick={(e) => e.stopPropagation()}
             >
               {/* Close Button */}
@@ -179,7 +213,10 @@ export default function Projects() {
 
               {/* Modal Header */}
               <div className="mb-6 pr-8">
-                <span className="text-xs font-mono text-blue-400 uppercase tracking-wider block mb-1">
+                <span
+                  className="text-xs font-mono uppercase tracking-wider block mb-1 font-semibold"
+                  style={{ color: selectedProject.color }}
+                >
                   {selectedProject.category}
                 </span>
                 <h3 className="text-2xl font-bold font-display text-white">
@@ -202,8 +239,14 @@ export default function Projects() {
                   </p>
                 </div>
 
-                <div className="p-4 rounded-xl bg-blue-600/[0.07] border border-blue-500/30">
-                  <div className="flex items-center gap-2 mb-2 text-blue-400">
+                <div
+                  className="p-4 rounded-xl border"
+                  style={{
+                    backgroundColor: `${selectedProject.color}10`,
+                    borderColor: `${selectedProject.color}40`,
+                  }}
+                >
+                  <div className="flex items-center gap-2 mb-2" style={{ color: selectedProject.color }}>
                     <Zap size={16} />
                     <span className="text-xs font-mono uppercase tracking-wider text-white">Engineering Solution</span>
                   </div>
@@ -216,12 +259,12 @@ export default function Projects() {
               {/* Key Features */}
               <div className="mb-6">
                 <h4 className="text-xs font-mono uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-2">
-                  <Layers size={14} className="text-blue-500" /> Key Features & Capabilities
+                  <Layers size={14} style={{ color: selectedProject.color }} /> Key Features & Capabilities
                 </h4>
                 <div className="space-y-2">
                   {selectedProject.features.map((feature) => (
                     <div key={feature} className="flex items-start gap-2.5 text-xs text-slate-300">
-                      <CheckCircle2 size={14} className="text-blue-500 shrink-0 mt-0.5" />
+                      <CheckCircle2 size={14} style={{ color: selectedProject.color }} className="shrink-0 mt-0.5" />
                       <span>{feature}</span>
                     </div>
                   ))}
@@ -237,7 +280,12 @@ export default function Projects() {
                   {selectedProject.tech.map((t) => (
                     <span
                       key={t}
-                      className="text-xs font-mono px-2.5 py-1 rounded bg-blue-600/15 border border-blue-500/30 text-blue-300"
+                      className="text-xs font-mono px-2.5 py-1 rounded border"
+                      style={{
+                        backgroundColor: `${selectedProject.color}15`,
+                        borderColor: `${selectedProject.color}40`,
+                        color: selectedProject.color,
+                      }}
                     >
                       {t}
                     </span>
@@ -251,7 +299,10 @@ export default function Projects() {
                   href={selectedProject.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-mono font-semibold bg-blue-600 hover:bg-blue-500 text-white transition-colors"
+                  className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-mono font-semibold text-white transition-colors"
+                  style={{
+                    backgroundColor: selectedProject.color,
+                  }}
                 >
                   <GithubIcon size={15} />
                   <span>View on GitHub (PraveenKumarE1)</span>
