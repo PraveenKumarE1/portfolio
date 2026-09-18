@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, X, CheckCircle2, ChevronRight, Layers, Lightbulb, Zap, Code2 } from "lucide-react";
+import { ArrowUpRight, X, CheckCircle2, ChevronRight, Layers, Lightbulb, Zap, Code2, Eye, GitBranch, Cpu, Database, Activity } from "lucide-react";
 import { projects } from "../../data/portfolio";
 
 function GithubIcon({ size = 14 }: { size?: number }) {
@@ -21,6 +21,21 @@ const filterTabs = [
   "Generative AI",
 ];
 
+// Project visual sample metrics without using any AI images
+const projectMetrics: Record<number, { metric: string; icon: typeof Activity; badge: string }> = {
+  1: { metric: "Resume Skill Extraction", icon: Cpu, badge: "AI + EdTech" },
+  2: { metric: "Real-Time Store Geolocation", icon: Activity, badge: "Interactive Map" },
+  3: { metric: "DR Grading Scale 0–4", icon: Activity, badge: "PyTorch CNN" },
+  4: { metric: "Random Forest Classifier", icon: Cpu, badge: "ML Roadmap" },
+  5: { metric: "Linear Regression Readiness", icon: Activity, badge: "Chart Analytics" },
+  6: { metric: "Supabase Realtime Sync", icon: Database, badge: "React 18 SPA" },
+  7: { metric: "Gemini 2.5 Flash Stream", icon: Cpu, badge: "LLM Bot" },
+  8: { metric: "Cryptographic Entropy", icon: Code2, badge: "Security CLI" },
+  9: { metric: "Exploratory Data Analysis", icon: Database, badge: "EDA Suite" },
+  10: { metric: "Interactive 3D Geometry", icon: Code2, badge: "Modern UI" },
+  11: { metric: "Cloudflare Edge SSG", icon: Database, badge: "Astro Engine" },
+};
+
 export default function Projects() {
   const [selectedFilter, setSelectedFilter] = useState("All Projects");
   const [selectedProject, setSelectedProject] = useState<(typeof projects)[0] | null>(null);
@@ -38,8 +53,8 @@ export default function Projects() {
   return (
     <section id="projects" className="relative section-padding border-t border-white/[0.05]">
       {/* Background ambient lighting */}
-      <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-blue-600/10 blur-[150px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-10 right-1/4 w-[500px] h-[500px] bg-purple-600/10 blur-[150px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-blue-600/10 blur-[160px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-10 right-1/4 w-[500px] h-[500px] bg-purple-600/10 blur-[160px] rounded-full pointer-events-none" />
 
       <div className="max-w-6xl mx-auto">
         {/* Header */}
@@ -74,113 +89,154 @@ export default function Projects() {
           ))}
         </div>
 
-        {/* Projects Grid with Unique Color Theming per Project */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredProjects.map((project) => (
-            <div
-              key={project.id}
-              className="clean-card p-6 border border-white/10 flex flex-col justify-between group transition-all duration-300 relative hover:shadow-xl"
-              style={{
-                borderColor: undefined,
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = `${project.color}60`;
-                e.currentTarget.style.boxShadow = `0 16px 32px -8px rgba(0,0,0,0.5), 0 0 25px -4px ${project.color}25`;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)";
-                e.currentTarget.style.boxShadow = "none";
-              }}
-            >
-              <div>
-                {/* Header line with dynamic color badges */}
-                <div className="flex items-center justify-between gap-2 mb-3">
+        {/* Projects Grid with Rich Project Sample Banners */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-7">
+          {filteredProjects.map((project) => {
+            const sampleInfo = projectMetrics[project.id] || { metric: "Verified Codebase", icon: Code2, badge: "Open Source" };
+            const MetricIcon = sampleInfo.icon;
+
+            return (
+              <div
+                key={project.id}
+                className="clean-card overflow-hidden border border-white/10 flex flex-col justify-between group transition-all duration-300 relative hover:shadow-2xl"
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = `${project.color}70`;
+                  e.currentTarget.style.boxShadow = `0 20px 40px -12px rgba(0,0,0,0.6), 0 0 35px -6px ${project.color}30`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)";
+                  e.currentTarget.style.boxShadow = "none";
+                }}
+              >
+                {/* Visual Sample Header Strip (Code-crafted architectural preview) */}
+                <div
+                  className="px-5 py-4 border-b flex items-center justify-between"
+                  style={{
+                    background: `linear-gradient(90deg, ${project.color}20 0%, rgba(255,255,255,0.01) 100%)`,
+                    borderColor: `${project.color}30`,
+                  }}
+                >
+                  <div className="flex items-center gap-2">
+                    <div
+                      className="w-7 h-7 rounded-lg flex items-center justify-center border"
+                      style={{
+                        backgroundColor: `${project.color}20`,
+                        borderColor: `${project.color}50`,
+                        color: project.color,
+                      }}
+                    >
+                      <MetricIcon size={14} />
+                    </div>
+                    <div>
+                      <span className="text-[10px] font-mono text-slate-400 block uppercase leading-tight">
+                        Architecture Sample
+                      </span>
+                      <span
+                        className="text-xs font-mono font-semibold"
+                        style={{ color: project.color }}
+                      >
+                        {sampleInfo.metric}
+                      </span>
+                    </div>
+                  </div>
+
                   <span
-                    className="text-[11px] font-mono px-2.5 py-1 rounded-md border"
+                    className="text-[10px] font-mono px-2 py-0.5 rounded border"
                     style={{
                       backgroundColor: `${project.color}15`,
                       borderColor: `${project.color}40`,
                       color: project.color,
                     }}
                   >
-                    {project.category}
+                    {sampleInfo.badge}
                   </span>
-                  {project.featured && (
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/30 text-amber-300">
-                      ★ Featured
-                    </span>
-                  )}
                 </div>
 
-                {/* Title & Tagline */}
-                <h3
-                  className="font-display font-bold text-lg text-white transition-colors mb-1.5"
-                  style={{
-                    color: undefined,
-                  }}
-                >
-                  {project.title}
-                </h3>
-                <p className="text-xs font-mono text-slate-400 mb-3 line-clamp-1">
-                  {project.subtitle}
-                </p>
-                <p className="text-xs text-slate-300 leading-relaxed mb-6 line-clamp-3">
-                  {project.description}
-                </p>
+                {/* Main Card Content */}
+                <div className="p-6 flex-1 flex flex-col justify-between">
+                  <div>
+                    {/* Category line */}
+                    <div className="flex items-center justify-between gap-2 mb-2">
+                      <span
+                        className="text-[11px] font-mono font-medium"
+                        style={{ color: project.color }}
+                      >
+                        {project.category}
+                      </span>
+                      {project.featured && (
+                        <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/30 text-amber-300">
+                          ★ Featured
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Title & Tagline */}
+                    <h3 className="font-display font-bold text-lg text-white group-hover:text-white transition-colors mb-1.5">
+                      {project.title}
+                    </h3>
+                    <p className="text-xs font-mono text-slate-400 mb-3 line-clamp-1">
+                      {project.subtitle}
+                    </p>
+                    <p className="text-xs text-slate-300 leading-relaxed mb-6 line-clamp-3">
+                      {project.description}
+                    </p>
+                  </div>
+
+                  <div>
+                    {/* Tech Tags */}
+                    <div className="flex flex-wrap gap-1.5 mb-5">
+                      {project.tech.slice(0, 4).map((tech) => (
+                        <span
+                          key={tech}
+                          className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/[0.03] border border-white/10 text-slate-300"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                      {project.tech.length > 4 && (
+                        <span className="text-[10px] font-mono px-2 py-0.5 rounded text-slate-500">
+                          +{project.tech.length - 4}
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Bottom Actions with Dynamic Accent Colors */}
+                    <div className="flex items-center gap-2 pt-3 border-t border-white/[0.06]">
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-lg text-xs font-mono font-medium bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 text-slate-300 hover:text-white transition-colors"
+                      >
+                        <GithubIcon size={14} />
+                        <span>Source Code</span>
+                      </a>
+
+                      <button
+                        onClick={() => setSelectedProject(project)}
+                        className="flex items-center justify-center gap-1 py-2.5 px-3.5 rounded-lg text-xs font-mono font-medium transition-all"
+                        style={{
+                          backgroundColor: `${project.color}20`,
+                          borderColor: `${project.color}50`,
+                          borderWidth: "1px",
+                          color: project.color,
+                        }}
+                      >
+                        <span>Overview</span>
+                        <ChevronRight size={14} />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
               </div>
-
-              <div>
-                {/* Tech Tags */}
-                <div className="flex flex-wrap gap-1.5 mb-5">
-                  {project.tech.slice(0, 4).map((tech) => (
-                    <span
-                      key={tech}
-                      className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/[0.03] border border-white/10 text-slate-400"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                  {project.tech.length > 4 && (
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded text-slate-500">
-                      +{project.tech.length - 4}
-                    </span>
-                  )}
-                </div>
-
-                {/* Bottom Actions with Accent Colors */}
-                <div className="flex items-center gap-2 pt-3 border-t border-white/[0.06]">
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-xs font-mono font-medium bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 text-slate-300 hover:text-white transition-colors"
-                  >
-                    <GithubIcon size={14} />
-                    <span>Source</span>
-                  </a>
-
-                  <button
-                    onClick={() => setSelectedProject(project)}
-                    className="flex items-center justify-center gap-1 py-2 px-3 rounded-lg text-xs font-mono font-medium transition-all"
-                    style={{
-                      backgroundColor: `${project.color}20`,
-                      borderColor: `${project.color}50`,
-                      borderWidth: "1px",
-                      color: project.color,
-                    }}
-                  >
-                    <span>Overview</span>
-                    <ChevronRight size={14} />
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
       </div>
 
-      {/* Expanded Project Modal with Color Match */}
+      {/* Expanded Project Modal */}
       <AnimatePresence>
         {selectedProject && (
           <motion.div

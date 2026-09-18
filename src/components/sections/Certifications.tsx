@@ -1,12 +1,21 @@
-import { Award, CheckCircle2 } from "lucide-react";
+import { useState } from "react";
+import { Award, CheckCircle2, ShieldCheck, Copy, Check, ExternalLink, Sparkles } from "lucide-react";
 import { certifications } from "../../data/portfolio";
 
 export default function Certifications() {
+  const [copiedId, setCopiedId] = useState<number | null>(null);
+
+  const handleCopy = (id: number, text: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedId(id);
+    setTimeout(() => setCopiedId(null), 2000);
+  };
+
   return (
     <section id="certifications" className="relative section-padding border-t border-white/[0.05]">
-      {/* Subtle multi-color background glow */}
-      <div className="absolute top-1/3 right-0 w-[500px] h-[500px] bg-indigo-600/10 blur-[150px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-0 left-10 w-[400px] h-[400px] bg-pink-600/10 blur-[140px] rounded-full pointer-events-none" />
+      {/* Background colorful ambient glow */}
+      <div className="absolute top-1/4 -right-20 w-[500px] h-[500px] bg-indigo-600/15 blur-[160px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-10 -left-20 w-[500px] h-[500px] bg-pink-600/10 blur-[150px] rounded-full pointer-events-none" />
 
       <div className="max-w-6xl mx-auto">
         {/* Header */}
@@ -20,80 +29,133 @@ export default function Certifications() {
             </h2>
           </div>
           <p className="text-sm font-mono text-slate-400 max-w-md">
-            Academic honors, corporate training credentials, and technical symposium awards with verifiable serial numbers.
+            Official academic honors, industry credentials, and technical symposium awards with verifiable serial numbers.
           </p>
         </div>
 
-        {/* Certifications Grid with Vibrant Card Themes */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Certifications Grid - Developed with Official Sample Certificate Aesthetics */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-7">
           {certifications.map((cert) => (
             <div
               key={cert.id}
-              className="clean-card p-6 border border-white/10 flex flex-col justify-between group transition-all duration-300"
+              className="clean-card overflow-hidden border border-white/10 flex flex-col justify-between group transition-all duration-300 relative"
+              style={{
+                background: "linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(10,10,18,0.9) 100%)",
+              }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = `${cert.color}60`;
-                e.currentTarget.style.boxShadow = `0 16px 32px -8px rgba(0,0,0,0.5), 0 0 25px -4px ${cert.color}25`;
+                e.currentTarget.style.borderColor = `${cert.color}70`;
+                e.currentTarget.style.boxShadow = `0 20px 40px -12px rgba(0,0,0,0.6), 0 0 35px -6px ${cert.color}30`;
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)";
                 e.currentTarget.style.boxShadow = "none";
               }}
             >
-              <div>
-                {/* Header tag */}
-                <div className="flex items-center justify-between mb-4">
+              {/* Certificate Sample Header Band with Official Seal Styling */}
+              <div
+                className="relative px-6 pt-5 pb-4 border-b flex items-center justify-between"
+                style={{
+                  background: `linear-gradient(90deg, ${cert.color}15 0%, rgba(255,255,255,0.02) 100%)`,
+                  borderColor: `${cert.color}30`,
+                }}
+              >
+                {/* Official Rosette / Seal Badge */}
+                <div className="flex items-center gap-3">
                   <div
-                    className="w-10 h-10 rounded-xl border flex items-center justify-center"
+                    className="w-10 h-10 rounded-full border-2 flex items-center justify-center shadow-lg"
                     style={{
-                      backgroundColor: `${cert.color}15`,
-                      borderColor: `${cert.color}40`,
+                      backgroundColor: `${cert.color}20`,
+                      borderColor: cert.color,
                       color: cert.color,
+                      boxShadow: `0 0 16px ${cert.color}35`,
                     }}
                   >
                     <Award size={20} />
                   </div>
-                  <span
-                    className="text-[10px] font-mono px-2.5 py-1 rounded border font-semibold tracking-wide"
-                    style={{
-                      backgroundColor: `${cert.color}15`,
-                      borderColor: `${cert.color}40`,
-                      color: cert.color,
-                    }}
-                  >
-                    {cert.badge}
-                  </span>
+                  <div>
+                    <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400 block">
+                      OFFICIAL CREDENTIAL
+                    </span>
+                    <span className="text-xs font-mono font-bold text-white tracking-wide">
+                      {cert.issuer.split("|")[0].trim()}
+                    </span>
+                  </div>
                 </div>
 
-                {/* Title */}
-                <h3 className="font-display font-bold text-base text-white transition-colors mb-2">
-                  {cert.title}
-                </h3>
-
-                {/* Issuer */}
-                <p className="text-xs text-slate-300 font-medium mb-1">
-                  {cert.issuer}
-                </p>
-
-                {/* Date */}
-                <p className="text-xs font-mono text-slate-400 mb-4">
-                  {cert.date}
-                </p>
-              </div>
-
-              {/* Verified footer with matching color */}
-              <div className="pt-4 border-t border-white/[0.06] flex items-center justify-between">
-                <span className="text-[11px] font-mono text-slate-400 truncate max-w-[170px]" title={cert.code}>
-                  {cert.code}
-                </span>
-
+                {/* Score / Grade Ribbon Badge */}
                 <span
-                  className="inline-flex items-center gap-1 text-[11px] font-mono font-medium shrink-0"
-                  style={{ color: cert.color }}
+                  className="text-[10px] font-mono px-2.5 py-1 rounded-full border font-bold tracking-wide shadow-sm"
+                  style={{
+                    backgroundColor: `${cert.color}25`,
+                    borderColor: `${cert.color}60`,
+                    color: cert.color,
+                  }}
                 >
-                  <CheckCircle2 size={13} />
-                  <span>Verified</span>
+                  {cert.badge}
                 </span>
               </div>
+
+              {/* Certificate Body (Document Sample Layout) */}
+              <div className="p-6 flex-1 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center gap-1.5 text-[10px] font-mono text-slate-500 mb-1.5">
+                    <span>RECIPIENT:</span>
+                    <span className="text-slate-300 font-semibold">PRAVEEN KUMAR E</span>
+                  </div>
+
+                  <h3 className="font-display font-bold text-lg text-white group-hover:text-white transition-colors mb-2 leading-snug">
+                    {cert.title}
+                  </h3>
+
+                  <p className="text-xs text-slate-300 font-medium mb-1">
+                    {cert.issuer}
+                  </p>
+
+                  <p className="text-xs font-mono text-slate-400 mb-4">
+                    {cert.date}
+                  </p>
+                </div>
+
+                {/* Verification ID box with copy button */}
+                <div
+                  className="p-3 rounded-xl border flex items-center justify-between text-xs font-mono mb-4"
+                  style={{
+                    backgroundColor: "rgba(255,255,255,0.02)",
+                    borderColor: "rgba(255,255,255,0.06)",
+                  }}
+                >
+                  <div className="min-w-0 pr-2">
+                    <span className="text-[10px] text-slate-500 block uppercase">Serial / Identifier:</span>
+                    <span className="text-slate-300 truncate block text-[11px]" title={cert.code}>
+                      {cert.code}
+                    </span>
+                  </div>
+
+                  <button
+                    onClick={() => handleCopy(cert.id, cert.code)}
+                    className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-colors shrink-0"
+                    title="Copy Certificate Identifier"
+                  >
+                    {copiedId === cert.id ? <Check size={14} className="text-emerald-400" /> : <Copy size={14} />}
+                  </button>
+                </div>
+
+                {/* Footer seal */}
+                <div className="pt-3 border-t border-white/[0.06] flex items-center justify-between">
+                  <span className="text-[10px] font-mono text-slate-500 flex items-center gap-1">
+                    <ShieldCheck size={12} className="text-emerald-400" /> Tamper-Proof Verified
+                  </span>
+
+                  <span
+                    className="inline-flex items-center gap-1 text-xs font-mono font-semibold"
+                    style={{ color: cert.color }}
+                  >
+                    <CheckCircle2 size={13} />
+                    <span>Active Credential</span>
+                  </span>
+                </div>
+              </div>
+
             </div>
           ))}
         </div>
