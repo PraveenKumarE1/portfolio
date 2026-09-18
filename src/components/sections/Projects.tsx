@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, X, CheckCircle2, ChevronRight, Layers, Lightbulb, Zap, Code2, Activity, Cpu, Database } from "lucide-react";
+import { ArrowUpRight, X, CheckCircle2, ChevronRight, Layers, Lightbulb, Zap, Code2, Activity, Cpu, Database, Eye } from "lucide-react";
 import { projects } from "../../data/portfolio";
 import Tilt from "react-parallax-tilt";
 
@@ -13,42 +13,80 @@ function GithubIcon({ size = 14 }: { size?: number }) {
   );
 }
 
-const filterTabs = [
-  "All Projects",
-  "Featured",
-  "AI & Machine Learning",
-  "Healthcare AI",
-  "Web & Full-Stack",
-  "Generative AI",
-];
-
-const projectMetrics: Record<number, { metric: string; icon: typeof Activity; badge: string }> = {
-  1: { metric: "Resume Skill Extraction", icon: Cpu, badge: "AI + EdTech" },
-  2: { metric: "Real-Time Store Geolocation", icon: Activity, badge: "Interactive Map" },
-  3: { metric: "DR Grading Scale 0–4", icon: Activity, badge: "PyTorch CNN" },
-  4: { metric: "Random Forest Classifier", icon: Cpu, badge: "ML Roadmap" },
-  5: { metric: "Linear Regression Readiness", icon: Activity, badge: "Chart Analytics" },
-  6: { metric: "Supabase Realtime Sync", icon: Database, badge: "React 18 SPA" },
-  7: { metric: "Gemini 2.5 Flash Stream", icon: Cpu, badge: "LLM Bot" },
-  8: { metric: "Cryptographic Entropy", icon: Code2, badge: "Security CLI" },
-  9: { metric: "Exploratory Data Analysis", icon: Database, badge: "EDA Suite" },
-  10: { metric: "Interactive 3D Geometry", icon: Code2, badge: "Modern UI" },
-  11: { metric: "Cloudflare Edge SSG", icon: Database, badge: "Astro Engine" },
+// Clear high-impact summaries for recruiters and reviewers
+const projectQuickGrasp: Record<number, { simpleWhat: string; keyHighlights: string[]; badge: string }> = {
+  1: {
+    simpleWhat: "Unified AI platform that scans student resumes, assesses aptitude, and recommends tailored career placements.",
+    keyHighlights: ["Automated resume skill parser", "Instant aptitude & coding evaluator", "Personalized placement roadmaps"],
+    badge: "AI + EdTech",
+  },
+  2: {
+    simpleWhat: "Location-based shopping platform comparing product prices, distance, and live stock across local stores on interactive maps.",
+    keyHighlights: ["Interactive Leaflet map store discovery", "Live price & stock comparison", "Supabase realtime database"],
+    badge: "Full-Stack Web & Maps",
+  },
+  3: {
+    simpleWhat: "Medical AI research system analyzing fundus eye photographs to screen diabetic retinopathy on clinical grades 0 to 4.",
+    keyHighlights: ["OpenCV blood vessel segmentation", "PyTorch CNN classification models", "Automated clinical report generation"],
+    badge: "Medical AI & Vision",
+  },
+  4: {
+    simpleWhat: "Machine learning model predicting optimal career tracks for engineering students based on technical and soft skill vectors.",
+    keyHighlights: ["Scikit-learn Random Forest model", "Skill gap & strength analysis", "Step-by-step learning roadmaps"],
+    badge: "Machine Learning",
+  },
+  5: {
+    simpleWhat: "Intelligent study planner using Linear Regression to forecast exam readiness and prioritize weak subject areas.",
+    keyHighlights: ["Regression readiness score engine", "Interactive Chart.js visualizations", "SQLite study log persistence"],
+    badge: "Predictive Analytics",
+  },
+  6: {
+    simpleWhat: "Modern hotel and resort booking web application with dynamic room inventory and realtime database synchronization.",
+    keyHighlights: ["React 18 & TypeScript architecture", "Supabase cloud database storage", "Responsive luxury room showcase"],
+    badge: "Web Application",
+  },
+  7: {
+    simpleWhat: "Lightweight conversational chatbot powered by Google's latest Gemini 2.5 Flash large language model.",
+    keyHighlights: ["Google Gemini API integration", "Clean Streamlit responsive interface", "Environment variable API key security"],
+    badge: "Generative AI",
+  },
+  8: {
+    simpleWhat: "Configurable cryptographic Python security utility for generating strong, high-entropy random passwords.",
+    keyHighlights: ["Custom length & symbol toggles", "High-entropy random generation", "Lightweight CLI utility"],
+    badge: "Security Utility",
+  },
+  9: {
+    simpleWhat: "Data science internship portfolio containing data exploration, statistical analysis, and visualization pipelines.",
+    keyHighlights: ["Exploratory Data Analysis (EDA)", "Pandas & NumPy data cleansing", "Matplotlib statistical graphics"],
+    badge: "Data Science",
+  },
+  10: {
+    simpleWhat: "Interactive developer portfolio engineered with 3D CSS transforms, React, and modern UI architectures.",
+    keyHighlights: ["Interactive 3D geometry engine", "Cinematic opening screen animation", "Zero AI imagery, 100% human crafted"],
+    badge: "Developer Portfolio",
+  },
+  11: {
+    simpleWhat: "High-performance static blog generated with Astro and deployed on Cloudflare Workers edge network.",
+    keyHighlights: ["Static Site Generation (SSG)", "Markdown & MDX article support", "Cloudflare Workers edge delivery"],
+    badge: "Cloud & Static Site",
+  },
 };
 
+const filterTabs = [
+  { id: "all", label: "All Projects", filter: () => true },
+  { id: "featured", label: "Featured", filter: (p: any) => p.featured },
+  { id: "ai", label: "AI & ML", filter: (p: any) => p.category.includes("AI") || p.category.includes("Machine Learning") },
+  { id: "healthcare", label: "Healthcare AI", filter: (p: any) => p.category.includes("Healthcare") },
+  { id: "web", label: "Web & Full-Stack", filter: (p: any) => p.category.includes("Web") || p.category.includes("Full-Stack") },
+  { id: "genai", label: "Generative AI", filter: (p: any) => p.category.includes("Generative AI") },
+];
+
 export default function Projects() {
-  const [selectedFilter, setSelectedFilter] = useState("All Projects");
+  const [activeFilterId, setActiveFilterId] = useState("all");
   const [selectedProject, setSelectedProject] = useState<(typeof projects)[0] | null>(null);
 
-  const filteredProjects = projects.filter((p) => {
-    if (selectedFilter === "All Projects") return true;
-    if (selectedFilter === "Featured") return p.featured;
-    if (selectedFilter === "AI & Machine Learning") return p.category.includes("AI") || p.category.includes("Machine Learning");
-    if (selectedFilter === "Healthcare AI") return p.category.includes("Healthcare");
-    if (selectedFilter === "Web & Full-Stack") return p.category.includes("Web") || p.category.includes("Full-Stack");
-    if (selectedFilter === "Generative AI") return p.category.includes("Generative AI");
-    return true;
-  });
+  const activeTab = filterTabs.find((t) => t.id === activeFilterId) || filterTabs[0];
+  const filteredProjects = projects.filter(activeTab.filter);
 
   return (
     <section id="projects" className="relative section-padding border-t border-white/[0.05]">
@@ -68,47 +106,57 @@ export default function Projects() {
             </h2>
           </div>
           <p className="text-sm font-mono text-slate-400 max-w-md">
-            11 verified open-source repositories covering medical computer vision, career AI, predictive analytics, and full-stack software.
+            11 verified open-source repositories designed for high performance, practical problem solving, and clear real-world outcomes.
           </p>
         </div>
 
-        {/* Filter Pills */}
+        {/* Filter Tabs with Dynamic Counts */}
         <div className="flex flex-wrap gap-2 mb-12">
-          {filterTabs.map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setSelectedFilter(tab)}
-              className={`px-4 py-2 rounded-xl text-xs font-mono transition-all duration-200 border ${
-                selectedFilter === tab
-                  ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white border-blue-400 shadow-md shadow-blue-600/30 scale-105"
-                  : "bg-white/[0.02] border-white/10 text-slate-400 hover:text-white hover:bg-white/[0.05]"
-              }`}
-            >
-              {tab}
-            </button>
-          ))}
+          {filterTabs.map((tab) => {
+            const count = projects.filter(tab.filter).length;
+            const isSelected = activeFilterId === tab.id;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setActiveFilterId(tab.id)}
+                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono transition-all duration-200 border ${
+                  isSelected
+                    ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white border-blue-400 shadow-md shadow-blue-600/30 scale-105"
+                    : "bg-white/[0.02] border-white/10 text-slate-400 hover:text-white hover:bg-white/[0.05]"
+                }`}
+              >
+                <span>{tab.label}</span>
+                <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${isSelected ? "bg-white/20 text-white" : "bg-white/5 text-slate-400"}`}>
+                  {count}
+                </span>
+              </button>
+            );
+          })}
         </div>
 
-        {/* Projects Grid with 3D Tilt Cards & Sample Headers */}
+        {/* Projects Grid: Clear, Easy-to-Understand Cards */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-7">
           {filteredProjects.map((project) => {
-            const sampleInfo = projectMetrics[project.id] || { metric: "Verified Codebase", icon: Code2, badge: "Open Source" };
-            const MetricIcon = sampleInfo.icon;
+            const grasp = projectQuickGrasp[project.id] || {
+              simpleWhat: project.description,
+              keyHighlights: ["Verified Open Source Codebase", "Structured Architecture"],
+              badge: project.category,
+            };
 
             return (
               <Tilt
                 key={project.id}
-                tiltMaxAngleX={6}
-                tiltMaxAngleY={6}
+                tiltMaxAngleX={5}
+                tiltMaxAngleY={5}
                 glareEnable
-                glareMaxOpacity={0.05}
+                glareMaxOpacity={0.04}
                 glareColor={project.color}
                 glarePosition="all"
                 glareBorderRadius="1.25rem"
                 className="h-full"
               >
                 <div
-                  className="clean-card h-full overflow-hidden border border-white/10 flex flex-col justify-between group transition-all duration-300 relative"
+                  className="clean-card h-full overflow-hidden border border-white/10 flex flex-col justify-between group transition-all duration-300 relative hover:shadow-2xl"
                   onMouseEnter={(e) => {
                     e.currentTarget.style.borderColor = `${project.color}70`;
                     e.currentTarget.style.boxShadow = `0 20px 40px -12px rgba(0,0,0,0.6), 0 0 35px -6px ${project.color}30`;
@@ -118,87 +166,60 @@ export default function Projects() {
                     e.currentTarget.style.boxShadow = "none";
                   }}
                 >
-                  {/* Visual Architecture Sample Header */}
+                  {/* Top Color Accent Band */}
                   <div
-                    className="px-5 py-4 border-b flex items-center justify-between"
+                    className="px-5 py-3 border-b flex items-center justify-between"
                     style={{
                       background: `linear-gradient(90deg, ${project.color}20 0%, rgba(255,255,255,0.01) 100%)`,
                       borderColor: `${project.color}30`,
                     }}
                   >
-                    <div className="flex items-center gap-2">
-                      <div
-                        className="w-7 h-7 rounded-lg flex items-center justify-center border"
-                        style={{
-                          backgroundColor: `${project.color}20`,
-                          borderColor: `${project.color}50`,
-                          color: project.color,
-                        }}
-                      >
-                        <MetricIcon size={14} />
-                      </div>
-                      <div>
-                        <span className="text-[10px] font-mono text-slate-400 block uppercase leading-tight">
-                          Architecture Sample
-                        </span>
-                        <span
-                          className="text-xs font-mono font-semibold"
-                          style={{ color: project.color }}
-                        >
-                          {sampleInfo.metric}
-                        </span>
-                      </div>
-                    </div>
-
                     <span
-                      className="text-[10px] font-mono px-2 py-0.5 rounded border"
-                      style={{
-                        backgroundColor: `${project.color}15`,
-                        borderColor: `${project.color}40`,
-                        color: project.color,
-                      }}
+                      className="text-[11px] font-mono font-bold tracking-wide flex items-center gap-1.5"
+                      style={{ color: project.color }}
                     >
-                      {sampleInfo.badge}
+                      <span className="w-2 h-2 rounded-full" style={{ backgroundColor: project.color }} />
+                      {grasp.badge}
                     </span>
+
+                    {project.featured && (
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/15 border border-amber-500/40 text-amber-300 font-semibold">
+                        ★ Featured
+                      </span>
+                    )}
                   </div>
 
-                  {/* Main Content */}
+                  {/* Main Card Content: Designed for Immediate Understanding */}
                   <div className="p-6 flex-1 flex flex-col justify-between">
                     <div>
-                      {/* Category line */}
-                      <div className="flex items-center justify-between gap-2 mb-2">
-                        <span
-                          className="text-[11px] font-mono font-medium"
-                          style={{ color: project.color }}
-                        >
-                          {project.category}
-                        </span>
-                        {project.featured && (
-                          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/30 text-amber-300">
-                            ★ Featured
-                          </span>
-                        )}
-                      </div>
-
-                      {/* Title & Tagline */}
-                      <h3 className="font-display font-bold text-lg text-white group-hover:text-white transition-colors mb-1.5">
+                      {/* Project Name */}
+                      <h3 className="font-display font-bold text-xl text-white group-hover:text-white transition-colors mb-2">
                         {project.title}
                       </h3>
-                      <p className="text-xs font-mono text-slate-400 mb-3 line-clamp-1">
-                        {project.subtitle}
+
+                      {/* 1-Sentence "What it does" */}
+                      <p className="text-xs text-slate-300 leading-relaxed mb-4">
+                        {grasp.simpleWhat}
                       </p>
-                      <p className="text-xs text-slate-300 leading-relaxed mb-6 line-clamp-3">
-                        {project.description}
-                      </p>
+
+                      {/* 3 Key Highlights (Quick Grasp) */}
+                      <div className="space-y-1.5 mb-5 p-3 rounded-xl bg-white/[0.02] border border-white/5">
+                        {grasp.keyHighlights.map((hl) => (
+                          <div key={hl} className="flex items-center gap-2 text-[11px] text-slate-400">
+                            <CheckCircle2 size={12} style={{ color: project.color }} className="shrink-0" />
+                            <span className="truncate">{hl}</span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
 
                     <div>
-                      {/* Tech Tags */}
+                      {/* Tech Stack Pills */}
                       <div className="flex flex-wrap gap-1.5 mb-5">
                         {project.tech.slice(0, 4).map((tech) => (
                           <span
                             key={tech}
-                            className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/[0.03] border border-white/10 text-slate-300"
+                            className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/[0.04] border border-white/10 text-slate-300"
                           >
                             {tech}
                           </span>
@@ -210,7 +231,7 @@ export default function Projects() {
                         )}
                       </div>
 
-                      {/* Bottom Actions with Dynamic Accent Colors */}
+                      {/* Action Buttons: Clear & Distinct */}
                       <div className="flex items-center gap-2 pt-3 border-t border-white/[0.06]">
                         <a
                           href={project.github}
@@ -219,7 +240,7 @@ export default function Projects() {
                           className="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-lg text-xs font-mono font-medium bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 text-slate-300 hover:text-white transition-colors"
                         >
                           <GithubIcon size={14} />
-                          <span>Source Code</span>
+                          <span>View Code</span>
                         </a>
 
                         <button
@@ -232,7 +253,7 @@ export default function Projects() {
                             color: project.color,
                           }}
                         >
-                          <span>Overview</span>
+                          <span>Full Specs</span>
                           <ChevronRight size={14} />
                         </button>
                       </div>
@@ -299,7 +320,7 @@ export default function Projects() {
                 <div className="p-4 rounded-xl bg-white/[0.02] border border-white/10">
                   <div className="flex items-center gap-2 mb-2 text-blue-400">
                     <Lightbulb size={16} />
-                    <span className="text-xs font-mono uppercase tracking-wider text-slate-300">Problem Statement</span>
+                    <span className="text-xs font-mono uppercase tracking-wider text-slate-300">Problem Addressed</span>
                   </div>
                   <p className="text-xs text-slate-300 leading-relaxed">
                     {selectedProject.problem}
@@ -326,7 +347,7 @@ export default function Projects() {
               {/* Key Features */}
               <div className="mb-6">
                 <h4 className="text-xs font-mono uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-2">
-                  <Layers size={14} style={{ color: selectedProject.color }} /> Key Features & Capabilities
+                  <Layers size={14} style={{ color: selectedProject.color }} /> Architectural Modules & Features
                 </h4>
                 <div className="space-y-2">
                   {selectedProject.features.map((feature) => (
@@ -341,7 +362,7 @@ export default function Projects() {
               {/* Technology Stack */}
               <div className="mb-8">
                 <h4 className="text-xs font-mono uppercase tracking-wider text-slate-400 mb-2">
-                  Technologies Used
+                  Complete Tech Stack
                 </h4>
                 <div className="flex flex-wrap gap-1.5">
                   {selectedProject.tech.map((t) => (
@@ -372,7 +393,7 @@ export default function Projects() {
                   }}
                 >
                   <GithubIcon size={15} />
-                  <span>View on GitHub (PraveenKumarE1)</span>
+                  <span>Open GitHub Repository (PraveenKumarE1)</span>
                   <ArrowUpRight size={14} />
                 </a>
 
