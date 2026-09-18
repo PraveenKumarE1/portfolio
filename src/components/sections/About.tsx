@@ -1,6 +1,36 @@
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { motion, useInView } from "framer-motion";
 import { GraduationCap, Briefcase, Award, Code2, Brain, Terminal, Compass, Sparkles } from "lucide-react";
 import { personal, stats, strengths } from "../../data/portfolio";
+
+function AnimatedCounter({ target, suffix = "" }: { target: string; suffix?: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true });
+  const [display, setDisplay] = useState("0");
+
+  useEffect(() => {
+    if (!inView) return;
+    const num = parseInt(target);
+    if (isNaN(num)) {
+      setDisplay(target);
+      return;
+    }
+    let start = 0;
+    const step = Math.ceil(num / 30) || 1;
+    const interval = setInterval(() => {
+      start += step;
+      if (start >= num) {
+        setDisplay(String(num));
+        clearInterval(interval);
+      } else {
+        setDisplay(String(start));
+      }
+    }, 45);
+    return () => clearInterval(interval);
+  }, [inView, target]);
+
+  return <span ref={ref}>{display}{suffix}</span>;
+}
 
 export default function About() {
   const statColors = [
@@ -89,14 +119,20 @@ export default function About() {
             </div>
           </div>
 
-          {/* Right Column: Key Stats & Overview Box */}
+          {/* Right Column: Key Stats & Overview Box with Spinning Avatar Ring */}
           <div className="lg:col-span-5 space-y-5">
-            {/* Profile Overview Card with Multi-Color accents */}
+            {/* Profile Overview Card with Spinning Ring & PK Initials */}
             <div className="clean-card p-6 border border-purple-500/20 bg-gradient-to-b from-purple-900/[0.1] via-blue-900/[0.05] to-transparent">
-              <div className="flex items-center gap-3.5 pb-4 border-b border-white/[0.08]">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center font-display font-bold text-white text-lg shadow-lg shadow-purple-600/25">
-                  PK
+              <div className="flex items-center gap-4 pb-4 border-b border-white/[0.08]">
+                {/* Profile graphic with animated spinning ring from previous version */}
+                <div className="relative w-14 h-14 shrink-0">
+                  <div className="absolute inset-0 rounded-full border border-blue-400/40 animate-spin-slow" />
+                  <div className="absolute -inset-1 rounded-full border border-dashed border-purple-400/30 animate-spin" style={{ animationDuration: "20s" }} />
+                  <div className="w-full h-full rounded-full bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 flex items-center justify-center font-display font-bold text-white text-lg shadow-lg shadow-purple-600/25">
+                    PK
+                  </div>
                 </div>
+
                 <div>
                   <h3 className="font-bold text-white font-display text-base">Praveen Kumar E</h3>
                   <p className="text-xs text-cyan-400 font-mono">B.Tech AI & Data Science</p>
@@ -123,7 +159,7 @@ export default function About() {
               </div>
             </div>
 
-            {/* Stats Grid with Individual Vivid Colors */}
+            {/* Stats Grid with Animated Numbers */}
             <div className="grid grid-cols-2 gap-3.5">
               {stats.map((stat, idx) => {
                 const colorConfig = statColors[idx % statColors.length];
@@ -133,7 +169,7 @@ export default function About() {
                     className={`clean-card p-5 border border-white/10 ${colorConfig.border} flex flex-col items-center justify-center text-center group transition-all`}
                   >
                     <span className={`text-2xl sm:text-3xl font-bold font-display ${colorConfig.text} transition-transform group-hover:scale-105`}>
-                      {stat.value}{stat.suffix}
+                      <AnimatedCounter target={stat.value} suffix={stat.suffix} />
                     </span>
                     <span className="text-xs font-mono text-slate-400 uppercase tracking-wider mt-1.5">
                       {stat.label}

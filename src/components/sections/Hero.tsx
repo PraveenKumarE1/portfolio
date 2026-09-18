@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Mail, Phone, MapPin, ChevronDown, Sparkles } from "lucide-react";
+import { ArrowUpRight, Mail, Phone, MapPin, ChevronDown, Sparkles, Cpu, Database, Code2, Brain } from "lucide-react";
 import { personal } from "../../data/portfolio";
 
 function GithubIcon({ size = 16 }: { size?: number }) {
@@ -22,7 +22,7 @@ function LinkedinIcon({ size = 16 }: { size?: number }) {
   );
 }
 
-// Interactive 3D Geometric Structure with Distinct Colors per Face
+// Combined 3D Interactive Geometric Structure with Orbiting Tech Nodes
 function Geometric3DCube() {
   const [rotate, setRotate] = useState({ x: 15, y: 25 });
 
@@ -39,14 +39,34 @@ function Geometric3DCube() {
 
   return (
     <div
-      className="relative w-72 h-72 md:w-96 md:h-96 flex items-center justify-center cursor-pointer select-none perspective-1000"
+      className="relative w-80 h-80 md:w-[440px] md:h-[440px] flex items-center justify-center cursor-pointer select-none perspective-1000"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Background Colorful Glows */}
+      {/* Background Colorful Ambient Glows */}
       <div className="absolute w-72 h-72 rounded-full bg-gradient-to-tr from-blue-600/20 via-purple-600/15 to-cyan-500/20 blur-3xl pointer-events-none" />
 
-      {/* 3D Rotating Container */}
+      {/* Orbiting Tech Badges (from previous version, combined with new 3D style) */}
+      <motion.div
+        animate={{ rotate: 360 }}
+        transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
+        className="absolute w-[300px] h-[300px] md:w-[380px] md:h-[380px] pointer-events-none z-20"
+      >
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-xl bg-[#0a0a14]/90 border border-blue-500/50 text-blue-300 text-[11px] font-mono flex items-center gap-1.5 shadow-lg shadow-blue-500/20">
+          <Cpu size={13} className="text-blue-400" /> AI & ML
+        </div>
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-xl bg-[#0a0a14]/90 border border-purple-500/50 text-purple-300 text-[11px] font-mono flex items-center gap-1.5 shadow-lg shadow-purple-500/20">
+          <Database size={13} className="text-purple-400" /> Data Science
+        </div>
+        <div className="absolute top-1/2 left-0 -translate-y-1/2 px-2.5 py-1 rounded-xl bg-[#0a0a14]/90 border border-cyan-500/50 text-cyan-300 text-[11px] font-mono flex items-center gap-1.5 shadow-lg shadow-cyan-500/20">
+          <Code2 size={13} className="text-cyan-400" /> React & Node
+        </div>
+        <div className="absolute top-1/2 right-0 -translate-y-1/2 px-2.5 py-1 rounded-xl bg-[#0a0a14]/90 border border-emerald-500/50 text-emerald-300 text-[11px] font-mono flex items-center gap-1.5 shadow-lg shadow-emerald-500/20">
+          <Brain size={13} className="text-emerald-400" /> Computer Vision
+        </div>
+      </motion.div>
+
+      {/* 3D Rotating Cube Container */}
       <motion.div
         animate={{
           rotateX: [rotate.x, rotate.x + 8, rotate.x],
@@ -56,12 +76,12 @@ function Geometric3DCube() {
           rotateY: { duration: 22, repeat: Infinity, ease: "linear" },
           rotateX: { duration: 4.5, repeat: Infinity, ease: "easeInOut" },
         }}
-        className="w-48 h-48 md:w-56 md:h-56 relative preserve-3d"
+        className="w-44 h-44 md:w-52 md:h-52 relative preserve-3d"
       >
         {/* Front - Blue AI Face */}
         <div
           className="absolute inset-0 border border-blue-500/60 bg-blue-600/[0.08] backdrop-blur-md rounded-2xl flex flex-col items-center justify-center p-4 transition-all duration-300 shadow-[0_0_30px_rgba(59,130,246,0.25)]"
-          style={{ transform: "translateZ(100px)" }}
+          style={{ transform: "translateZ(95px)" }}
         >
           <div className="w-8 h-8 rounded-lg bg-blue-500/25 border border-blue-400/50 flex items-center justify-center text-blue-300 font-mono text-xs mb-2">
             AI
@@ -73,7 +93,7 @@ function Geometric3DCube() {
         {/* Back - Purple Full Stack Face */}
         <div
           className="absolute inset-0 border border-purple-500/60 bg-purple-600/[0.08] backdrop-blur-md rounded-2xl flex flex-col items-center justify-center p-4 shadow-[0_0_30px_rgba(168,85,247,0.25)]"
-          style={{ transform: "rotateY(180deg) translateZ(100px)" }}
+          style={{ transform: "rotateY(180deg) translateZ(95px)" }}
         >
           <div className="w-8 h-8 rounded-lg bg-purple-500/25 border border-purple-400/50 flex items-center justify-center text-purple-300 font-mono text-xs mb-2">
             WEB
@@ -85,7 +105,7 @@ function Geometric3DCube() {
         {/* Right - Emerald Computer Vision Face */}
         <div
           className="absolute inset-0 border border-emerald-500/60 bg-emerald-600/[0.08] backdrop-blur-md rounded-2xl flex flex-col items-center justify-center p-4 shadow-[0_0_30px_rgba(16,185,129,0.25)]"
-          style={{ transform: "rotateY(90deg) translateZ(100px)" }}
+          style={{ transform: "rotateY(90deg) translateZ(95px)" }}
         >
           <div className="w-8 h-8 rounded-lg bg-emerald-500/25 border border-emerald-400/50 flex items-center justify-center text-emerald-300 font-mono text-xs mb-2">
             CV
@@ -97,7 +117,7 @@ function Geometric3DCube() {
         {/* Left - Cyan Data Science Face */}
         <div
           className="absolute inset-0 border border-cyan-500/60 bg-cyan-600/[0.08] backdrop-blur-md rounded-2xl flex flex-col items-center justify-center p-4 shadow-[0_0_30px_rgba(6,182,212,0.25)]"
-          style={{ transform: "rotateY(-90deg) translateZ(100px)" }}
+          style={{ transform: "rotateY(-90deg) translateZ(95px)" }}
         >
           <div className="w-8 h-8 rounded-lg bg-cyan-500/25 border border-cyan-400/50 flex items-center justify-center text-cyan-300 font-mono text-xs mb-2">
             DS
@@ -109,7 +129,7 @@ function Geometric3DCube() {
         {/* Top */}
         <div
           className="absolute inset-0 border border-amber-500/30 bg-amber-500/[0.04] rounded-2xl flex items-center justify-center shadow-[0_0_20px_rgba(245,158,11,0.15)]"
-          style={{ transform: "rotateX(90deg) translateZ(100px)" }}
+          style={{ transform: "rotateX(90deg) translateZ(95px)" }}
         >
           <span className="text-amber-300 font-mono text-[10px]">INTELLIGENT SYSTEMS</span>
         </div>
@@ -117,16 +137,15 @@ function Geometric3DCube() {
         {/* Bottom */}
         <div
           className="absolute inset-0 border border-indigo-500/30 bg-indigo-500/[0.04] rounded-2xl flex items-center justify-center shadow-[0_0_20px_rgba(99,102,241,0.15)]"
-          style={{ transform: "rotateX(-90deg) translateZ(100px)" }}
+          style={{ transform: "rotateX(-90deg) translateZ(95px)" }}
         >
           <span className="text-indigo-300 font-mono text-[10px]">ENGINEERED IN CODE</span>
         </div>
       </motion.div>
 
-      {/* Orbiting Axis Rings with color gradients */}
+      {/* Orbiting Axis Rings */}
       <div className="absolute inset-0 rounded-full border border-blue-500/25 pointer-events-none" />
       <div className="absolute inset-6 rounded-full border border-dashed border-purple-400/25 animate-spin" style={{ animationDuration: "35s" }} />
-      <div className="absolute inset-12 rounded-full border border-cyan-400/20 animate-spin-reverse" style={{ animationDuration: "25s" }} />
     </div>
   );
 }
@@ -134,7 +153,7 @@ function Geometric3DCube() {
 export default function Hero() {
   return (
     <section id="home" className="relative min-h-screen flex items-center pt-28 pb-16 overflow-hidden">
-      {/* Rich Multi-Color Ambient Background Orbs */}
+      {/* Ambient Multi-Color Glows */}
       <div className="absolute top-1/4 -left-20 w-[500px] h-[500px] bg-blue-600/15 blur-[150px] rounded-full pointer-events-none" />
       <div className="absolute top-1/3 -right-20 w-[500px] h-[500px] bg-purple-600/15 blur-[150px] rounded-full pointer-events-none" />
       <div className="absolute -bottom-20 left-1/3 w-[450px] h-[450px] bg-cyan-500/10 blur-[140px] rounded-full pointer-events-none" />
@@ -189,7 +208,7 @@ export default function Hero() {
             transition={{ delay: 0.3, duration: 0.6 }}
             className="text-slate-300 text-base md:text-lg max-w-xl leading-relaxed mb-8 font-normal"
           >
-            3rd-year B.Tech student at Shree Venkateshwara Hi-tech Engineering College. I engineer production-ready machine learning solutions, medical computer vision pipelines, and high-performance web applications.
+            3rd-year B.Tech student at Shree Venkateshwara Hi-tech Engineering College. Building intelligent machine learning solutions, computer vision models, and modern digital applications.
           </motion.p>
 
           {/* Location & Contact row */}
@@ -266,7 +285,7 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Right Column: Multi-Color 3D Interactive Geometric Cube */}
+        {/* Right Column: Combined 3D Cube + Orbiting Tech Badges */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}

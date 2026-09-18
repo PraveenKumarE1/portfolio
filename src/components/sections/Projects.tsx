@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, X, CheckCircle2, ChevronRight, Layers, Lightbulb, Zap, Code2, Eye, GitBranch, Cpu, Database, Activity } from "lucide-react";
+import { ArrowUpRight, X, CheckCircle2, ChevronRight, Layers, Lightbulb, Zap, Code2, Activity, Cpu, Database } from "lucide-react";
 import { projects } from "../../data/portfolio";
+import Tilt from "react-parallax-tilt";
 
 function GithubIcon({ size = 14 }: { size?: number }) {
   return (
@@ -21,7 +22,6 @@ const filterTabs = [
   "Generative AI",
 ];
 
-// Project visual sample metrics without using any AI images
 const projectMetrics: Record<number, { metric: string; icon: typeof Activity; badge: string }> = {
   1: { metric: "Resume Skill Extraction", icon: Cpu, badge: "AI + EdTech" },
   2: { metric: "Real-Time Store Geolocation", icon: Activity, badge: "Interactive Map" },
@@ -72,7 +72,7 @@ export default function Projects() {
           </p>
         </div>
 
-        {/* Filter Pills with Colorful Glow */}
+        {/* Filter Pills */}
         <div className="flex flex-wrap gap-2 mb-12">
           {filterTabs.map((tab) => (
             <button
@@ -89,147 +89,158 @@ export default function Projects() {
           ))}
         </div>
 
-        {/* Projects Grid with Rich Project Sample Banners */}
+        {/* Projects Grid with 3D Tilt Cards & Sample Headers */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-7">
           {filteredProjects.map((project) => {
             const sampleInfo = projectMetrics[project.id] || { metric: "Verified Codebase", icon: Code2, badge: "Open Source" };
             const MetricIcon = sampleInfo.icon;
 
             return (
-              <div
+              <Tilt
                 key={project.id}
-                className="clean-card overflow-hidden border border-white/10 flex flex-col justify-between group transition-all duration-300 relative hover:shadow-2xl"
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = `${project.color}70`;
-                  e.currentTarget.style.boxShadow = `0 20px 40px -12px rgba(0,0,0,0.6), 0 0 35px -6px ${project.color}30`;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)";
-                  e.currentTarget.style.boxShadow = "none";
-                }}
+                tiltMaxAngleX={6}
+                tiltMaxAngleY={6}
+                glareEnable
+                glareMaxOpacity={0.05}
+                glareColor={project.color}
+                glarePosition="all"
+                glareBorderRadius="1.25rem"
+                className="h-full"
               >
-                {/* Visual Sample Header Strip (Code-crafted architectural preview) */}
                 <div
-                  className="px-5 py-4 border-b flex items-center justify-between"
-                  style={{
-                    background: `linear-gradient(90deg, ${project.color}20 0%, rgba(255,255,255,0.01) 100%)`,
-                    borderColor: `${project.color}30`,
+                  className="clean-card h-full overflow-hidden border border-white/10 flex flex-col justify-between group transition-all duration-300 relative"
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = `${project.color}70`;
+                    e.currentTarget.style.boxShadow = `0 20px 40px -12px rgba(0,0,0,0.6), 0 0 35px -6px ${project.color}30`;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)";
+                    e.currentTarget.style.boxShadow = "none";
                   }}
                 >
-                  <div className="flex items-center gap-2">
-                    <div
-                      className="w-7 h-7 rounded-lg flex items-center justify-center border"
-                      style={{
-                        backgroundColor: `${project.color}20`,
-                        borderColor: `${project.color}50`,
-                        color: project.color,
-                      }}
-                    >
-                      <MetricIcon size={14} />
-                    </div>
-                    <div>
-                      <span className="text-[10px] font-mono text-slate-400 block uppercase leading-tight">
-                        Architecture Sample
-                      </span>
-                      <span
-                        className="text-xs font-mono font-semibold"
-                        style={{ color: project.color }}
-                      >
-                        {sampleInfo.metric}
-                      </span>
-                    </div>
-                  </div>
-
-                  <span
-                    className="text-[10px] font-mono px-2 py-0.5 rounded border"
+                  {/* Visual Architecture Sample Header */}
+                  <div
+                    className="px-5 py-4 border-b flex items-center justify-between"
                     style={{
-                      backgroundColor: `${project.color}15`,
-                      borderColor: `${project.color}40`,
-                      color: project.color,
+                      background: `linear-gradient(90deg, ${project.color}20 0%, rgba(255,255,255,0.01) 100%)`,
+                      borderColor: `${project.color}30`,
                     }}
                   >
-                    {sampleInfo.badge}
-                  </span>
-                </div>
-
-                {/* Main Card Content */}
-                <div className="p-6 flex-1 flex flex-col justify-between">
-                  <div>
-                    {/* Category line */}
-                    <div className="flex items-center justify-between gap-2 mb-2">
-                      <span
-                        className="text-[11px] font-mono font-medium"
-                        style={{ color: project.color }}
-                      >
-                        {project.category}
-                      </span>
-                      {project.featured && (
-                        <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/30 text-amber-300">
-                          ★ Featured
-                        </span>
-                      )}
-                    </div>
-
-                    {/* Title & Tagline */}
-                    <h3 className="font-display font-bold text-lg text-white group-hover:text-white transition-colors mb-1.5">
-                      {project.title}
-                    </h3>
-                    <p className="text-xs font-mono text-slate-400 mb-3 line-clamp-1">
-                      {project.subtitle}
-                    </p>
-                    <p className="text-xs text-slate-300 leading-relaxed mb-6 line-clamp-3">
-                      {project.description}
-                    </p>
-                  </div>
-
-                  <div>
-                    {/* Tech Tags */}
-                    <div className="flex flex-wrap gap-1.5 mb-5">
-                      {project.tech.slice(0, 4).map((tech) => (
-                        <span
-                          key={tech}
-                          className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/[0.03] border border-white/10 text-slate-300"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                      {project.tech.length > 4 && (
-                        <span className="text-[10px] font-mono px-2 py-0.5 rounded text-slate-500">
-                          +{project.tech.length - 4}
-                        </span>
-                      )}
-                    </div>
-
-                    {/* Bottom Actions with Dynamic Accent Colors */}
-                    <div className="flex items-center gap-2 pt-3 border-t border-white/[0.06]">
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-lg text-xs font-mono font-medium bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 text-slate-300 hover:text-white transition-colors"
-                      >
-                        <GithubIcon size={14} />
-                        <span>Source Code</span>
-                      </a>
-
-                      <button
-                        onClick={() => setSelectedProject(project)}
-                        className="flex items-center justify-center gap-1 py-2.5 px-3.5 rounded-lg text-xs font-mono font-medium transition-all"
+                    <div className="flex items-center gap-2">
+                      <div
+                        className="w-7 h-7 rounded-lg flex items-center justify-center border"
                         style={{
                           backgroundColor: `${project.color}20`,
                           borderColor: `${project.color}50`,
-                          borderWidth: "1px",
                           color: project.color,
                         }}
                       >
-                        <span>Overview</span>
-                        <ChevronRight size={14} />
-                      </button>
+                        <MetricIcon size={14} />
+                      </div>
+                      <div>
+                        <span className="text-[10px] font-mono text-slate-400 block uppercase leading-tight">
+                          Architecture Sample
+                        </span>
+                        <span
+                          className="text-xs font-mono font-semibold"
+                          style={{ color: project.color }}
+                        >
+                          {sampleInfo.metric}
+                        </span>
+                      </div>
+                    </div>
+
+                    <span
+                      className="text-[10px] font-mono px-2 py-0.5 rounded border"
+                      style={{
+                        backgroundColor: `${project.color}15`,
+                        borderColor: `${project.color}40`,
+                        color: project.color,
+                      }}
+                    >
+                      {sampleInfo.badge}
+                    </span>
+                  </div>
+
+                  {/* Main Content */}
+                  <div className="p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                      {/* Category line */}
+                      <div className="flex items-center justify-between gap-2 mb-2">
+                        <span
+                          className="text-[11px] font-mono font-medium"
+                          style={{ color: project.color }}
+                        >
+                          {project.category}
+                        </span>
+                        {project.featured && (
+                          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/30 text-amber-300">
+                            ★ Featured
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Title & Tagline */}
+                      <h3 className="font-display font-bold text-lg text-white group-hover:text-white transition-colors mb-1.5">
+                        {project.title}
+                      </h3>
+                      <p className="text-xs font-mono text-slate-400 mb-3 line-clamp-1">
+                        {project.subtitle}
+                      </p>
+                      <p className="text-xs text-slate-300 leading-relaxed mb-6 line-clamp-3">
+                        {project.description}
+                      </p>
+                    </div>
+
+                    <div>
+                      {/* Tech Tags */}
+                      <div className="flex flex-wrap gap-1.5 mb-5">
+                        {project.tech.slice(0, 4).map((tech) => (
+                          <span
+                            key={tech}
+                            className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/[0.03] border border-white/10 text-slate-300"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                        {project.tech.length > 4 && (
+                          <span className="text-[10px] font-mono px-2 py-0.5 rounded text-slate-500">
+                            +{project.tech.length - 4}
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Bottom Actions with Dynamic Accent Colors */}
+                      <div className="flex items-center gap-2 pt-3 border-t border-white/[0.06]">
+                        <a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-lg text-xs font-mono font-medium bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 text-slate-300 hover:text-white transition-colors"
+                        >
+                          <GithubIcon size={14} />
+                          <span>Source Code</span>
+                        </a>
+
+                        <button
+                          onClick={() => setSelectedProject(project)}
+                          className="flex items-center justify-center gap-1 py-2.5 px-3.5 rounded-lg text-xs font-mono font-medium transition-all"
+                          style={{
+                            backgroundColor: `${project.color}20`,
+                            borderColor: `${project.color}50`,
+                            borderWidth: "1px",
+                            color: project.color,
+                          }}
+                        >
+                          <span>Overview</span>
+                          <ChevronRight size={14} />
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
 
-              </div>
+                </div>
+              </Tilt>
             );
           })}
         </div>

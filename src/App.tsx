@@ -1,6 +1,7 @@
 import { useState, lazy, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import LoadingScreen from "./components/ui/LoadingScreen";
+import CursorGlow from "./components/ui/CursorGlow";
 import Navbar from "./components/layout/Navbar";
 import Hero from "./components/sections/Hero";
 
@@ -25,6 +26,9 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen bg-[#07070a] text-slate-100 selection:bg-blue-600/30 selection:text-white">
+      {/* Interactive Cursor Glow from previous design */}
+      <CursorGlow />
+
       {/* Cinematic Opening Animation */}
       {isLoading && (
         <LoadingScreen onComplete={() => setIsLoading(false)} />
