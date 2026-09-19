@@ -23,62 +23,29 @@
     <link rel="modulepreload" crossorigin href="./assets/framer-motion-Cukn2Gqf.js">
     <link rel="stylesheet" crossorigin href="./assets/index-ZxutcDUr.css">
     <style>
-      /* Only compact the Technical Disciplines/Skills and Projects sections. */
-      #skills .section-padding,
-      #projects .section-padding {
-        padding-top: 1.25rem !important;
-        padding-bottom: 1.25rem !important;
-      }
-      #skills .grid,
-      #projects .grid {
-        gap: .4rem !important;
-      }
-      #skills .clean-card {
-        padding: .35rem .5rem !important;
-        min-height: 0 !important;
-      }
-      #skills .clean-card h3 {
-        font-size: .78rem !important;
-        line-height: 1.1 !important;
-      }
-      #skills .clean-card p {
-        font-size: .65rem !important;
-        line-height: 1.15 !important;
-        margin-top: .15rem !important;
-      }
-      #skills .clean-card svg {
-        width: 14px !important;
-        height: 14px !important;
-      }
-      #skills .space-y-4 {
-        gap: .25rem !important;
-      }
-      #skills .h-\[2px\] {
-        height: 1px !important;
-      }
-      #projects .clean-card {
-        padding: .55rem !important;
-      }
+      /* Projects: preserve the existing compact view-more behavior. */
+      #projects .section-padding { padding-top: 1.25rem !important; padding-bottom: 1.25rem !important; }
+      #projects .grid { gap: .4rem !important; }
+      #projects .clean-card { padding: .55rem !important; }
       #projects .view-more-projects {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: .85rem auto 0;
-        padding: .5rem 1rem;
-        border: 1px solid rgba(96,165,250,.45);
-        border-radius: .65rem;
+        display: flex; align-items: center; justify-content: center; margin: .85rem auto 0;
+        padding: .5rem 1rem; border: 1px solid rgba(96,165,250,.45); border-radius: .65rem;
         background: linear-gradient(to right, rgba(37,99,235,.18), rgba(79,70,229,.18));
-        color: #dbeafe;
-        font: 500 .75rem "JetBrains Mono", monospace;
-        cursor: pointer;
-        transition: all .2s ease;
+        color: #dbeafe; font: 500 .75rem "JetBrains Mono", monospace; cursor: pointer; transition: all .2s ease;
       }
-      #projects .view-more-projects:hover {
-        background: linear-gradient(to right, #2563eb, #4f46e5);
-        border-color: transparent;
-        color: white;
-        box-shadow: 0 6px 16px rgba(37,99,235,.2);
-      }
+      #projects .view-more-projects:hover { background: linear-gradient(to right, #2563eb, #4f46e5); border-color: transparent; color: white; box-shadow: 0 6px 16px rgba(37,99,235,.2); }
+
+      /* Technical Disciplines: use a compact Experience-style timeline layout only here. */
+      #skills .section-padding { padding-top: 1.5rem !important; padding-bottom: 1.5rem !important; }
+      #skills .grid { position: relative; display: grid; grid-template-columns: 1fr !important; gap: 1rem !important; padding-left: 1.25rem; }
+      #skills .grid::before { content: ""; position: absolute; left: .25rem; top: .5rem; bottom: .5rem; width: 1px; background: linear-gradient(#3b82f6, #8b5cf6, transparent); }
+      #skills .clean-card { position: relative; padding: .75rem 1rem !important; min-height: 0 !important; border-radius: .75rem !important; background: rgba(255,255,255,.025) !important; }
+      #skills .clean-card::before { content: ""; position: absolute; left: -1.25rem; top: 1rem; width: .55rem; height: .55rem; border: 2px solid #60a5fa; border-radius: 999px; background: #07070a; box-shadow: 0 0 0 3px rgba(59,130,246,.12); }
+      #skills .clean-card h3 { font-size: .9rem !important; line-height: 1.2 !important; }
+      #skills .clean-card p { font-size: .7rem !important; line-height: 1.3 !important; margin-top: .2rem !important; }
+      #skills .clean-card svg { width: 15px !important; height: 15px !important; }
+      #skills .space-y-4 { gap: .3rem !important; }
+      #skills .h-\[2px\] { height: 1px !important; }
     </style>
   </head>
   <body>
@@ -88,35 +55,22 @@
         const compactProjects = () => {
           const section = document.querySelector('#projects');
           if (!section || section.dataset.compactReady) return;
-
           const grid = section.querySelector('.grid');
           if (!grid) return;
-
           const cards = Array.from(grid.children).filter((card) => card.querySelector('h3'));
           if (cards.length <= 3) return;
-
           section.dataset.compactReady = 'true';
           const hiddenCards = cards.slice(3);
-          hiddenCards.forEach((card) => {
-            card.dataset.extraProject = 'true';
-            card.style.display = 'none';
-          });
-
+          hiddenCards.forEach((card) => { card.dataset.extraProject = 'true'; card.style.display = 'none'; });
           const button = document.createElement('button');
           button.type = 'button';
           button.className = 'view-more-projects';
           button.textContent = 'Show more projects';
-          button.addEventListener('click', () => {
-            hiddenCards.forEach((card) => { card.style.display = ''; });
-            button.remove();
-          });
+          button.addEventListener('click', () => { hiddenCards.forEach((card) => { card.style.display = ''; }); button.remove(); });
           section.appendChild(button);
         };
-
         const root = document.getElementById('root');
-        if (root) {
-          new MutationObserver(compactProjects).observe(root, { childList: true, subtree: true });
-        }
+        if (root) new MutationObserver(compactProjects).observe(root, { childList: true, subtree: true });
         setTimeout(compactProjects, 500);
         setTimeout(compactProjects, 1500);
       })();
