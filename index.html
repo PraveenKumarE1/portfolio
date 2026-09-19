@@ -23,14 +23,55 @@
     <link rel="modulepreload" crossorigin href="./assets/framer-motion-Cukn2Gqf.js">
     <link rel="stylesheet" crossorigin href="./assets/index-ZxutcDUr.css">
     <style>
-      /* Keep the original portfolio, but make Skills and Projects more compact. */
-      #skills .section-padding, #projects .section-padding { padding-top: 3rem !important; padding-bottom: 3rem !important; }
-      #skills .grid, #projects .grid { gap: 1rem !important; }
-      #skills .clean-card, #projects .clean-card { padding: 1rem !important; }
-      #skills h3, #projects h3 { font-size: 1.05rem !important; }
-      #skills p, #projects p { font-size: .82rem !important; line-height: 1.45 !important; }
-      #projects [data-extra-project] { display: none; }
-      #projects .view-more-projects { display: flex; margin: 1.5rem auto 0; padding: .65rem 1.25rem; border: 1px solid rgba(96,165,250,.5); border-radius: .75rem; background: rgba(59,130,246,.12); color: #bfdbfe; font: 500 .8rem JetBrains Mono, monospace; cursor: pointer; }
+      /* Tighter spacing for the original portfolio sections */
+      #skills .section-padding,
+      #projects .section-padding {
+        padding-top: 2.25rem !important;
+        padding-bottom: 2.25rem !important;
+      }
+      #skills .grid,
+      #projects .grid {
+        gap: .7rem !important;
+      }
+      #skills .clean-card,
+      #projects .clean-card {
+        padding: .7rem !important;
+      }
+      #skills h3,
+      #projects h3 {
+        font-size: .94rem !important;
+      }
+      #skills p,
+      #projects p {
+        font-size: .78rem !important;
+        line-height: 1.35 !important;
+      }
+      #skills .space-y-4 {
+        gap: .5rem !important;
+      }
+      #skills .h-\[2px\] {
+        height: 1px !important;
+      }
+      #projects .view-more-projects {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 1.25rem auto 0;
+        padding: .65rem 1.25rem;
+        border: 1px solid rgba(96,165,250,.45);
+        border-radius: .75rem;
+        background: linear-gradient(to right, rgba(37,99,235,.18), rgba(79,70,229,.18));
+        color: #dbeafe;
+        font: 500 .78rem "JetBrains Mono", monospace;
+        cursor: pointer;
+        transition: all .2s ease;
+      }
+      #projects .view-more-projects:hover {
+        background: linear-gradient(to right, #2563eb, #4f46e5);
+        border-color: transparent;
+        color: white;
+        box-shadow: 0 8px 18px rgba(37,99,235,.2);
+      }
     </style>
   </head>
   <body>
@@ -39,24 +80,38 @@
       (() => {
         const compactProjects = () => {
           const section = document.querySelector('#projects');
-          const grid = section && section.querySelector('.grid');
+          if (!section) return;
+
+          const grid = section.querySelector('.grid');
           if (!grid || grid.dataset.compactReady) return;
+
           const cards = Array.from(grid.children).filter((card) => card.querySelector('h3'));
           if (cards.length <= 3) return;
+
           grid.dataset.compactReady = 'true';
-          cards.slice(3).forEach((card) => { card.dataset.extraProject = 'true'; });
+          const hiddenCards = cards.slice(-3);
+          hiddenCards.forEach((card) => {
+            card.dataset.extraProject = 'true';
+            card.style.display = 'none';
+          });
+
           const button = document.createElement('button');
-          button.className = 'view-more-projects';
           button.type = 'button';
-          button.textContent = `View more projects (${cards.length - 3})`;
+          button.className = 'view-more-projects';
+          button.textContent = `View more projects (${hiddenCards.length})`;
           button.addEventListener('click', () => {
-            cards.slice(3).forEach((card) => { card.style.display = ''; });
+            hiddenCards.forEach((card) => {
+              card.style.display = '';
+            });
             button.remove();
           });
+
           section.appendChild(button);
         };
-        const observer = new MutationObserver(compactProjects);
-        observer.observe(document.getElementById('root'), { childList: true, subtree: true });
+
+        const observer = new MutationObserver(() => compactProjects());
+        const root = document.getElementById('root');
+        if (root) observer.observe(root, { childList: true, subtree: true });
         setTimeout(compactProjects, 500);
         setTimeout(compactProjects, 1500);
       })();
