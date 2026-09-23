@@ -285,18 +285,159 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Right Column: Combined 3D Cube + Orbiting Tech Badges */}
+        {/* Right Column: CV Detection Workspace + n8n Node Graph */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
+          initial={{ opacity: 0, scale: 0.92 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.25, duration: 0.7 }}
-          className="lg:col-span-5 flex flex-col items-center justify-center"
+          transition={{ delay: 0.25, duration: 0.8 }}
+          className="lg:col-span-5 flex flex-col items-center justify-center gap-5"
         >
-          <Geometric3DCube />
-          <p className="text-[11px] font-mono text-slate-400 mt-4 tracking-wider flex items-center gap-1.5">
-            <Sparkles size={12} className="text-cyan-400" />
-            <span>INTERACTIVE 3D · ROTATE WITH CURSOR</span>
-          </p>
+          {/* ── CV Detection Visualization (image 2 style) ── */}
+          <div className="relative w-full max-w-[400px] aspect-square">
+            {/* Dark space background */}
+            <div
+              className="absolute inset-0 rounded-2xl overflow-hidden"
+              style={{
+                background: "radial-gradient(ellipse at 40% 45%, rgba(30,20,90,0.85) 0%, rgba(6,6,16,0.98) 65%)",
+                border: "1px solid rgba(255,255,255,0.07)",
+              }}
+            >
+              {/* Scattered nebula particles */}
+              {([
+                {top:"8%",  left:"15%", s:2,   c:"#3B82F6", d:"0s"  },
+                {top:"18%", left:"72%", s:1.5, c:"#A855F7", d:"0.8s"},
+                {top:"35%", left:"88%", s:2.5, c:"#06B6D4", d:"1.5s"},
+                {top:"60%", left:"5%",  s:1.5, c:"#3B82F6", d:"0.4s"},
+                {top:"75%", left:"80%", s:2,   c:"#A855F7", d:"2s"  },
+                {top:"85%", left:"30%", s:1.5, c:"#06B6D4", d:"1.2s"},
+                {top:"22%", left:"45%", s:1,   c:"#38BDF8", d:"0.6s"},
+                {top:"50%", left:"55%", s:2,   c:"#818CF8", d:"1.8s"},
+                {top:"90%", left:"62%", s:1.5, c:"#3B82F6", d:"0.3s"},
+              ] as const).map((p, i) => (
+                <span key={i} className="absolute rounded-full animate-pulse"
+                  style={{ top:p.top, left:p.left, width:p.s+"px", height:p.s+"px",
+                    background:p.c, boxShadow:`0 0 ${p.s*4}px ${p.c}`,
+                    animationDelay:p.d, animationDuration:"2.8s" }} />
+              ))}
+            </div>
+
+            {/* 3D Cube centred */}
+            <div className="absolute inset-0 flex items-center justify-center z-10">
+              <div className="scale-[0.70]"><Geometric3DCube /></div>
+            </div>
+
+            {/* Box 1 — blue — Machine Learning */}
+            <motion.div initial={{opacity:0}} animate={{opacity:1}} transition={{delay:0.7,duration:0.5}}
+              className="absolute z-20 pointer-events-none" style={{top:"6%",left:"8%",width:"42%",height:"32%"}}>
+              <div className="absolute inset-0 rounded-sm" style={{border:"1px solid rgba(59,130,246,0.75)",boxShadow:"0 0 14px rgba(59,130,246,0.3)"}}>
+                <span className="absolute -top-[3px] -left-[3px]  w-3 h-3 border-t-2 border-l-2 border-blue-400"/>
+                <span className="absolute -top-[3px] -right-[3px] w-3 h-3 border-t-2 border-r-2 border-blue-400"/>
+                <span className="absolute -bottom-[3px] -left-[3px]  w-3 h-3 border-b-2 border-l-2 border-blue-400"/>
+                <span className="absolute -bottom-[3px] -right-[3px] w-3 h-3 border-b-2 border-r-2 border-blue-400"/>
+              </div>
+              <span className="absolute -top-5 left-0 text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-sm text-white" style={{background:"rgba(59,130,246,0.85)"}}>ML Core 98.7%</span>
+              <span className="absolute -bottom-[18px] right-0 text-[8px] font-mono text-blue-300/80">x:127 y:213</span>
+            </motion.div>
+
+            {/* Box 2 — purple — Computer Vision */}
+            <motion.div initial={{opacity:0}} animate={{opacity:1}} transition={{delay:1.0,duration:0.5}}
+              className="absolute z-20 pointer-events-none" style={{top:"38%",left:"50%",width:"40%",height:"30%"}}>
+              <div className="absolute inset-0 rounded-sm" style={{border:"1px solid rgba(168,85,247,0.75)",boxShadow:"0 0 14px rgba(168,85,247,0.3)"}}>
+                <span className="absolute -top-[3px] -left-[3px]  w-3 h-3 border-t-2 border-l-2 border-purple-400"/>
+                <span className="absolute -top-[3px] -right-[3px] w-3 h-3 border-t-2 border-r-2 border-purple-400"/>
+                <span className="absolute -bottom-[3px] -left-[3px]  w-3 h-3 border-b-2 border-l-2 border-purple-400"/>
+                <span className="absolute -bottom-[3px] -right-[3px] w-3 h-3 border-b-2 border-r-2 border-purple-400"/>
+              </div>
+              <span className="absolute -top-5 left-0 text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-sm text-white" style={{background:"rgba(168,85,247,0.85)"}}>CV Module 96.1%</span>
+              <span className="absolute -bottom-[18px] right-0 text-[8px] font-mono text-purple-300/80">x:531 y:646</span>
+            </motion.div>
+
+            {/* Box 3 — cyan — Data Pipeline */}
+            <motion.div initial={{opacity:0}} animate={{opacity:1}} transition={{delay:1.3,duration:0.5}}
+              className="absolute z-20 pointer-events-none" style={{top:"65%",left:"10%",width:"35%",height:"26%"}}>
+              <div className="absolute inset-0 rounded-sm" style={{border:"1px solid rgba(6,182,212,0.75)",boxShadow:"0 0 14px rgba(6,182,212,0.3)"}}>
+                <span className="absolute -top-[3px] -left-[3px]  w-3 h-3 border-t-2 border-l-2 border-cyan-400"/>
+                <span className="absolute -top-[3px] -right-[3px] w-3 h-3 border-t-2 border-r-2 border-cyan-400"/>
+                <span className="absolute -bottom-[3px] -left-[3px]  w-3 h-3 border-b-2 border-l-2 border-cyan-400"/>
+                <span className="absolute -bottom-[3px] -right-[3px] w-3 h-3 border-b-2 border-r-2 border-cyan-400"/>
+              </div>
+              <span className="absolute -top-5 left-0 text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-sm text-white" style={{background:"rgba(6,182,212,0.85)"}}>Data API 94.5%</span>
+              <span className="absolute -bottom-[18px] right-0 text-[8px] font-mono text-cyan-300/80">x:251 y:798</span>
+            </motion.div>
+
+            {/* Live indicator */}
+            <motion.div initial={{opacity:0}} animate={{opacity:1}} transition={{delay:1.6}}
+              className="absolute top-3 right-3 z-30 flex items-center gap-1.5 px-2 py-1 rounded-full text-[9px] font-mono font-bold text-white"
+              style={{background:"rgba(16,185,129,0.85)",boxShadow:"0 0 12px rgba(16,185,129,0.4)"}}>
+              <span className="w-1.5 h-1.5 rounded-full bg-white animate-ping"/>
+              LIVE DETECTION
+            </motion.div>
+
+            <p className="absolute bottom-3 left-1/2 -translate-x-1/2 z-30 text-[9px] font-mono text-slate-500 whitespace-nowrap tracking-wider">
+              Computer Vision · Object Detection · Neural Network
+            </p>
+          </div>
+
+          {/* ── n8n → GitHub Workflow Node Graph ── */}
+          <motion.div initial={{opacity:0,y:16}} animate={{opacity:1,y:0}} transition={{delay:1.8,duration:0.6}}
+            className="w-full max-w-[400px]">
+            <div className="flex items-center justify-between px-4 py-3 rounded-xl"
+              style={{background:"rgba(8,8,18,0.90)",border:"1px solid rgba(255,255,255,0.07)",backdropFilter:"blur(12px)"}}>
+              <span className="text-[9px] font-mono text-slate-500 uppercase tracking-widest hidden sm:block">n8n Pipeline</span>
+
+              <div className="flex items-center gap-1">
+                {/* GitHub node */}
+                <div className="flex flex-col items-center gap-0.5">
+                  <div className="w-8 h-8 rounded-lg bg-slate-800 border border-white/10 flex items-center justify-center">
+                    <GithubIcon size={14}/>
+                  </div>
+                  <span className="text-[8px] font-mono text-slate-500">GitHub</span>
+                </div>
+
+                <svg width="28" height="10" className="mb-3 shrink-0">
+                  <line x1="0" y1="5" x2="28" y2="5" stroke="rgba(59,130,246,0.35)" strokeWidth="1"/>
+                  <circle r="2" fill="#3B82F6"><animateMotion dur="1.2s" repeatCount="indefinite" path="M0,5 L28,5"/></circle>
+                </svg>
+
+                {/* n8n node */}
+                <div className="flex flex-col items-center gap-0.5">
+                  <div className="w-8 h-8 rounded-lg flex items-center justify-center text-[10px] font-bold text-white"
+                    style={{background:"linear-gradient(135deg,#ea5454,#c93b3b)",boxShadow:"0 0 12px rgba(234,84,84,0.4)"}}>n8n</div>
+                  <span className="text-[8px] font-mono text-slate-500">Automate</span>
+                </div>
+
+                <svg width="28" height="10" className="mb-3 shrink-0">
+                  <line x1="0" y1="5" x2="28" y2="5" stroke="rgba(168,85,247,0.35)" strokeWidth="1"/>
+                  <circle r="2" fill="#A855F7"><animateMotion dur="1.2s" begin="0.4s" repeatCount="indefinite" path="M0,5 L28,5"/></circle>
+                </svg>
+
+                {/* Build node */}
+                <div className="flex flex-col items-center gap-0.5">
+                  <div className="w-8 h-8 rounded-lg bg-slate-800 border border-green-500/30 flex items-center justify-center"
+                    style={{boxShadow:"0 0 10px rgba(16,185,129,0.2)"}}>
+                    <span className="text-[9px] font-mono text-green-400 font-bold">▶</span>
+                  </div>
+                  <span className="text-[8px] font-mono text-slate-500">Build</span>
+                </div>
+
+                <svg width="28" height="10" className="mb-3 shrink-0">
+                  <line x1="0" y1="5" x2="28" y2="5" stroke="rgba(16,185,129,0.35)" strokeWidth="1"/>
+                  <circle r="2" fill="#10B981"><animateMotion dur="1.2s" begin="0.8s" repeatCount="indefinite" path="M0,5 L28,5"/></circle>
+                </svg>
+
+                {/* Live node */}
+                <div className="flex flex-col items-center gap-0.5">
+                  <div className="w-8 h-8 rounded-lg flex items-center justify-center"
+                    style={{background:"rgba(16,185,129,0.12)",border:"1px solid rgba(16,185,129,0.30)"}}>
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"/>
+                  </div>
+                  <span className="text-[8px] font-mono text-emerald-400">Live</span>
+                </div>
+              </div>
+
+              <span className="text-[9px] font-mono text-emerald-400 font-semibold">Active ✓</span>
+            </div>
+          </motion.div>
         </motion.div>
 
       </div>
