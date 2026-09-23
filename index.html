@@ -30,18 +30,18 @@
       body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:48px 48px;mask-image:linear-gradient(to bottom,black,transparent 85%)}
       .clean-card{background:linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.025))!important;border:1px solid rgba(255,255,255,.10)!important;box-shadow:0 18px 50px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.05);border-radius:18px!important}
       .clean-card:hover{border-color:rgba(103,232,249,.35)!important;box-shadow:0 20px 60px rgba(34,211,238,.10),inset 0 1px 0 rgba(255,255,255,.08);transform:translateY(-5px)!important}
-      /* Technical skills: compact visiting-card style */
+      /* Technical skills: compact experience-milestone style */
       #skills .section-padding{padding-top:3rem!important;padding-bottom:3rem!important}
-      #skills .grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:.75rem!important;padding:0!important}
-      #skills .grid::before{display:none!important}
-      #skills .clean-card{min-height:auto!important;padding:.8rem!important;border-radius:12px!important;display:flex!important;flex-direction:column!important;justify-content:center!important;gap:.3rem!important;position:relative!important;overflow:hidden!important}
-      #skills .clean-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(#67e8f9,#a78bfa);box-shadow:0 0 12px rgba(103,232,249,.45)}
-      #skills .clean-card h3{font-size:.78rem!important;font-weight:700!important;letter-spacing:.01em!important}
-      #skills .clean-card p{font-size:.62rem!important;line-height:1.35!important;color:#94a3b8!important;margin:0!important}
+      #skills .grid{position:relative;display:grid!important;grid-template-columns:1fr!important;gap:.7rem!important;padding-left:2rem!important}
+      #skills .grid::before{content:"";display:block!important;position:absolute;left:.45rem;top:.35rem;bottom:.35rem;width:2px;background:linear-gradient(#67e8f9,#a78bfa,transparent);box-shadow:0 0 12px rgba(103,232,249,.25)}
+      #skills .clean-card{position:relative!important;min-height:auto!important;padding:.8rem 1rem!important;border-radius:12px!important;display:block!important;overflow:visible!important;background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018))!important}
+      #skills .clean-card::before{content:"";position:absolute;left:-1.88rem;top:1rem;width:.65rem;height:.65rem;border:2px solid #67e8f9;border-radius:50%;background:#050816;box-shadow:0 0 0 4px rgba(103,232,249,.08),0 0 14px rgba(103,232,249,.4)}
+      #skills .clean-card h3{font-size:.82rem!important;font-weight:700!important;margin:0!important}
+      #skills .clean-card p{font-size:.64rem!important;line-height:1.4!important;color:#94a3b8!important;margin:.2rem 0 0!important}
       #skills .clean-card svg{width:14px!important;height:14px!important}
       #skills .space-y-4{gap:.2rem!important}
-      #skills .h-\[2px\]{height:1px!important;opacity:.35!important}
-      @media(max-width:700px){#skills .grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:.6rem!important}}
+      #skills .h-\\[2px\\]{height:1px!important;opacity:.3!important}
+      @media(max-width:600px){#skills .grid{padding-left:1.7rem!important}#skills .clean-card{padding:.7rem .8rem!important}}
       /* Modern glass navigation and sections */
       nav,header{backdrop-filter:blur(20px)!important;-webkit-backdrop-filter:blur(20px)!important}
       section{scroll-margin-top:80px}::selection{background:rgba(103,232,249,.25)!important;color:white!important}
