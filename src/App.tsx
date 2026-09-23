@@ -1,4 +1,4 @@
-import { useState, lazy, Suspense } from "react";
+import { useState, lazy, Suspense, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import LoadingScreen from "./components/ui/LoadingScreen";
 import CursorGlow from "./components/ui/CursorGlow";
@@ -31,6 +31,10 @@ const sectionAnimation = {
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
 
+  const handleLoadingComplete = useCallback(() => {
+    setIsLoading(false);
+  }, []);
+
   return (
     <div className="relative min-h-screen bg-[#07070a] text-slate-100 selection:bg-blue-600/30 selection:text-white">
       {/* Interactive Cursor Glow */}
@@ -38,7 +42,7 @@ export default function App() {
 
       {/* Cinematic Opening Animation */}
       {isLoading && (
-        <LoadingScreen onComplete={() => setIsLoading(false)} />
+        <LoadingScreen onComplete={handleLoadingComplete} />
       )}
 
       {/* Main Site Content with Smooth Section Transitions */}
