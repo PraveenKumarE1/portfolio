@@ -22,130 +22,88 @@ function LinkedinIcon({ size = 16 }: { size?: number }) {
   );
 }
 
-// Combined 3D Interactive Geometric Structure with Orbiting Tech Nodes
+// Sleek 3D Interactive Holographic AI Core & Concentric Tech Orbits
 function Geometric3DCube() {
-  const [rotate, setRotate] = useState({ x: 15, y: 25 });
+  const [rotate, setRotate] = useState({ x: 12, y: 20 });
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
-    setRotate({ x: -y * 40, y: x * 40 });
+    setRotate({ x: -y * 30, y: x * 30 });
   };
 
   const handleMouseLeave = () => {
-    setRotate({ x: 15, y: 25 });
+    setRotate({ x: 12, y: 20 });
   };
 
   return (
     <div
-      className="relative w-80 h-80 md:w-[440px] md:h-[440px] flex items-center justify-center cursor-pointer select-none perspective-1000"
+      className="relative w-80 h-80 md:w-[420px] md:h-[420px] flex items-center justify-center cursor-pointer select-none perspective-1000"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Background Colorful Ambient Glows */}
-      <div className="absolute w-72 h-72 rounded-full bg-gradient-to-tr from-blue-600/20 via-purple-600/15 to-cyan-500/20 blur-3xl pointer-events-none" />
+      {/* Background Multi-Color Ambient Radial Glow */}
+      <div className="absolute w-72 h-72 rounded-full bg-gradient-to-tr from-blue-600/25 via-purple-600/20 to-cyan-400/25 blur-3xl pointer-events-none" />
 
-      {/* Orbiting Tech Badges (from previous version, combined with new 3D style) */}
+      {/* Orbiting Tech Badges */}
       <motion.div
         animate={{ rotate: 360 }}
-        transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
-        className="absolute w-[300px] h-[300px] md:w-[380px] md:h-[380px] pointer-events-none z-20"
+        transition={{ duration: 32, repeat: Infinity, ease: "linear" }}
+        className="absolute w-[310px] h-[310px] md:w-[370px] md:h-[370px] pointer-events-none z-20"
       >
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-xl bg-[#0a0a14]/90 border border-blue-500/50 text-blue-300 text-[11px] font-mono flex items-center gap-1.5 shadow-lg shadow-blue-500/20">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 px-3 py-1 rounded-xl bg-[#090914]/90 border border-blue-500/50 text-blue-300 text-[11px] font-mono flex items-center gap-1.5 shadow-lg shadow-blue-500/20 backdrop-blur-md">
           <Cpu size={13} className="text-blue-400" /> AI & ML
         </div>
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-xl bg-[#0a0a14]/90 border border-purple-500/50 text-purple-300 text-[11px] font-mono flex items-center gap-1.5 shadow-lg shadow-purple-500/20">
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 px-3 py-1 rounded-xl bg-[#090914]/90 border border-purple-500/50 text-purple-300 text-[11px] font-mono flex items-center gap-1.5 shadow-lg shadow-purple-500/20 backdrop-blur-md">
           <Database size={13} className="text-purple-400" /> Data Science
         </div>
-        <div className="absolute top-1/2 left-0 -translate-y-1/2 px-2.5 py-1 rounded-xl bg-[#0a0a14]/90 border border-cyan-500/50 text-cyan-300 text-[11px] font-mono flex items-center gap-1.5 shadow-lg shadow-cyan-500/20">
+        <div className="absolute top-1/2 left-0 -translate-y-1/2 px-3 py-1 rounded-xl bg-[#090914]/90 border border-cyan-500/50 text-cyan-300 text-[11px] font-mono flex items-center gap-1.5 shadow-lg shadow-cyan-500/20 backdrop-blur-md">
           <Code2 size={13} className="text-cyan-400" /> React & Node
         </div>
-        <div className="absolute top-1/2 right-0 -translate-y-1/2 px-2.5 py-1 rounded-xl bg-[#0a0a14]/90 border border-emerald-500/50 text-emerald-300 text-[11px] font-mono flex items-center gap-1.5 shadow-lg shadow-emerald-500/20">
+        <div className="absolute top-1/2 right-0 -translate-y-1/2 px-3 py-1 rounded-xl bg-[#090914]/90 border border-emerald-500/50 text-emerald-300 text-[11px] font-mono flex items-center gap-1.5 shadow-lg shadow-emerald-500/20 backdrop-blur-md">
           <Brain size={13} className="text-emerald-400" /> Computer Vision
         </div>
       </motion.div>
 
-      {/* 3D Rotating Cube Container */}
+      {/* 3D Holographic AI Core Sphere & Rings Container */}
       <motion.div
         animate={{
-          rotateX: [rotate.x, rotate.x + 8, rotate.x],
+          rotateX: [rotate.x, rotate.x + 6, rotate.x],
           rotateY: [rotate.y, rotate.y + 360],
         }}
         transition={{
-          rotateY: { duration: 22, repeat: Infinity, ease: "linear" },
-          rotateX: { duration: 4.5, repeat: Infinity, ease: "easeInOut" },
+          rotateY: { duration: 25, repeat: Infinity, ease: "linear" },
+          rotateX: { duration: 5, repeat: Infinity, ease: "easeInOut" },
         }}
-        className="w-44 h-44 md:w-52 md:h-52 relative preserve-3d"
+        className="w-48 h-48 md:w-56 md:h-56 relative preserve-3d flex items-center justify-center"
       >
-        {/* Front - Blue AI Face */}
-        <div
-          className="absolute inset-0 border border-blue-500/60 bg-blue-600/[0.08] backdrop-blur-md rounded-2xl flex flex-col items-center justify-center p-4 transition-all duration-300 shadow-[0_0_30px_rgba(59,130,246,0.25)]"
-          style={{ transform: "translateZ(95px)" }}
-        >
-          <div className="w-8 h-8 rounded-lg bg-blue-500/25 border border-blue-400/50 flex items-center justify-center text-blue-300 font-mono text-xs mb-2">
-            AI
+        {/* Central Pulsing AI Core Sphere */}
+        <div className="absolute w-20 h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-tr from-blue-500 via-purple-500 to-cyan-400 p-0.5 shadow-[0_0_50px_rgba(59,130,246,0.6)] animate-pulse">
+          <div className="w-full h-full rounded-full bg-[#070712] flex items-center justify-center border border-white/20">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-400 to-purple-400 blur-[2px] opacity-80" />
+            <span className="absolute font-mono font-bold text-[11px] text-white tracking-wider">AI CORE</span>
           </div>
-          <span className="text-white font-display font-bold text-xs tracking-wider">MACHINE LEARNING</span>
-          <span className="text-[10px] text-blue-300 font-mono mt-1">PyTorch · Scikit-learn</span>
         </div>
 
-        {/* Back - Purple Full Stack Face */}
+        {/* Inner Holographic Octagon Ring */}
         <div
-          className="absolute inset-0 border border-purple-500/60 bg-purple-600/[0.08] backdrop-blur-md rounded-2xl flex flex-col items-center justify-center p-4 shadow-[0_0_30px_rgba(168,85,247,0.25)]"
-          style={{ transform: "rotateY(180deg) translateZ(95px)" }}
-        >
-          <div className="w-8 h-8 rounded-lg bg-purple-500/25 border border-purple-400/50 flex items-center justify-center text-purple-300 font-mono text-xs mb-2">
-            WEB
-          </div>
-          <span className="text-white font-display font-bold text-xs tracking-wider">FULL STACK</span>
-          <span className="text-[10px] text-purple-300 font-mono mt-1">React · TypeScript · Node</span>
-        </div>
+          className="absolute inset-0 rounded-3xl border-2 border-dashed border-cyan-400/40 shadow-[0_0_25px_rgba(6,182,212,0.25)] animate-spin"
+          style={{ animationDuration: "18s", transform: "rotateX(60deg) rotateZ(45deg)" }}
+        />
 
-        {/* Right - Emerald Computer Vision Face */}
+        {/* Middle Glowing Purple Ring */}
         <div
-          className="absolute inset-0 border border-emerald-500/60 bg-emerald-600/[0.08] backdrop-blur-md rounded-2xl flex flex-col items-center justify-center p-4 shadow-[0_0_30px_rgba(16,185,129,0.25)]"
-          style={{ transform: "rotateY(90deg) translateZ(95px)" }}
-        >
-          <div className="w-8 h-8 rounded-lg bg-emerald-500/25 border border-emerald-400/50 flex items-center justify-center text-emerald-300 font-mono text-xs mb-2">
-            CV
-          </div>
-          <span className="text-white font-display font-bold text-xs tracking-wider">COMPUTER VISION</span>
-          <span className="text-[10px] text-emerald-300 font-mono mt-1">OpenCV · Retinal Imaging</span>
-        </div>
+          className="absolute inset-3 rounded-full border border-purple-500/60 shadow-[0_0_30px_rgba(168,85,247,0.3)]"
+          style={{ transform: "rotateY(65deg) rotateZ(30deg)" }}
+        />
 
-        {/* Left - Cyan Data Science Face */}
+        {/* Outer Electric Blue Ring */}
         <div
-          className="absolute inset-0 border border-cyan-500/60 bg-cyan-600/[0.08] backdrop-blur-md rounded-2xl flex flex-col items-center justify-center p-4 shadow-[0_0_30px_rgba(6,182,212,0.25)]"
-          style={{ transform: "rotateY(-90deg) translateZ(95px)" }}
-        >
-          <div className="w-8 h-8 rounded-lg bg-cyan-500/25 border border-cyan-400/50 flex items-center justify-center text-cyan-300 font-mono text-xs mb-2">
-            DS
-          </div>
-          <span className="text-white font-display font-bold text-xs tracking-wider">DATA SCIENCE</span>
-          <span className="text-[10px] text-cyan-300 font-mono mt-1">Pandas · EDA · SQL</span>
-        </div>
-
-        {/* Top */}
-        <div
-          className="absolute inset-0 border border-amber-500/30 bg-amber-500/[0.04] rounded-2xl flex items-center justify-center shadow-[0_0_20px_rgba(245,158,11,0.15)]"
-          style={{ transform: "rotateX(90deg) translateZ(95px)" }}
-        >
-          <span className="text-amber-300 font-mono text-[10px]">INTELLIGENT SYSTEMS</span>
-        </div>
-
-        {/* Bottom */}
-        <div
-          className="absolute inset-0 border border-indigo-500/30 bg-indigo-500/[0.04] rounded-2xl flex items-center justify-center shadow-[0_0_20px_rgba(99,102,241,0.15)]"
-          style={{ transform: "rotateX(-90deg) translateZ(95px)" }}
-        >
-          <span className="text-indigo-300 font-mono text-[10px]">ENGINEERED IN CODE</span>
-        </div>
+          className="absolute -inset-3 rounded-full border border-blue-500/50 shadow-[0_0_35px_rgba(59,130,246,0.3)] animate-spin"
+          style={{ animationDuration: "30s", animationDirection: "reverse", transform: "rotateX(70deg) rotateZ(-20deg)" }}
+        />
       </motion.div>
-
-      {/* Orbiting Axis Rings */}
-      <div className="absolute inset-0 rounded-full border border-blue-500/25 pointer-events-none" />
-      <div className="absolute inset-6 rounded-full border border-dashed border-purple-400/25 animate-spin" style={{ animationDuration: "35s" }} />
     </div>
   );
 }

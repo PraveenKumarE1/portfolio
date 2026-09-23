@@ -84,9 +84,11 @@ const filterTabs = [
 export default function Projects() {
   const [activeFilterId, setActiveFilterId] = useState("all");
   const [selectedProject, setSelectedProject] = useState<(typeof projects)[0] | null>(null);
+  const [showAllProjects, setShowAllProjects] = useState(false);
 
   const activeTab = filterTabs.find((t) => t.id === activeFilterId) || filterTabs[0];
   const filteredProjects = projects.filter(activeTab.filter);
+  const displayedProjects = showAllProjects ? filteredProjects : filteredProjects.slice(0, 3);
 
   return (
     <section id="projects" className="relative section-padding border-t border-white/[0.05]">
@@ -136,7 +138,7 @@ export default function Projects() {
 
         {/* Projects Grid: Clear, Easy-to-Understand Cards */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-7">
-          {filteredProjects.map((project) => {
+          {displayedProjects.map((project) => {
             const grasp = projectQuickGrasp[project.id] || {
               simpleWhat: project.description,
               keyHighlights: ["Verified Open Source Codebase", "Structured Architecture"],
@@ -264,6 +266,29 @@ export default function Projects() {
               </Tilt>
             );
           })}
+        </div>
+
+        {/* Toggle Button: Show All Projects / Show Featured 3 */}
+        <div className="mt-12 flex justify-center">
+          <button
+            onClick={() => setShowAllProjects(!showAllProjects)}
+            className="flex items-center gap-2.5 px-7 py-3.5 rounded-2xl text-xs font-mono font-semibold text-white transition-all duration-300 shadow-xl"
+            style={{
+              background: "linear-gradient(135deg, rgba(37,99,235,0.85) 0%, rgba(124,58,237,0.85) 100%)",
+              border: "1px solid rgba(255,255,255,0.15)",
+              boxShadow: "0 10px 30px rgba(37,99,235,0.30)",
+            }}
+          >
+            <span>
+              {showAllProjects
+                ? "Show Featured (3 Projects)"
+                : `Explore All Work (${filteredProjects.length} Projects)`}
+            </span>
+            <ChevronRight
+              size={15}
+              className={`transition-transform duration-300 ${showAllProjects ? "-rotate-90" : "rotate-90"}`}
+            />
+          </button>
         </div>
 
       </div>
