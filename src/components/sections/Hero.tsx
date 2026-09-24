@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowUpRight, Mail, Phone, MapPin, ChevronDown, Cpu, Database, Code2, Brain, CheckCircle2, Activity } from "lucide-react";
+import { ArrowUpRight, Mail, Phone, MapPin, ChevronDown, Cpu, Database, Code2, Brain, Activity, Sparkles } from "lucide-react";
 import { personal } from "../../data/portfolio";
 
 function GithubIcon({ size = 16 }: { size?: number }) {
@@ -21,69 +21,79 @@ function LinkedinIcon({ size = 16 }: { size?: number }) {
   );
 }
 
-// Simple, Clean 3D AI Core Disc (Replacing cluttered image 2 option with high elegance)
-function SimpleMinimalCoreVisual() {
+// User Portrait Visual replacing System Core design, seamlessly merged with background colors
+function PraveenPortraitVisual() {
   return (
-    <div className="relative w-full max-w-[420px] aspect-square flex flex-col items-center justify-between p-6 rounded-3xl overflow-hidden border border-white/10 bg-gradient-to-b from-white/[0.04] to-black/80 backdrop-blur-2xl shadow-2xl group">
-      {/* Soft atmospheric background glow */}
-      <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/10 via-purple-600/10 to-amber-500/10 opacity-70 blur-2xl pointer-events-none" />
+    <div className="relative w-full max-w-[380px] sm:max-w-[420px] aspect-[4/5] flex flex-col items-center justify-between p-5 rounded-3xl overflow-hidden border border-white/10 bg-gradient-to-b from-white/[0.04] to-[#07080d] backdrop-blur-2xl shadow-2xl group">
+      
+      {/* Background Warm & Cool Ambient Glows */}
+      <div className="absolute inset-0 bg-gradient-to-tr from-amber-600/15 via-purple-600/10 to-blue-600/15 opacity-80 blur-2xl pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 rounded-full bg-amber-500/10 blur-3xl pointer-events-none" />
 
       {/* Top Header Row */}
-      <div className="w-full flex items-center justify-between z-10 text-xs font-mono border-b border-white/[0.08] pb-4">
+      <div className="w-full flex items-center justify-between z-20 text-xs font-mono border-b border-white/[0.08] pb-3">
         <span className="flex items-center gap-2 text-slate-300 font-semibold tracking-wider">
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          SYSTEM CORE
+          PRAVEEN KUMAR E
         </span>
-        <span className="px-2.5 py-1 rounded-full bg-white/[0.06] border border-white/10 text-slate-400 text-[10px]">
-          v2.5 ACTIVE
+        <span className="px-2.5 py-1 rounded-full bg-white/[0.06] border border-white/10 text-amber-400 font-bold text-[10px]">
+          AI &amp; DS 2028
         </span>
       </div>
 
-      {/* Center Holographic Core Visual */}
-      <div className="relative w-48 h-48 md:w-56 md:h-56 flex items-center justify-center my-4 z-10">
-        {/* Outer glowing orbital ring */}
-        <div className="absolute inset-0 rounded-full border border-blue-500/30 animate-spin shadow-[0_0_30px_rgba(59,130,246,0.15)]" style={{ animationDuration: "25s" }} />
+      {/* Center Portrait Image (Seamlessly merged with dark background) */}
+      <div className="relative w-full flex-1 flex items-center justify-center my-3 z-10 overflow-hidden rounded-2xl">
         
-        {/* Middle dashed cyan ring */}
-        <div className="absolute inset-4 rounded-full border border-dashed border-cyan-400/40 animate-spin" style={{ animationDuration: "18s", animationDirection: "reverse" }} />
+        {/* Glowing Accent Ring behind subject */}
+        <div className="absolute w-56 h-56 rounded-full border border-amber-500/25 animate-pulse shadow-[0_0_50px_rgba(245,158,11,0.15)]" />
 
-        {/* Inner pulsing core disc */}
-        <div className="w-28 h-28 rounded-full bg-gradient-to-tr from-blue-600 via-indigo-600 to-purple-600 p-0.5 shadow-[0_0_40px_rgba(99,102,241,0.5)] transition-transform duration-500 group-hover:scale-110">
-          <div className="w-full h-full rounded-full bg-[#080912] flex flex-col items-center justify-center border border-white/20">
-            <Cpu size={26} className="text-blue-400 mb-1" />
-            <span className="text-[10px] font-mono font-bold text-white tracking-widest">ENGINE</span>
-          </div>
+        {/* Photo Container with multiply blend mode & bottom gradient fade */}
+        <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
+          <img
+            src="./praveen.png"
+            alt="Praveen Kumar E"
+            className="w-full h-full object-cover object-top filter brightness-[1.03] contrast-[1.05] transition-transform duration-700 group-hover:scale-105"
+            style={{
+              mixBlendMode: "lighten",
+              filter: "contrast(1.08) brightness(0.95)",
+            }}
+            onError={(e) => {
+              // Fallback to absolute path or public URL if needed
+              (e.currentTarget as HTMLImageElement).src = "/praveen.png";
+            }}
+          />
+
+          {/* Bottom & Edge Fade Overlay to merge perfectly into dark editorial background */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#07080d] via-transparent to-transparent opacity-90 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#07080d]/40 via-transparent to-transparent pointer-events-none" />
         </div>
 
-        {/* Clean floating tech pills around core */}
-        <div className="absolute top-2 left-0 px-2.5 py-1 rounded-lg bg-[#0a0b14]/90 border border-blue-500/30 text-[10px] font-mono text-blue-300 shadow-md">
-          ML Architecture
+        {/* Floating Tech Badges over portrait */}
+        <div className="absolute top-3 left-2 px-3 py-1 rounded-xl bg-[#090a12]/90 border border-blue-500/40 text-[10px] font-mono text-blue-300 shadow-xl backdrop-blur-md flex items-center gap-1.5">
+          <Cpu size={12} className="text-blue-400" /> AI &amp; ML
         </div>
-        <div className="absolute bottom-2 right-0 px-2.5 py-1 rounded-lg bg-[#0a0b14]/90 border border-purple-500/30 text-[10px] font-mono text-purple-300 shadow-md">
-          Computer Vision
+        <div className="absolute bottom-4 right-2 px-3 py-1 rounded-xl bg-[#090a12]/90 border border-amber-500/40 text-[10px] font-mono text-amber-300 shadow-xl backdrop-blur-md flex items-center gap-1.5">
+          <Brain size={12} className="text-amber-400" /> Computer Vision
         </div>
-        <div className="absolute bottom-4 left-2 px-2.5 py-1 rounded-lg bg-[#0a0b14]/90 border border-cyan-500/30 text-[10px] font-mono text-cyan-300 shadow-md">
-          React & Node
+        <div className="absolute bottom-4 left-2 px-3 py-1 rounded-xl bg-[#090a12]/90 border border-purple-500/40 text-[10px] font-mono text-purple-300 shadow-xl backdrop-blur-md flex items-center gap-1.5">
+          <Code2 size={12} className="text-purple-400" /> React &amp; Node
         </div>
       </div>
 
-      {/* Bottom Clean n8n Workflow Pill (Simple & Neat) */}
-      <div className="w-full z-10 pt-3 border-t border-white/[0.08] flex items-center justify-between text-xs font-mono">
-        <span className="text-slate-400 text-[11px] flex items-center gap-1.5">
-          <Activity size={13} className="text-emerald-400" />
-          n8n Pipeline
+      {/* Bottom Status Row */}
+      <div className="w-full z-20 pt-3 border-t border-white/[0.08] flex items-center justify-between text-xs font-mono">
+        <span className="text-slate-400 text-[11px] flex items-center gap-1.5 font-medium">
+          <Sparkles size={13} className="text-amber-400" />
+          Engineered Solutions
         </span>
 
         <div className="flex items-center gap-2">
-          <span className="flex items-center gap-1 px-2 py-0.5 rounded bg-blue-500/10 border border-blue-500/30 text-blue-300 text-[10px]">
-            <GithubIcon size={10} /> Push
-          </span>
-          <span className="text-slate-600">→</span>
-          <span className="px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[10px]">
-            Live ✓
+          <span className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[10px] font-bold">
+            Available for Hire ✓
           </span>
         </div>
       </div>
+
     </div>
   );
 }
@@ -91,7 +101,7 @@ function SimpleMinimalCoreVisual() {
 export default function Hero() {
   return (
     <section id="home" className="relative min-h-screen flex items-center pt-28 pb-16 overflow-hidden">
-      {/* Atmospheric Editorial Ambient Warm Glows (Image 1 style) */}
+      {/* Atmospheric Editorial Ambient Warm Glows */}
       <div className="absolute top-1/4 -left-32 w-[600px] h-[600px] bg-amber-600/[0.07] blur-[180px] rounded-full pointer-events-none" />
       <div className="absolute top-1/3 -right-32 w-[600px] h-[600px] bg-blue-600/[0.07] blur-[180px] rounded-full pointer-events-none" />
 
@@ -109,7 +119,7 @@ export default function Hero() {
           >
             <span className="text-amber-400 font-bold tracking-widest uppercase">01 / CREATIVE PORTFOLIO</span>
             <span className="text-slate-700">|</span>
-            <span className="text-slate-400">AI & DATA SCIENCE (2024–2028)</span>
+            <span className="text-slate-400">AI &amp; DATA SCIENCE (2024–2028)</span>
           </motion.div>
 
           {/* Huge Editorial Heading (INSIGHT style massive typography) */}
@@ -217,14 +227,14 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Right Column: Simple, Neat 3D AI Core Visual (Replacing photo 2 option) */}
+        {/* Right Column: Praveen's Portrait seamlessly merged into dark background */}
         <motion.div
           initial={{ opacity: 0, scale: 0.94 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.25, duration: 0.7 }}
           className="lg:col-span-5 flex flex-col items-center justify-center"
         >
-          <SimpleMinimalCoreVisual />
+          <PraveenPortraitVisual />
         </motion.div>
 
       </div>
