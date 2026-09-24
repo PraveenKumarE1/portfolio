@@ -97,18 +97,18 @@ export default function Projects() {
       <div className="absolute bottom-10 right-1/4 w-[500px] h-[500px] bg-purple-600/10 blur-[160px] rounded-full pointer-events-none" />
 
       <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
+        {/* Header — INSIGHT Editorial Style */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
           <div>
-            <span className="text-xs font-mono text-emerald-400 uppercase tracking-widest block mb-2">
-              03 / Engineering Portfolio
+            <span className="text-xs font-mono text-amber-400 uppercase tracking-widest block mb-2 font-semibold">
+              04 / SELECTED WORKS &amp; REPOSITORIES
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-display text-white tracking-tight">
-              Featured <span className="gradient-emerald-teal">Projects</span>
+            <h2 className="text-4xl sm:text-6xl font-bold font-editorial text-white tracking-tight uppercase">
+              FEATURED <span className="gradient-editorial-headline">PROJECTS</span>
             </h2>
           </div>
-          <p className="text-sm font-mono text-slate-400 max-w-md">
-            11 verified open-source repositories designed for high performance, practical problem solving, and clear real-world outcomes.
+          <p className="text-xs font-mono text-slate-400 max-w-sm md:text-right leading-relaxed">
+            11 verified open-source repositories engineered for practical problem solving and real-world results.
           </p>
         </div>
 

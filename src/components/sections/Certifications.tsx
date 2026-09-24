@@ -19,18 +19,18 @@ export default function Certifications() {
       <div className="absolute bottom-10 -left-20 w-[500px] h-[500px] bg-pink-600/10 blur-[150px] rounded-full pointer-events-none" />
 
       <div className="max-w-6xl mx-auto">
-        {/* Header */}
+        {/* Header — INSIGHT Editorial Style */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
           <div>
-            <span className="text-xs font-mono text-pink-400 uppercase tracking-widest block mb-2">
-              05 / Verifications & Credentials
+            <span className="text-xs font-mono text-amber-400 uppercase tracking-widest block mb-2 font-semibold">
+              06 / CREDENTIALS &amp; ACCOMPLISHMENTS
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-display text-white tracking-tight">
-              Verified <span className="gradient-purple-pink">Certifications</span>
+            <h2 className="text-4xl sm:text-6xl font-bold font-editorial text-white tracking-tight uppercase">
+              VERIFIED <span className="gradient-editorial-headline">CERTIFICATIONS</span>
             </h2>
           </div>
-          <p className="text-sm font-mono text-slate-400 max-w-md">
-            Official academic honors, industry credentials, and technical symposium awards with verifiable serial numbers.
+          <p className="text-xs font-mono text-slate-400 max-w-sm md:text-right leading-relaxed">
+            Academic honors, industry credentials, and technical awards with verifiable serial numbers.
           </p>
         </div>
 

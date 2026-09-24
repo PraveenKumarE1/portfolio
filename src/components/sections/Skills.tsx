@@ -6,41 +6,41 @@ const disciplines = [
     id: "ai",
     icon: Brain,
     title: "AI & Machine Learning",
-    label: "Core Engineering Domain",
-    desc: "From classical Random Forest pipelines to deep CNNs for retinal vessel extraction — production-grade ML applied to real medical imaging problems.",
+    label: "01 / Core Domain",
+    desc: "From Random Forest pipelines to deep CNNs for retinal vessel extraction — production-grade ML applied to medical imaging & predictive models.",
     skills: ["PyTorch", "OpenCV", "Scikit-learn", "Pandas", "NumPy", "Gemini API"],
-    accentColor: "#A855F7",
-    glowRgba: "rgba(168, 85, 247, 0.55)",
+    accentColor: "#f59e0b",
+    glowRgba: "rgba(245, 158, 11, 0.40)",
   },
   {
     id: "languages",
     icon: Code2,
     title: "Programming Languages",
-    label: "Foundational Stack",
-    desc: "Python for ML pipelines & Flask APIs. TypeScript for strict-typed React 18 apps. Java for OOP & DSA. C for low-level systems thinking.",
+    label: "02 / Foundations",
+    desc: "Python for AI/ML pipelines & APIs. TypeScript for strict-typed React 18 applications. Java for OOP & DSA. C for low-level systems logic.",
     skills: ["Python", "TypeScript", "JavaScript", "Java", "C"],
     accentColor: "#3B82F6",
-    glowRgba: "rgba(59, 130, 246, 0.55)",
+    glowRgba: "rgba(59, 130, 246, 0.40)",
   },
   {
     id: "web",
     icon: Globe,
-    title: "Full-Stack Web",
-    label: "Modern Product Development",
-    desc: "React 18 + Vite for blazing fast UIs. Flask & Node.js RESTful APIs. Tailwind CSS for pixel-perfect responsive design. Supabase for realtime data.",
+    title: "Full-Stack Architecture",
+    label: "03 / Web Products",
+    desc: "React 18 + Vite for high-speed client UIs. Flask & Node.js RESTful microservices. Tailwind CSS for editorial layouts. Supabase for cloud data.",
     skills: ["React 18", "Vite", "Tailwind CSS", "Flask", "Node.js", "Supabase"],
     accentColor: "#06B6D4",
-    glowRgba: "rgba(6, 182, 212, 0.55)",
+    glowRgba: "rgba(6, 182, 212, 0.40)",
   },
   {
     id: "tools",
     icon: Wrench,
-    title: "Platforms & Tooling",
-    label: "Production Environments",
-    desc: "11 public GitHub repos. SQL & SQLite for relational data. MongoDB for document stores. Leaflet.js for interactive geolocation maps.",
+    title: "Cloud & Tooling",
+    label: "04 / Infrastructure",
+    desc: "11 verified GitHub repositories. Relational SQLite & SQL databases. MongoDB document stores. Leaflet.js for interactive GIS maps.",
     skills: ["GitHub", "SQLite", "MongoDB", "Leaflet.js", "Git"],
-    accentColor: "#F59E0B",
-    glowRgba: "rgba(245, 158, 11, 0.55)",
+    accentColor: "#8b5cf6",
+    glowRgba: "rgba(139, 92, 246, 0.40)",
   },
 ];
 
@@ -50,7 +50,7 @@ const cardVariants = {
     opacity: 1,
     y: 0,
     transition: {
-      delay: i * 0.13,
+      delay: i * 0.12,
       duration: 0.6,
       ease: [0.16, 1, 0.3, 1] as const,
     },
@@ -59,31 +59,30 @@ const cardVariants = {
 
 export default function Skills() {
   return (
-    <section id="skills" className="relative section-padding border-t border-white/[0.05]">
-      {/* Subtle ambient section lighting */}
-      <div className="absolute top-1/3 -right-32 w-[480px] h-[480px] bg-purple-600/[0.07] blur-[160px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-0 -left-32 w-[440px] h-[440px] bg-blue-600/[0.07] blur-[150px] rounded-full pointer-events-none" />
+    <section id="skills" className="relative section-padding border-t border-white/[0.06]">
+      {/* Ambient background lighting */}
+      <div className="absolute top-1/3 -right-32 w-[500px] h-[500px] bg-amber-600/[0.05] blur-[170px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-0 -left-32 w-[500px] h-[500px] bg-blue-600/[0.05] blur-[170px] rounded-full pointer-events-none" />
 
       <div className="max-w-6xl mx-auto">
 
-        {/* ── Section Header ── */}
+        {/* ── Section Header (INSIGHT style) ── */}
         <div className="mb-14">
-          <span className="text-xs font-mono text-purple-400 uppercase tracking-widest block mb-3">
-            02 / Technical Disciplines
+          <span className="text-xs font-mono text-amber-400 uppercase tracking-widest block mb-2 font-semibold">
+            03 / TECHNICAL CAPABILITIES
           </span>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-5">
-            <h2 className="text-4xl sm:text-5xl font-bold font-display text-white tracking-tight">
-              Skills &amp;{" "}
-              <span className="gradient-purple-pink">Expertise</span>
+            <h2 className="text-4xl sm:text-6xl font-bold font-editorial text-white tracking-tight uppercase">
+              EXPERTISE &amp; <span className="gradient-editorial-headline">STACK</span>
             </h2>
-            <p className="text-sm font-mono text-slate-400 max-w-xs md:text-right leading-relaxed">
-              Production-grade competencies applied across 4 high-impact engineering domains.
+            <p className="text-xs font-mono text-slate-400 max-w-xs md:text-right leading-relaxed">
+              Production competencies structured across 4 engineering disciplines.
             </p>
           </div>
         </div>
 
         {/* ── Cards Grid (2×2) ── */}
-        <div className="grid md:grid-cols-2 gap-5">
+        <div className="grid md:grid-cols-2 gap-6">
           {disciplines.map((disc, i) => {
             const Icon = disc.icon;
             return (
@@ -94,107 +93,92 @@ export default function Skills() {
                 whileInView="visible"
                 viewport={{ once: true, margin: "-40px" }}
                 variants={cardVariants}
-                className="relative overflow-hidden rounded-2xl p-7 flex flex-col gap-5 group"
-                style={{
-                  background: "rgba(10, 10, 19, 0.97)",
-                  border: "1px solid rgba(255,255,255,0.065)",
-                  transition: "border-color 0.4s ease",
-                }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.borderColor = `${disc.accentColor}45`;
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.065)";
-                }}
+                className="editorial-card relative overflow-hidden p-8 flex flex-col justify-between group"
               >
-                {/* ── Bottom colored glow (always on, intensifies on hover) ── */}
+                {/* ── Soft bottom glow ── */}
                 <div
-                  className="absolute bottom-0 left-0 right-0 h-60 pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity duration-500"
+                  className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none opacity-40 group-hover:opacity-100 transition-opacity duration-500"
                   style={{
-                    background: `radial-gradient(ellipse at 50% 108%, ${disc.glowRgba} 0%, transparent 62%)`,
+                    background: `radial-gradient(ellipse at 50% 110%, ${disc.glowRgba} 0%, transparent 65%)`,
                   }}
                 />
 
-                {/* Subtle top-right accent */}
-                <div
-                  className="absolute -top-10 -right-10 w-44 h-44 opacity-[0.07] pointer-events-none rounded-full"
-                  style={{ background: disc.accentColor, filter: "blur(30px)" }}
-                />
-
-                {/* ── Icon badge ── */}
-                <div
-                  className="relative w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
-                  style={{
-                    background: "rgba(255,255,255,0.05)",
-                    border: "1px solid rgba(255,255,255,0.10)",
-                  }}
-                >
-                  <Icon size={22} className="text-white" />
-                </div>
-
-                {/* ── Title ── */}
-                <h3 className="relative text-[1.65rem] font-bold font-display text-white leading-tight">
-                  {disc.title}
-                </h3>
-
-                {/* ── Description ── */}
-                <p className="relative text-slate-400 text-[14.5px] leading-relaxed flex-1">
-                  {disc.desc}
-                </p>
-
-                {/* ── Skill tags ── */}
-                <div className="relative flex flex-wrap gap-1.5">
-                  {disc.skills.map((skill) => (
+                <div>
+                  {/* Top Category Label & Icon */}
+                  <div className="flex items-center justify-between mb-6">
                     <span
-                      key={skill}
-                      className="text-[11px] font-mono px-2.5 py-[5px] rounded-full border text-slate-300"
+                      className="text-[11px] font-mono uppercase tracking-widest font-semibold"
+                      style={{ color: disc.accentColor }}
+                    >
+                      {disc.label}
+                    </span>
+
+                    <div
+                      className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border"
                       style={{
                         background: "rgba(255,255,255,0.04)",
-                        borderColor: "rgba(255,255,255,0.09)",
+                        borderColor: "rgba(255,255,255,0.10)",
                       }}
                     >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
+                      <Icon size={20} className="text-white" />
+                    </div>
+                  </div>
 
-                {/* ── Footer CTA ── */}
-                <div
-                  className="relative flex items-center justify-between pt-4 border-t"
-                  style={{ borderColor: "rgba(255,255,255,0.06)" }}
-                >
-                  <span
-                    className="text-[11px] font-mono font-semibold uppercase tracking-widest"
-                    style={{ color: disc.accentColor }}
-                  >
-                    {disc.label}
-                  </span>
+                  {/* Title */}
+                  <h3 className="text-2xl font-bold font-editorial text-white mb-3 tracking-tight uppercase">
+                    {disc.title}
+                  </h3>
 
-                  <div className="flex items-center gap-1.5 text-sm text-white/80 group-hover:text-white group-hover:gap-3 transition-all duration-300 font-medium">
-                    <span>Explore</span>
-                    <ArrowRight size={14} />
+                  {/* Description */}
+                  <p className="text-slate-400 text-sm leading-relaxed mb-6 font-normal">
+                    {disc.desc}
+                  </p>
+
+                  {/* Skill tags */}
+                  <div className="flex flex-wrap gap-1.5 mb-6">
+                    {disc.skills.map((skill) => (
+                      <span
+                        key={skill}
+                        className="text-[11px] font-mono px-3 py-1 rounded-full border text-slate-300 bg-white/[0.03] border-white/10"
+                      >
+                        {skill}
+                      </span>
+                    ))}
                   </div>
                 </div>
+
+                {/* Footer */}
+                <div className="pt-4 border-t border-white/[0.08] flex items-center justify-between text-xs font-mono text-slate-400">
+                  <span className="flex items-center gap-1.5 text-[11px]">
+                    <Zap size={13} style={{ color: disc.accentColor }} />
+                    Production Workflows
+                  </span>
+
+                  <span className="text-[11px] font-semibold text-white group-hover:translate-x-1 transition-transform duration-300 flex items-center gap-1">
+                    Explore <ArrowRight size={13} />
+                  </span>
+                </div>
+
               </motion.div>
             );
           })}
         </div>
 
-        {/* ── Bottom tagline (matching image 1 style) ── */}
-        <div className="mt-11 flex flex-wrap items-center justify-center gap-6 text-xs font-mono text-slate-500">
+        {/* Bottom Tagline */}
+        <div className="mt-12 flex flex-wrap items-center justify-center gap-6 text-xs font-mono text-slate-500">
           <span className="flex items-center gap-1.5">
-            <Zap size={12} className="text-purple-400" />
-            Production-Tested Workflows
+            <Zap size={13} className="text-amber-400" />
+            Tested Codebases
           </span>
           <span className="text-slate-700 hidden sm:inline">·</span>
           <span className="flex items-center gap-1.5">
-            <Target size={12} className="text-blue-400" />
-            Applied to Real Projects
+            <Target size={13} className="text-blue-400" />
+            Applied Project Solutions
           </span>
           <span className="text-slate-700 hidden sm:inline">·</span>
           <span className="flex items-center gap-1.5">
-            <Star size={12} className="text-cyan-400" />
-            Always Improving
+            <Star size={13} className="text-cyan-400" />
+            Continuous Refinement
           </span>
         </div>
 
