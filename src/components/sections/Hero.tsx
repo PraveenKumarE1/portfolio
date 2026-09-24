@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowUpRight, Mail, Phone, MapPin, ChevronDown, Cpu, Database, Code2, Brain, Activity, Sparkles } from "lucide-react";
+import { ArrowUpRight, Mail, Phone, MapPin, ChevronDown } from "lucide-react";
 import { personal } from "../../data/portfolio";
 
 function GithubIcon({ size = 16 }: { size?: number }) {
@@ -21,79 +21,31 @@ function LinkedinIcon({ size = 16 }: { size?: number }) {
   );
 }
 
-// User Portrait Visual replacing System Core design, seamlessly merged with background colors
+// Pure Photo Visual — No Boxes, No Text Words, Only Praveen's Photo Merged with Background
 function PraveenPortraitVisual() {
   return (
-    <div className="relative w-full max-w-[380px] sm:max-w-[420px] aspect-[4/5] flex flex-col items-center justify-between p-5 rounded-3xl overflow-hidden border border-white/10 bg-gradient-to-b from-white/[0.04] to-[#07080d] backdrop-blur-2xl shadow-2xl group">
-      
-      {/* Background Warm & Cool Ambient Glows */}
-      <div className="absolute inset-0 bg-gradient-to-tr from-amber-600/15 via-purple-600/10 to-blue-600/15 opacity-80 blur-2xl pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 rounded-full bg-amber-500/10 blur-3xl pointer-events-none" />
+    <div className="relative w-full max-w-[340px] sm:max-w-[380px] aspect-[3/4] flex items-center justify-center">
+      {/* Soft Ambient Radial Glow Behind Photo */}
+      <div className="absolute w-72 h-72 rounded-full bg-gradient-to-tr from-amber-600/20 via-purple-600/15 to-blue-600/20 blur-3xl pointer-events-none" />
 
-      {/* Top Header Row */}
-      <div className="w-full flex items-center justify-between z-20 text-xs font-mono border-b border-white/[0.08] pb-3">
-        <span className="flex items-center gap-2 text-slate-300 font-semibold tracking-wider">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          PRAVEEN KUMAR E
-        </span>
-        <span className="px-2.5 py-1 rounded-full bg-white/[0.06] border border-white/10 text-amber-400 font-bold text-[10px]">
-          AI &amp; DS 2028
-        </span>
+      {/* Pure Photo Element (Clean, Frameless, Merged with Dark Background) */}
+      <div className="relative w-full h-full rounded-3xl overflow-hidden group">
+        <img
+          src="./praveen.png"
+          alt="Praveen Kumar E"
+          className="w-full h-full object-cover object-top filter contrast-[1.06] brightness-[0.96] transition-transform duration-700 group-hover:scale-105"
+          style={{
+            mixBlendMode: "lighten",
+          }}
+          onError={(e) => {
+            (e.currentTarget as HTMLImageElement).src = "/praveen.png";
+          }}
+        />
+
+        {/* Seamless Edge & Bottom Gradient Vignette (Merges image smoothly into page background) */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0b0f] via-transparent to-transparent opacity-95 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0b0f]/30 via-transparent to-transparent pointer-events-none" />
       </div>
-
-      {/* Center Portrait Image (Seamlessly merged with dark background) */}
-      <div className="relative w-full flex-1 flex items-center justify-center my-3 z-10 overflow-hidden rounded-2xl">
-        
-        {/* Glowing Accent Ring behind subject */}
-        <div className="absolute w-56 h-56 rounded-full border border-amber-500/25 animate-pulse shadow-[0_0_50px_rgba(245,158,11,0.15)]" />
-
-        {/* Photo Container with multiply blend mode & bottom gradient fade */}
-        <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
-          <img
-            src="./praveen.png"
-            alt="Praveen Kumar E"
-            className="w-full h-full object-cover object-top filter brightness-[1.03] contrast-[1.05] transition-transform duration-700 group-hover:scale-105"
-            style={{
-              mixBlendMode: "lighten",
-              filter: "contrast(1.08) brightness(0.95)",
-            }}
-            onError={(e) => {
-              // Fallback to absolute path or public URL if needed
-              (e.currentTarget as HTMLImageElement).src = "/praveen.png";
-            }}
-          />
-
-          {/* Bottom & Edge Fade Overlay to merge perfectly into dark editorial background */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#07080d] via-transparent to-transparent opacity-90 pointer-events-none" />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#07080d]/40 via-transparent to-transparent pointer-events-none" />
-        </div>
-
-        {/* Floating Tech Badges over portrait */}
-        <div className="absolute top-3 left-2 px-3 py-1 rounded-xl bg-[#090a12]/90 border border-blue-500/40 text-[10px] font-mono text-blue-300 shadow-xl backdrop-blur-md flex items-center gap-1.5">
-          <Cpu size={12} className="text-blue-400" /> AI &amp; ML
-        </div>
-        <div className="absolute bottom-4 right-2 px-3 py-1 rounded-xl bg-[#090a12]/90 border border-amber-500/40 text-[10px] font-mono text-amber-300 shadow-xl backdrop-blur-md flex items-center gap-1.5">
-          <Brain size={12} className="text-amber-400" /> Computer Vision
-        </div>
-        <div className="absolute bottom-4 left-2 px-3 py-1 rounded-xl bg-[#090a12]/90 border border-purple-500/40 text-[10px] font-mono text-purple-300 shadow-xl backdrop-blur-md flex items-center gap-1.5">
-          <Code2 size={12} className="text-purple-400" /> React &amp; Node
-        </div>
-      </div>
-
-      {/* Bottom Status Row */}
-      <div className="w-full z-20 pt-3 border-t border-white/[0.08] flex items-center justify-between text-xs font-mono">
-        <span className="text-slate-400 text-[11px] flex items-center gap-1.5 font-medium">
-          <Sparkles size={13} className="text-amber-400" />
-          Engineered Solutions
-        </span>
-
-        <div className="flex items-center gap-2">
-          <span className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[10px] font-bold">
-            Available for Hire ✓
-          </span>
-        </div>
-      </div>
-
     </div>
   );
 }
@@ -227,7 +179,7 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Right Column: Praveen's Portrait seamlessly merged into dark background */}
+        {/* Right Column: Only Praveen's Photo (Frameless, No Boxes, No Text Words) */}
         <motion.div
           initial={{ opacity: 0, scale: 0.94 }}
           animate={{ opacity: 1, scale: 1 }}
