@@ -21,8 +21,8 @@ export const personal = {
 export const stats = [
   { label: "Year", value: "3rd", suffix: "" },
   { label: "Department", value: "AI & DS", suffix: "" },
-  { label: "GitHub Projects", value: "11", suffix: "+" },
-  { label: "Certifications", value: "5", suffix: "+" },
+  { label: "GitHub Projects", value: "13", suffix: "+" },
+  { label: "Certifications", value: "6", suffix: "+" },
 ];
 
 export const skills = {
