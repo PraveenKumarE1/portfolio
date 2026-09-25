@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Mail, Phone, MapPin, ChevronDown, Cpu, Database, Code2, Brain, Activity, Sparkles } from "lucide-react";
+import { ArrowUpRight, Mail, Phone, MapPin, ChevronDown, Sparkles, Cpu, Database, Code2, Brain } from "lucide-react";
 import { personal } from "../../data/portfolio";
 
 function GithubIcon({ size = 16 }: { size?: number }) {
@@ -21,39 +22,123 @@ function LinkedinIcon({ size = 16 }: { size?: number }) {
   );
 }
 
-// Clean Portrait Image seamlessly merged directly with dark background canvas (no text, no badges, no card frames)
+// Sleek 3D Interactive Holographic AI Core & Concentric Tech Orbits
+function Geometric3DCube() {
+  const [rotate, setRotate] = useState({ x: 12, y: 20 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    setRotate({ x: -y * 30, y: x * 30 });
+  };
+
+  const handleMouseLeave = () => {
+    setRotate({ x: 12, y: 20 });
+  };
+
+  return (
+    <div
+      className="relative w-80 h-80 md:w-[420px] md:h-[420px] flex items-center justify-center cursor-pointer select-none perspective-1000"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+    >
+      {/* Background Multi-Color Ambient Radial Glow */}
+      <div className="absolute w-72 h-72 rounded-full bg-gradient-to-tr from-blue-600/25 via-purple-600/20 to-cyan-400/25 blur-3xl pointer-events-none" />
+
+      {/* Orbiting Tech Badges */}
+      <motion.div
+        animate={{ rotate: 360 }}
+        transition={{ duration: 32, repeat: Infinity, ease: "linear" }}
+        className="absolute w-[310px] h-[310px] md:w-[370px] md:h-[370px] pointer-events-none z-20"
+      >
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 px-3 py-1 rounded-xl bg-[#090914]/90 border border-blue-500/50 text-blue-300 text-[11px] font-mono flex items-center gap-1.5 shadow-lg shadow-blue-500/20 backdrop-blur-md">
+          <Cpu size={13} className="text-blue-400" /> AI & ML
+        </div>
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 px-3 py-1 rounded-xl bg-[#090914]/90 border border-purple-500/50 text-purple-300 text-[11px] font-mono flex items-center gap-1.5 shadow-lg shadow-purple-500/20 backdrop-blur-md">
+          <Database size={13} className="text-purple-400" /> Data Science
+        </div>
+        <div className="absolute top-1/2 left-0 -translate-y-1/2 px-3 py-1 rounded-xl bg-[#090914]/90 border border-cyan-500/50 text-cyan-300 text-[11px] font-mono flex items-center gap-1.5 shadow-lg shadow-cyan-500/20 backdrop-blur-md">
+          <Code2 size={13} className="text-cyan-400" /> React & Node
+        </div>
+        <div className="absolute top-1/2 right-0 -translate-y-1/2 px-3 py-1 rounded-xl bg-[#090914]/90 border border-emerald-500/50 text-emerald-300 text-[11px] font-mono flex items-center gap-1.5 shadow-lg shadow-emerald-500/20 backdrop-blur-md">
+          <Brain size={13} className="text-emerald-400" /> Computer Vision
+        </div>
+      </motion.div>
+
+      {/* 3D Holographic AI Core Sphere & Rings Container */}
+      <motion.div
+        animate={{
+          rotateX: [rotate.x, rotate.x + 6, rotate.x],
+          rotateY: [rotate.y, rotate.y + 360],
+        }}
+        transition={{
+          rotateY: { duration: 25, repeat: Infinity, ease: "linear" },
+          rotateX: { duration: 5, repeat: Infinity, ease: "easeInOut" },
+        }}
+        className="w-48 h-48 md:w-56 md:h-56 relative preserve-3d flex items-center justify-center"
+      >
+        {/* Central Pulsing AI Core Sphere */}
+        <div className="absolute w-20 h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-tr from-blue-500 via-purple-500 to-cyan-400 p-0.5 shadow-[0_0_50px_rgba(59,130,246,0.6)] animate-pulse">
+          <div className="w-full h-full rounded-full bg-[#070712] flex items-center justify-center border border-white/20">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-400 to-purple-400 blur-[2px] opacity-80" />
+            <span className="absolute font-mono font-bold text-[11px] text-white tracking-wider">AI CORE</span>
+          </div>
+        </div>
+
+        {/* Inner Holographic Octagon Ring */}
+        <div
+          className="absolute inset-0 rounded-3xl border-2 border-dashed border-cyan-400/40 shadow-[0_0_25px_rgba(6,182,212,0.25)] animate-spin"
+          style={{ animationDuration: "18s", transform: "rotateX(60deg) rotateZ(45deg)" }}
+        />
+
+        {/* Middle Glowing Purple Ring */}
+        <div
+          className="absolute inset-3 rounded-full border border-purple-500/60 shadow-[0_0_30px_rgba(168,85,247,0.3)]"
+          style={{ transform: "rotateY(65deg) rotateZ(30deg)" }}
+        />
+
+        {/* Outer Electric Blue Ring */}
+        <div
+          className="absolute -inset-3 rounded-full border border-blue-500/50 shadow-[0_0_35px_rgba(59,130,246,0.3)] animate-spin"
+          style={{ animationDuration: "30s", animationDirection: "reverse", transform: "rotateX(70deg) rotateZ(-20deg)" }}
+        />
+      </motion.div>
+    </div>
+  );
+}
+
+// Praveen Portrait visual merged cleanly into dark background
 function PraveenPortraitVisual() {
   return (
-    <div className="relative w-full max-w-[360px] sm:max-w-[400px] aspect-[4/5] flex items-center justify-center pointer-events-none select-none">
-      
+    <div className="relative w-full max-w-[400px] aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl flex items-center justify-center border border-white/10 group">
       {/* Ambient background glowing aura */}
-      <div className="absolute inset-0 bg-gradient-to-tr from-amber-600/20 via-purple-600/15 to-blue-600/20 opacity-80 blur-3xl rounded-full" />
-      <div className="absolute w-72 h-72 rounded-full bg-amber-500/15 blur-2xl" />
+      <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/20 via-purple-600/20 to-cyan-600/20 opacity-80 blur-3xl rounded-full" />
+      <div className="absolute w-72 h-72 rounded-full bg-blue-500/15 blur-2xl" />
 
       {/* Portrait Image container with seamless edge vignette / gradient mask */}
       <div className="relative w-full h-full rounded-3xl overflow-hidden shadow-2xl flex items-center justify-center">
         <img
           src="./praveen_portrait.jpg"
           alt="Praveen Kumar E"
-          className="w-full h-full object-cover object-top filter brightness-[1.02] contrast-[1.06]"
+          className="w-full h-full object-cover object-top filter brightness-[1.02] contrast-[1.06] group-hover:scale-105 transition-transform duration-700"
           onError={(e) => {
             (e.currentTarget as HTMLImageElement).src = "./praveen.png";
           }}
         />
 
-        {/* Seamless 4-side Edge Vignette & Bottom Gradient Fade to merge image into site background */}
+        {/* Seamless 4-side Edge Vignette & Bottom Gradient Fade */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
             background: `
-              radial-gradient(ellipse at center, transparent 45%, #0a0b0f 98%),
-              linear-gradient(to top, #0a0b0f 0%, transparent 30%),
-              linear-gradient(to bottom, #0a0b0f 0%, transparent 15%)
+              radial-gradient(ellipse at center, transparent 40%, #07070a 98%),
+              linear-gradient(to top, #07070a 0%, transparent 28%),
+              linear-gradient(to bottom, #07070a 0%, transparent 15%)
             `,
           }}
         />
       </div>
-
     </div>
   );
 }
@@ -61,56 +146,62 @@ function PraveenPortraitVisual() {
 export default function Hero() {
   return (
     <section id="home" className="relative min-h-screen flex items-center pt-28 pb-16 overflow-hidden">
-      {/* Atmospheric Editorial Ambient Warm Glows */}
-      <div className="absolute top-1/4 -left-32 w-[600px] h-[600px] bg-amber-600/[0.07] blur-[180px] rounded-full pointer-events-none" />
-      <div className="absolute top-1/3 -right-32 w-[600px] h-[600px] bg-blue-600/[0.07] blur-[180px] rounded-full pointer-events-none" />
+      {/* Ambient Multi-Color Glows */}
+      <div className="absolute top-1/4 -left-20 w-[500px] h-[500px] bg-blue-600/15 blur-[150px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/3 -right-20 w-[500px] h-[500px] bg-purple-600/15 blur-[150px] rounded-full pointer-events-none" />
+      <div className="absolute -bottom-20 left-1/3 w-[450px] h-[450px] bg-cyan-500/10 blur-[140px] rounded-full pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-6 md:px-12 w-full grid lg:grid-cols-12 gap-12 lg:gap-8 items-center relative z-10">
         
-        {/* Left Column — High Editorial Style (INSIGHT style layout) */}
+        {/* Left Column */}
         <div className="lg:col-span-7 flex flex-col items-start text-left">
           
-          {/* Numbered Section Tag */}
+          {/* Availability pill with emerald pulse */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="flex items-center gap-3 text-xs font-mono mb-6"
+            className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-gradient-to-r from-blue-600/15 via-purple-600/15 to-emerald-600/15 border border-blue-500/30 text-xs font-mono mb-6"
           >
-            <span className="text-amber-400 font-bold tracking-widest uppercase">01 / CREATIVE PORTFOLIO</span>
-            <span className="text-slate-700">|</span>
-            <span className="text-slate-400">AI &amp; DATA SCIENCE (2024–2028)</span>
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+            </span>
+            <span className="text-emerald-400 font-medium">Available for Opportunities</span>
+            <span className="text-slate-600">|</span>
+            <span className="text-cyan-400">AI & DS 2024–2028</span>
           </motion.div>
 
-          {/* Huge Editorial Heading (INSIGHT style massive typography) */}
+          {/* Main Name Heading with Multi-Color Shimmer */}
           <motion.h1
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.6 }}
-            className="text-5xl sm:text-7xl md:text-8xl font-bold font-editorial tracking-tighter text-white leading-[0.98] mb-6 uppercase"
+            className="text-4xl sm:text-6xl md:text-7xl font-bold font-display tracking-tight text-white leading-[1.08] mb-4"
           >
-            Praveen <br />
-            <span className="gradient-editorial-headline">Kumar E</span>
+            Praveen Kumar <span className="gradient-hero-text">E</span>
           </motion.h1>
 
-          {/* Subtitle / Role */}
+          {/* Subtitle / Role with color gradient */}
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.6 }}
-            className="text-base sm:text-lg font-mono text-slate-300 font-medium mb-6 tracking-wide"
+            className="text-base sm:text-lg font-mono font-medium mb-6 tracking-wide flex flex-wrap items-center gap-2"
           >
-            AI &amp; Data Science Engineer · Full-Stack Developer
+            <span className="text-blue-400">AI & Data Science Engineer</span>
+            <span className="text-slate-600 hidden sm:inline">·</span>
+            <span className="text-purple-400">Full-Stack Developer</span>
           </motion.p>
 
-          {/* Narrative Summary */}
+          {/* Narrative Description */}
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.6 }}
-            className="text-slate-400 text-base md:text-lg max-w-xl leading-relaxed mb-8 font-normal"
+            className="text-slate-300 text-base md:text-lg max-w-xl leading-relaxed mb-8 font-normal"
           >
-            3rd-year B.Tech student at Shree Venkateshwara Hi-tech Engineering College. Crafting intelligent machine learning architectures, computer vision models, and clean digital products.
+            3rd-year B.Tech student at Shree Venkateshwara Hi-tech Engineering College. Building intelligent machine learning solutions, computer vision models, and modern digital applications.
           </motion.p>
 
           {/* Location & Contact row */}
@@ -118,44 +209,44 @@ export default function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35, duration: 0.6 }}
-            className="flex flex-wrap items-center gap-4 text-xs font-mono text-slate-400 mb-9"
+            className="flex flex-wrap items-center gap-4 text-xs font-mono text-slate-400 mb-8"
           >
             <span className="flex items-center gap-1.5">
-              <MapPin size={14} className="text-amber-400" />
+              <MapPin size={14} className="text-emerald-400" />
               {personal.location}
             </span>
-            <span className="text-slate-700">·</span>
-            <a href={`tel:${personal.phone}`} className="flex items-center gap-1.5 hover:text-white transition-colors">
+            <span className="text-slate-600">·</span>
+            <a href={`tel:${personal.phone}`} className="flex items-center gap-1.5 hover:text-cyan-400 transition-colors">
               <Phone size={14} className="text-cyan-400" />
               {personal.phone}
             </a>
-            <span className="text-slate-700">·</span>
-            <a href={`mailto:${personal.email}`} className="flex items-center gap-1.5 hover:text-white transition-colors">
+            <span className="text-slate-600">·</span>
+            <a href={`mailto:${personal.email}`} className="flex items-center gap-1.5 hover:text-blue-400 transition-colors">
               <Mail size={14} className="text-blue-400" />
               {personal.email}
             </a>
           </motion.div>
 
-          {/* Editorial Action CTAs */}
+          {/* Action CTAs with gradient buttons */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
-            className="flex flex-wrap items-center gap-4 mb-8"
+            className="flex flex-wrap items-center gap-3.5 mb-8"
           >
             <a
               href="#projects"
-              className="flex items-center gap-2.5 px-7 py-3.5 rounded-xl text-xs font-mono font-semibold bg-white text-black hover:bg-slate-200 transition-all duration-200 shadow-xl"
+              className="flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-semibold bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white transition-all duration-200 shadow-lg shadow-blue-600/30 hover:shadow-purple-600/40"
             >
-              <span>EXPLORE WORK</span>
-              <ArrowUpRight size={15} />
+              <span>Explore Projects (13+)</span>
+              <ArrowUpRight size={16} />
             </a>
 
             <a
               href={`mailto:${personal.email}`}
-              className="flex items-center gap-2 px-6 py-3.5 rounded-xl text-xs font-mono font-semibold bg-white/[0.04] hover:bg-white/[0.08] text-slate-200 hover:text-white border border-white/10 transition-all duration-200"
+              className="flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-semibold bg-white/[0.04] hover:bg-white/[0.08] text-slate-200 hover:text-white border border-white/10 hover:border-cyan-500/40 transition-all duration-200"
             >
-              <span>GET IN TOUCH</span>
+              <span>Get in Touch</span>
             </a>
           </motion.div>
 
@@ -170,7 +261,7 @@ export default function Hero() {
               href={personal.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-10 h-10 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 text-slate-400 hover:text-white flex items-center justify-center transition-all duration-200"
+              className="w-10 h-10 rounded-xl bg-white/[0.03] hover:bg-blue-600/20 border border-white/10 hover:border-blue-500/40 text-slate-400 hover:text-blue-400 flex items-center justify-center transition-all duration-200 shadow-sm"
               aria-label="GitHub Profile"
             >
               <GithubIcon size={18} />
@@ -179,7 +270,7 @@ export default function Hero() {
               href={personal.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-10 h-10 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 text-slate-400 hover:text-white flex items-center justify-center transition-all duration-200"
+              className="w-10 h-10 rounded-xl bg-white/[0.03] hover:bg-purple-600/20 border border-white/10 hover:border-purple-500/40 text-slate-400 hover:text-purple-400 flex items-center justify-center transition-all duration-200 shadow-sm"
               aria-label="LinkedIn Profile"
             >
               <LinkedinIcon size={18} />
@@ -200,9 +291,9 @@ export default function Hero() {
       </div>
 
       {/* Down arrow indicator */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-1 opacity-50 hover:opacity-100 transition-opacity">
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-1 opacity-60 hover:opacity-100 transition-opacity">
         <a href="#about" aria-label="Scroll to About">
-          <ChevronDown size={20} className="animate-bounce text-slate-400" />
+          <ChevronDown size={20} className="animate-bounce text-cyan-400" />
         </a>
       </div>
     </section>

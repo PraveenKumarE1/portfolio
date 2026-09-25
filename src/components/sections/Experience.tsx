@@ -17,13 +17,13 @@ export default function Experience() {
       <div className="absolute bottom-10 right-0 w-[450px] h-[450px] bg-emerald-600/10 blur-[140px] rounded-full pointer-events-none" />
 
       <div className="max-w-4xl mx-auto">
-        {/* Header — INSIGHT Editorial Style */}
+        {/* Header */}
         <div className="mb-14 text-center md:text-left">
-          <span className="text-xs font-mono text-amber-400 uppercase tracking-widest block mb-2 font-semibold">
-            05 / PROFESSIONAL EXPERIENCE &amp; MILESTONES
+          <span className="text-xs font-mono text-amber-400 uppercase tracking-widest block mb-2">
+            04 / Trajectory & Work History
           </span>
-          <h2 className="text-4xl sm:text-6xl font-bold font-editorial text-white tracking-tight uppercase">
-            WORK &amp; <span className="gradient-editorial-headline">TRAJECTORY</span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-display text-white tracking-tight">
+            Experience & <span className="gradient-amber-orange">Milestones</span>
           </h2>
         </div>
 

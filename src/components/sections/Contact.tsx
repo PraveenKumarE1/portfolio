@@ -96,16 +96,16 @@ export default function Contact() {
       <div className="absolute bottom-10 right-1/4 w-[500px] h-[500px] bg-purple-600/10 blur-[150px] rounded-full pointer-events-none" />
 
       <div className="max-w-6xl mx-auto">
-        {/* Header — INSIGHT Editorial Style */}
+        {/* Header */}
         <div className="mb-14">
-          <span className="text-xs font-mono text-amber-400 uppercase tracking-widest block mb-2 font-semibold">
-            07 / CONNECT &amp; COLLABORATE
+          <span className="text-xs font-mono text-cyan-400 uppercase tracking-widest block mb-2">
+            06 / Connect & Collaborate
           </span>
-          <h2 className="text-4xl sm:text-6xl font-bold font-editorial text-white tracking-tight uppercase">
-            GET IN <span className="gradient-editorial-headline">TOUCH</span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-display text-white tracking-tight">
+            Get in <span className="gradient-blue-cyan">Touch</span>
           </h2>
-          <p className="text-xs font-mono text-slate-400 mt-3 max-w-xl leading-relaxed">
-            Have an open opportunity, project proposal, or collaboration? Send a direct message below.
+          <p className="text-sm font-mono text-slate-400 mt-2 max-w-xl">
+            Have an open opportunity, project proposal, or want to collaborate? Send a message directly and it will be delivered to my inbox and backend.
           </p>
         </div>
 

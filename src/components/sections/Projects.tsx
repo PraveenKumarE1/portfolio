@@ -70,16 +70,6 @@ const projectQuickGrasp: Record<number, { simpleWhat: string; keyHighlights: str
     keyHighlights: ["Static Site Generation (SSG)", "Markdown & MDX article support", "Cloudflare Workers edge delivery"],
     badge: "Cloud & Static Site",
   },
-  12: {
-    simpleWhat: "AI-powered ATS Resume Analyzer evaluating candidate resumes against job descriptions with percentage match scores and gap fixes.",
-    keyHighlights: ["PDF resume parsing engine", "Keyword gap & density calculator", "Actionable formatting recommendations"],
-    badge: "AI + Career Tools",
-  },
-  13: {
-    simpleWhat: "All-in-one financial operating system for early-stage startups featuring cap table management, fundraising metrics, and investor updates.",
-    keyHighlights: ["Interactive cap table dilution calculator", "Burn rate & runway forecasting models", "Automated investor update reports"],
-    badge: "FinTech & Hackathon",
-  },
 };
 
 const filterTabs = [
@@ -107,20 +97,18 @@ export default function Projects() {
       <div className="absolute bottom-10 right-1/4 w-[500px] h-[500px] bg-purple-600/10 blur-[160px] rounded-full pointer-events-none" />
 
       <div className="max-w-6xl mx-auto">
-        {/* Header — INSIGHT Editorial Style */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
           <div>
-            <span className="text-xs font-mono text-amber-400 uppercase tracking-widest block mb-2 font-semibold flex items-center gap-2">
-              <span>04 / SELECTED WORKS &amp; REPOSITORIES</span>
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="text-[10px] text-emerald-400 font-bold">GITHUB LIVE SYNC</span>
+            <span className="text-xs font-mono text-emerald-400 uppercase tracking-widest block mb-2">
+              03 / Engineering Portfolio
             </span>
-            <h2 className="text-4xl sm:text-6xl font-bold font-editorial text-white tracking-tight uppercase">
-              FEATURED <span className="gradient-editorial-headline">PROJECTS</span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-display text-white tracking-tight">
+              Featured <span className="gradient-emerald-teal">Projects</span>
             </h2>
           </div>
-          <p className="text-xs font-mono text-slate-400 max-w-sm md:text-right leading-relaxed">
-            {projects.length} verified open-source repositories dynamically synced with GitHub for real-world results.
+          <p className="text-sm font-mono text-slate-400 max-w-md">
+            11 verified open-source repositories designed for high performance, practical problem solving, and clear real-world outcomes.
           </p>
         </div>
 
@@ -301,49 +289,6 @@ export default function Projects() {
               className={`transition-transform duration-300 ${showAllProjects ? "-rotate-90" : "rotate-90"}`}
             />
           </button>
-        </div>
-
-        {/* Live GitHub & LinkedIn Sync Panel */}
-        <div className="mt-14 editorial-card p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 border border-white/10 bg-gradient-to-r from-blue-950/20 via-purple-950/20 to-amber-950/20">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-white/[0.06] border border-white/10 flex items-center justify-center shrink-0 text-emerald-400">
-              <Activity size={22} className="animate-pulse" />
-            </div>
-            <div>
-              <span className="text-[10px] font-mono text-emerald-400 uppercase tracking-widest font-bold block mb-1">
-                AUTOMATED SYNC ACTIVE
-              </span>
-              <h4 className="text-lg font-bold font-editorial text-white tracking-tight">
-                GitHub &amp; LinkedIn Realtime Account Integration
-              </h4>
-              <p className="text-xs font-mono text-slate-400 mt-1 max-w-xl">
-                Any new project repository or certification update posted on Praveen's GitHub or LinkedIn profiles is dynamically linked to this portfolio.
-              </p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3 shrink-0">
-            <a
-              href="https://github.com/PraveenKumarE1"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/[0.05] hover:bg-white/[0.10] border border-white/10 text-xs font-mono text-slate-200 hover:text-white transition-all shadow-md"
-            >
-              <GithubIcon size={14} />
-              <span>GitHub Repos</span>
-              <ArrowUpRight size={14} />
-            </a>
-
-            <a
-              href="https://www.linkedin.com/in/praveen-kumar-e-952444358"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/40 text-xs font-mono text-blue-300 hover:text-white transition-all shadow-md shadow-blue-500/10"
-            >
-              <span>LinkedIn Feed</span>
-              <ArrowUpRight size={14} />
-            </a>
-          </div>
         </div>
 
       </div>

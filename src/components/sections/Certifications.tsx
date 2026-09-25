@@ -1,12 +1,10 @@
 import { useState } from "react";
-import { Award, CheckCircle2, ShieldCheck, Copy, Check, Eye, X } from "lucide-react";
+import { Award, CheckCircle2, ShieldCheck, Copy, Check } from "lucide-react";
 import { certifications } from "../../data/portfolio";
 import Tilt from "react-parallax-tilt";
-import { motion, AnimatePresence } from "framer-motion";
 
 export default function Certifications() {
   const [copiedId, setCopiedId] = useState<number | null>(null);
-  const [selectedCertImage, setSelectedCertImage] = useState<string | null>(null);
 
   const handleCopy = (id: number, text: string) => {
     navigator.clipboard.writeText(text);
@@ -21,18 +19,18 @@ export default function Certifications() {
       <div className="absolute bottom-10 -left-20 w-[500px] h-[500px] bg-pink-600/10 blur-[150px] rounded-full pointer-events-none" />
 
       <div className="max-w-6xl mx-auto">
-        {/* Header — INSIGHT Editorial Style */}
+        {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
           <div>
-            <span className="text-xs font-mono text-amber-400 uppercase tracking-widest block mb-2 font-semibold">
-              06 / CREDENTIALS &amp; ACCOMPLISHMENTS
+            <span className="text-xs font-mono text-pink-400 uppercase tracking-widest block mb-2">
+              05 / Verifications & Credentials
             </span>
-            <h2 className="text-4xl sm:text-6xl font-bold font-editorial text-white tracking-tight uppercase">
-              VERIFIED <span className="gradient-editorial-headline">CERTIFICATIONS</span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-display text-white tracking-tight">
+              Verified <span className="gradient-purple-pink">Certifications</span>
             </h2>
           </div>
-          <p className="text-xs font-mono text-slate-400 max-w-sm md:text-right leading-relaxed">
-            Academic honors, industry credentials, and technical awards with verifiable serial numbers.
+          <p className="text-sm font-mono text-slate-400 max-w-md">
+            Official academic honors, industry credentials, and technical symposium awards with verifiable serial numbers.
           </p>
         </div>
 
@@ -111,6 +109,17 @@ export default function Certifications() {
                 {/* Certificate Body (Document Sample Layout) */}
                 <div className="p-6 flex-1 flex flex-col justify-between">
                   <div>
+                    {cert.image && (
+                      <div className="relative h-40 overflow-hidden rounded-xl border border-white/10 mb-4 group/img">
+                        <img
+                          src={cert.image}
+                          alt={cert.title}
+                          className="w-full h-full object-cover object-center group-hover/img:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a12] via-transparent to-transparent opacity-60" />
+                      </div>
+                    )}
+
                     <div className="flex items-center gap-1.5 text-[10px] font-mono text-slate-500 mb-1.5">
                       <span>RECIPIENT:</span>
                       <span className="text-slate-300 font-semibold">PRAVEEN KUMAR E</span>
@@ -124,24 +133,9 @@ export default function Certifications() {
                       {cert.issuer}
                     </p>
 
-                    <p className="text-xs font-mono text-slate-400 mb-3">
+                    <p className="text-xs font-mono text-slate-400 mb-4">
                       {cert.date}
                     </p>
-
-                    {/* Image Preview thumbnail button if certificate image exists */}
-                    {cert.image && (
-                      <button
-                        onClick={() => setSelectedCertImage(cert.image)}
-                        className="w-full mb-4 p-2 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 flex items-center justify-between text-xs font-mono text-emerald-400 transition-colors"
-                      >
-                        <span className="flex items-center gap-2">
-                          <Eye size={14} /> View Certificate Image
-                        </span>
-                        <span className="text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300">
-                          Inspect
-                        </span>
-                      </button>
-                    )}
                   </div>
 
                   {/* Verification ID box with copy button */}
@@ -190,39 +184,6 @@ export default function Certifications() {
         </div>
 
       </div>
-
-      {/* Certificate Image Lightbox Modal */}
-      <AnimatePresence>
-        {selectedCertImage && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md"
-            onClick={() => setSelectedCertImage(null)}
-          >
-            <motion.div
-              initial={{ scale: 0.9, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 20 }}
-              className="relative max-w-4xl max-h-[90vh] overflow-hidden rounded-2xl border border-white/20 shadow-2xl bg-[#090a12]"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button
-                onClick={() => setSelectedCertImage(null)}
-                className="absolute top-4 right-4 z-10 p-2 rounded-xl bg-black/60 hover:bg-black text-white transition-colors border border-white/20"
-              >
-                <X size={20} />
-              </button>
-              <img
-                src={selectedCertImage}
-                alt="Certificate Document"
-                className="w-full h-auto max-h-[85vh] object-contain rounded-2xl"
-              />
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </section>
   );
 }
