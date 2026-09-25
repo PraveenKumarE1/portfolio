@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowUpRight, Mail, Phone, MapPin, ChevronDown } from "lucide-react";
+import { ArrowUpRight, Mail, Phone, MapPin, ChevronDown, Cpu, Database, Code2, Brain, Activity, Sparkles } from "lucide-react";
 import { personal } from "../../data/portfolio";
 
 function GithubIcon({ size = 16 }: { size?: number }) {
@@ -21,31 +21,39 @@ function LinkedinIcon({ size = 16 }: { size?: number }) {
   );
 }
 
-// Pure Photo Visual — No Boxes, No Text Words, Only Praveen's Photo Merged with Background
+// Clean Portrait Image seamlessly merged directly with dark background canvas (no text, no badges, no card frames)
 function PraveenPortraitVisual() {
   return (
-    <div className="relative w-full max-w-[340px] sm:max-w-[380px] aspect-[3/4] flex items-center justify-center">
-      {/* Soft Ambient Radial Glow Behind Photo */}
-      <div className="absolute w-72 h-72 rounded-full bg-gradient-to-tr from-amber-600/20 via-purple-600/15 to-blue-600/20 blur-3xl pointer-events-none" />
+    <div className="relative w-full max-w-[360px] sm:max-w-[400px] aspect-[4/5] flex items-center justify-center pointer-events-none select-none">
+      
+      {/* Ambient background glowing aura */}
+      <div className="absolute inset-0 bg-gradient-to-tr from-amber-600/20 via-purple-600/15 to-blue-600/20 opacity-80 blur-3xl rounded-full" />
+      <div className="absolute w-72 h-72 rounded-full bg-amber-500/15 blur-2xl" />
 
-      {/* Pure Photo Element (Clean, Frameless, Merged with Dark Background) */}
-      <div className="relative w-full h-full rounded-3xl overflow-hidden group">
+      {/* Portrait Image container with seamless edge vignette / gradient mask */}
+      <div className="relative w-full h-full rounded-3xl overflow-hidden shadow-2xl flex items-center justify-center">
         <img
-          src="./praveen.png"
+          src="./praveen_portrait.jpg"
           alt="Praveen Kumar E"
-          className="w-full h-full object-cover object-top filter contrast-[1.06] brightness-[0.96] transition-transform duration-700 group-hover:scale-105"
-          style={{
-            mixBlendMode: "lighten",
-          }}
+          className="w-full h-full object-cover object-top filter brightness-[1.02] contrast-[1.06]"
           onError={(e) => {
-            (e.currentTarget as HTMLImageElement).src = "/praveen.png";
+            (e.currentTarget as HTMLImageElement).src = "./praveen.png";
           }}
         />
 
-        {/* Seamless Edge & Bottom Gradient Vignette (Merges image smoothly into page background) */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0b0f] via-transparent to-transparent opacity-95 pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0b0f]/30 via-transparent to-transparent pointer-events-none" />
+        {/* Seamless 4-side Edge Vignette & Bottom Gradient Fade to merge image into site background */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: `
+              radial-gradient(ellipse at center, transparent 45%, #0a0b0f 98%),
+              linear-gradient(to top, #0a0b0f 0%, transparent 30%),
+              linear-gradient(to bottom, #0a0b0f 0%, transparent 15%)
+            `,
+          }}
+        />
       </div>
+
     </div>
   );
 }
@@ -179,7 +187,7 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Right Column: Only Praveen's Photo (Frameless, No Boxes, No Text Words) */}
+        {/* Right Column: Praveen's Portrait seamlessly merged into dark background */}
         <motion.div
           initial={{ opacity: 0, scale: 0.94 }}
           animate={{ opacity: 1, scale: 1 }}

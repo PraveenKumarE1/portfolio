@@ -344,6 +344,58 @@ export const projects = [
     accentColor: "rgba(245,158,11,0.15)",
     featured: false,
   },
+  {
+    id: 12,
+    title: "ATS RESUME CHECKER",
+    subtitle: "AI Resume Compatibility Analyzer",
+    tagline: "Automated candidate resume parsing against target job descriptions",
+    category: "AI / Web",
+    description:
+      "Engineered an ATS resume optimization tool that analyzes student resume PDFs against target job descriptions to compute percentage match scores, detect missing keywords, and suggest formatting fixes.",
+    problem:
+      "Job seekers get filtered out by Applicant Tracking Systems (ATS) without clear feedback on missing keywords or incompatible formatting.",
+    solution:
+      "Built a web utility integrating PyPDF2 resume parsing with keyword extraction and ATS scoring algorithms to provide immediate actionable feedback.",
+    tech: ["Python", "Flask", "PyPDF2", "NLP", "React", "Tailwind CSS"],
+    features: [
+      "PDF resume text extraction & parsing",
+      "Job description keyword density & gap analysis",
+      "Instant ATS match percentage score calculator",
+      "Formatting & section improvement recommendations",
+    ],
+    github: "https://github.com/PraveenKumarE1/ats-resume-checker",
+    githubAlt: "https://github.com/PraveenKumarE1",
+    demo: "#",
+    color: "#10B981",
+    accentColor: "rgba(16,185,129,0.15)",
+    featured: true,
+  },
+  {
+    id: 13,
+    title: "STARTUPFINANCE OS",
+    subtitle: "Startup Financial Operating System",
+    tagline: "All-in-one financial modeling, fundraising metrics & cap table management",
+    category: "Full-Stack Web",
+    description:
+      "Developed a comprehensive financial operating system for early-stage startups created during a National Hackathon — featuring fundraising tracking, financial projection modeling, cap table management, and investor update generators.",
+    problem:
+      "Early-stage founders lack streamlined tools for cap table management, runway projections, and automated investor updates.",
+    solution:
+      "Created a full-stack financial dashboard combining real-time metric tracking, cap table dilution calculators, and financial scenario models.",
+    tech: ["React", "TypeScript", "Tailwind CSS", "Financial Modeling", "Chart.js", "Supabase"],
+    features: [
+      "Interactive cap table & equity dilution calculator",
+      "Burn rate & runway projection forecasting models",
+      "Fundraising pipeline & investor CRM dashboard",
+      "Automated monthly investor update report generator",
+    ],
+    github: "https://github.com/PraveenKumarE1/startup-finance-os",
+    githubAlt: "https://github.com/PraveenKumarE1",
+    demo: "#",
+    color: "#6366F1",
+    accentColor: "rgba(99,102,241,0.15)",
+    featured: true,
+  },
 ];
 
 export const experience = [
@@ -369,16 +421,26 @@ export const experience = [
   },
   {
     id: 3,
+    year: "Sept 21, 2026",
+    role: "National Level Hackathon 2k26",
+    org: "K.L.N. College of Engineering (Dept of CSE in association with IIC & ACE)",
+    type: "Hackathon",
+    desc: "Participated in the National Level Hackathon 2k26 organized by K.L.N. College of Engineering, developing innovative software solutions under national-level competition.",
+    icon: "code",
+    color: "#10B981",
+  },
+  {
+    id: 4,
     year: "Feb 2026",
     role: "Paper Pitch",
     org: "SYNERGIA 2K26 – 21st National Level Technical Symposium, Dept of AI & DS, Velalar College of Engineering and Technology, Erode",
     type: "Achievement",
     desc: "Presented a technical paper at SYNERGIA 2K26 national-level technical symposium organized by the Department of Artificial Intelligence & Data Science.",
     icon: "file-text",
-    color: "#10B981",
+    color: "#3B82F6",
   },
   {
-    id: 4,
+    id: 5,
     year: "Feb 27, 2026",
     role: "Paper War – GALAXY'26",
     org: "The Version of AI – Association of ECE, Government College of Engineering, Erode",
@@ -388,7 +450,7 @@ export const experience = [
     color: "#F59E0B",
   },
   {
-    id: 5,
+    id: 6,
     year: "Smart India Hackathon (SIH) 2026",
     role: "SIH Hackathon Preparation & Technical Lead",
     org: "Shree Venkateshwara Hi-Tech Engineering College",
@@ -402,6 +464,18 @@ export const experience = [
 export const certifications = [
   {
     id: 1,
+    title: "National Level Hackathon 2k26",
+    badge: "HACKATHON PARTICIPATION",
+    issuer: "K.L.N. College of Engineering (Dept of CSE / IIC & ACE)",
+    date: "Sept 21, 2026",
+    code: "Sponsored by KAIRAA Blockchain Academy",
+    color: "#10B981",
+    icon: "award",
+    image: "./kln_hackathon_2k26.jpg",
+    verified: true,
+  },
+  {
+    id: 2,
     title: "Enhancing Soft Skills and Personality",
     badge: "ELITE CERTIFIED (62%)",
     issuer: "IIT Kanpur via SWAYAM / NPTEL",
@@ -412,7 +486,7 @@ export const certifications = [
     verified: true,
   },
   {
-    id: 2,
+    id: 3,
     title: "Claude 101",
     badge: "CERTIFIED",
     issuer: "Anthropic",
@@ -423,7 +497,7 @@ export const certifications = [
     verified: true,
   },
   {
-    id: 3,
+    id: 4,
     title: "Python Programming",
     badge: "CERTIFIED",
     issuer: "GUVI | Google for Education Partner",
@@ -434,7 +508,7 @@ export const certifications = [
     verified: true,
   },
   {
-    id: 4,
+    id: 5,
     title: "Generative AI Inplant Training",
     badge: "ACCOMPLISHMENT",
     issuer: "Fantasy Solution, Trichy",
@@ -445,7 +519,7 @@ export const certifications = [
     verified: true,
   },
   {
-    id: 5,
+    id: 6,
     title: "Paper War – The Version of AI",
     badge: "PARTICIPATION",
     issuer: "Govt. College of Engineering, Erode (GALAXY'26)",
