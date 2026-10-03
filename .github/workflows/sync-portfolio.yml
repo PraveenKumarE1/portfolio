@@ -1,0 +1,44 @@
+# Automated GitHub & Portfolio Sync Workflow
+# Keeps portfolio repositories, dependencies, and deployed site constantly fresh
+
+name: 🔄 Auto-Sync & Rebuild Portfolio
+
+on:
+  schedule:
+    - cron: '0 0 * * *'    # Runs automatically every midnight UTC
+  workflow_dispatch:        # Can be triggered on-demand via GitHub UI or API webhook
+  push:
+    branches: [ main ]
+
+permissions:
+  contents: write
+
+jobs:
+  sync-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: 📦 Install dependencies
+        run: npm ci
+
+      - name: 🔨 Build portfolio with latest assets & live data
+        run: npm run build
+        env:
+          NODE_ENV: production
+
+      - name: 🌐 Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          commit_message: 'chore: auto-sync portfolio with latest GitHub & LinkedIn activity [skip ci]'

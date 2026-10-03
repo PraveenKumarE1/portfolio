@@ -21,7 +21,7 @@ export const personal = {
 export const stats = [
   { label: "Year", value: "3rd", suffix: "" },
   { label: "Department", value: "AI & DS", suffix: "" },
-  { label: "GitHub Projects", value: "13", suffix: "+" },
+  { label: "GitHub Projects", value: "15", suffix: "+" },
   { label: "Certifications", value: "6", suffix: "+" },
 ];
 
@@ -396,6 +396,58 @@ export const projects = [
     accentColor: "rgba(99,102,241,0.15)",
     featured: true,
   },
+  {
+    id: 14,
+    title: "NEXUS AI",
+    subtitle: "Autonomous AI Workflow & Orchestration Engine",
+    tagline: "Next-gen intelligent agent orchestration & multi-model workflow system",
+    category: "Generative AI",
+    description:
+      "Advanced multi-agent AI system built with TypeScript and modern LLM APIs to orchestrate complex task workflows, semantic retrieval, and autonomous decision-making pipelines.",
+    problem:
+      "Complex automation workflows require coordinating multiple specialized AI agents, prompt strategies, and external API tool executions reliably.",
+    solution:
+      "Architected Nexus AI using TypeScript, structured tool execution loops, and responsive interfaces for autonomous workflow execution.",
+    tech: ["TypeScript", "AI Agents", "LLM APIs", "Workflow Automation", "React"],
+    features: [
+      "Multi-agent autonomous task orchestration",
+      "Semantic tool execution and memory routing",
+      "Real-time pipeline monitoring and streaming responses",
+      "Strict TypeScript typings for workflow pipelines",
+    ],
+    github: "https://github.com/PraveenKumarE1/nexus-ai",
+    githubAlt: "https://github.com/PraveenKumarE1",
+    demo: "#",
+    color: "#8B5CF6",
+    accentColor: "rgba(139,92,246,0.15)",
+    featured: true,
+  },
+  {
+    id: 15,
+    title: "RESUME CREATOR AI",
+    subtitle: "Intelligent ATS-Optimized Resume Builder",
+    tagline: "Interactive ATS resume creation with instant preview and skill scoring",
+    category: "AI / Web",
+    description:
+      "Interactive resume builder application enabling students and job seekers to generate high-scoring, ATS-compliant resumes with structured data export and automated formatting.",
+    problem:
+      "Job applicants often fail initial recruiter screenings due to poorly structured resume formats and low keyword match scores against ATS scanners.",
+    solution:
+      "Engineered an interactive resume creation suite with dynamic section formatting, live ATS compliance scoring, and clean exports.",
+    tech: ["HTML5", "JavaScript", "CSS3", "ATS Scoring", "PDF Generation"],
+    features: [
+      "Dynamic section customization (Education, Experience, Projects, Skills)",
+      "Instant ATS keyword formatting and structure optimization",
+      "One-click responsive resume generation and clean export",
+      "Optimized for modern technical job descriptions",
+    ],
+    github: "https://github.com/PraveenKumarE1/Resume-creator-",
+    githubAlt: "https://github.com/PraveenKumarE1",
+    demo: "#",
+    color: "#10B981",
+    accentColor: "rgba(16,185,129,0.15)",
+    featured: false,
+  },
 ];
 
 export const experience = [
@@ -465,7 +517,7 @@ export const certifications = [
   {
     id: 1,
     title: "National Level Hackathon 2k26",
-    badge: "HACKATHON PARTICIPATION",
+    badge: "CERTIFICATE OF PARTICIPATION",
     issuer: "K.L.N. College of Engineering (Dept of CSE / IIC & ACE)",
     date: "Sept 21, 2026",
     code: "Sponsored by KAIRAA Blockchain Academy",
@@ -483,6 +535,7 @@ export const certifications = [
     code: "Roll No: NPTEL25HS87S1045100627",
     color: "#3B82F6",
     icon: "award",
+    image: "./certificates/cert_nptel.jpg",
     verified: true,
   },
   {
@@ -494,6 +547,7 @@ export const certifications = [
     code: "Anthropic Certified",
     color: "#7C3AED",
     icon: "cpu",
+    image: "./certificates/cert_claude.jpg",
     verified: true,
   },
   {
@@ -505,6 +559,7 @@ export const certifications = [
     code: "Certificate ID: c27f17408e13c88575",
     color: "#10B981",
     icon: "code",
+    image: "./certificates/cert_python.jpg",
     verified: true,
   },
   {
@@ -516,6 +571,7 @@ export const certifications = [
     code: "Student Reg: 732524AD092",
     color: "#F59E0B",
     icon: "cpu",
+    image: "./certificates/cert_fantasy.jpg",
     verified: true,
   },
   {
@@ -527,6 +583,7 @@ export const certifications = [
     code: "National Technical Event",
     color: "#EC4899",
     icon: "award",
+    image: "./certificates/cert_galaxy.jpg",
     verified: true,
   },
 ];
