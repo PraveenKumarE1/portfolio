@@ -589,3 +589,34 @@ export const certifications = [
 ];
 
 export const strengths = ["Effective Communicator", "Quick Learner", "Team Collaborator", "Analytical Thinker"];
+
+export const linkedinPosts = [
+  {
+    id: 1,
+    author: "Praveen Kumar E",
+    authorRole: "Student at Shree Venkateshwara Hi-Tech Engineering College",
+    postedDate: "Recent Update",
+    text: "Participated in Hackathon 2K26, a National Level Hackathon organized by the Department of Computer Science and Engineering, KLN College of Engineering, in association with IIC & ACE.",
+    images: ["./kln_hackathon_2k26.jpg", "./kln_hackathon_lab.jpg"],
+    impressions: "142 impressions",
+    likes: "14 likes",
+    link: "https://www.linkedin.com/in/praveen-kumar-e-952444358/recent-activity/all/",
+    category: "Certificate & Hackathon",
+    badge: "National Hackathon 2K26",
+    color: "#10B981",
+  },
+  {
+    id: 2,
+    author: "Praveen Kumar E",
+    authorRole: "Student at Shree Venkateshwara Hi-Tech Engineering College",
+    postedDate: "SIH Preparation",
+    text: "A productive session as we gear up for Smart India Hackathon (SIH) 2026! Brainstorming innovative problem statements, system architectures, and technical workflows.",
+    images: [],
+    impressions: "253 impressions",
+    likes: "12 likes",
+    link: "https://www.linkedin.com/in/praveen-kumar-e-952444358/recent-activity/all/",
+    category: "Hackathon Preparation",
+    badge: "Smart India Hackathon (SIH) 2026",
+    color: "#3B82F6",
+  },
+];
