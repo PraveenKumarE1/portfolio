@@ -22,7 +22,7 @@ export const stats = [
   { label: "Year", value: "3rd", suffix: "" },
   { label: "Department", value: "AI & DS", suffix: "" },
   { label: "GitHub Projects", value: "15", suffix: "+" },
-  { label: "Certifications", value: "6", suffix: "+" },
+  { label: "Certifications", value: "7", suffix: "+" },
 ];
 
 export const skills = {
@@ -516,6 +516,18 @@ export const experience = [
 export const certifications = [
   {
     id: 1,
+    title: "AI Autonomous Smart City Hackathon 2026",
+    badge: "INNOVATION HACKS CATEGORY",
+    issuer: "Judged by Google, Amazon, Meta, IBM, Deloitte",
+    date: "Sept 30, 2026",
+    code: "AI for a Smarter Tomorrow · Innovation Hacks",
+    color: "#06B6D4",
+    icon: "award",
+    image: "./smart_city_hackathon_2026.jpg",
+    verified: true,
+  },
+  {
+    id: 2,
     title: "National Level Hackathon 2k26",
     badge: "CERTIFICATE OF PARTICIPATION",
     issuer: "K.L.N. College of Engineering (Dept of CSE / IIC & ACE)",
@@ -527,7 +539,7 @@ export const certifications = [
     verified: true,
   },
   {
-    id: 2,
+    id: 3,
     title: "Enhancing Soft Skills and Personality",
     badge: "ELITE CERTIFIED (62%)",
     issuer: "IIT Kanpur via SWAYAM / NPTEL",
@@ -539,7 +551,7 @@ export const certifications = [
     verified: true,
   },
   {
-    id: 3,
+    id: 4,
     title: "Claude 101",
     badge: "CERTIFIED",
     issuer: "Anthropic",
@@ -551,7 +563,7 @@ export const certifications = [
     verified: true,
   },
   {
-    id: 4,
+    id: 5,
     title: "Python Programming",
     badge: "CERTIFIED",
     issuer: "GUVI | Google for Education Partner",
@@ -563,7 +575,7 @@ export const certifications = [
     verified: true,
   },
   {
-    id: 5,
+    id: 6,
     title: "Generative AI Inplant Training",
     badge: "ACCOMPLISHMENT",
     issuer: "Fantasy Solution, Trichy",
@@ -575,7 +587,7 @@ export const certifications = [
     verified: true,
   },
   {
-    id: 6,
+    id: 7,
     title: "Paper War – The Version of AI",
     badge: "PARTICIPATION",
     issuer: "Govt. College of Engineering, Erode (GALAXY'26)",
@@ -595,6 +607,20 @@ export const linkedinPosts = [
     id: 1,
     author: "Praveen Kumar E",
     authorRole: "Student at Shree Venkateshwara Hi-Tech Engineering College",
+    postedDate: "Sep 30",
+    text: "Hackathon Achievement | AI Autonomous Smart City Hackathon 2026. Proud to have participated in the AI Autonomous Smart City Hackathon 2026 and building innovative AI solutions that can empower cities to think, adapt, and operate autonomously. Your innovation. Our future.",
+    images: ["./smart_city_hackathon_2026.jpg"],
+    impressions: "230 impressions",
+    likes: "19 likes",
+    link: "https://www.linkedin.com/in/praveen-kumar-e-952444358/recent-activity/all/",
+    category: "Hackathon Achievement",
+    badge: "AI Autonomous Smart City 2026",
+    color: "#06B6D4",
+  },
+  {
+    id: 2,
+    author: "Praveen Kumar E",
+    authorRole: "Student at Shree Venkateshwara Hi-Tech Engineering College",
     postedDate: "Recent Update",
     text: "Participated in Hackathon 2K26, a National Level Hackathon organized by the Department of Computer Science and Engineering, KLN College of Engineering, in association with IIC & ACE.",
     images: ["./kln_hackathon_2k26.jpg", "./kln_hackathon_lab.jpg"],
@@ -606,7 +632,7 @@ export const linkedinPosts = [
     color: "#10B981",
   },
   {
-    id: 2,
+    id: 3,
     author: "Praveen Kumar E",
     authorRole: "Student at Shree Venkateshwara Hi-Tech Engineering College",
     postedDate: "SIH Preparation",

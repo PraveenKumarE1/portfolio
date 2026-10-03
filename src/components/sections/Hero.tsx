@@ -2,6 +2,8 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Mail, Phone, MapPin, ChevronDown, Sparkles, Cpu, Database, Code2, Brain } from "lucide-react";
 import { personal } from "../../data/portfolio";
+import praveenPortrait from "../../assets/praveen_portrait.jpg";
+import praveenPng from "../../assets/praveen.png";
 
 function GithubIcon({ size = 16 }: { size?: number }) {
   return (
@@ -119,11 +121,11 @@ function PraveenPortraitVisual() {
       {/* Portrait Image container with seamless edge vignette / gradient mask */}
       <div className="relative w-full h-full rounded-3xl overflow-hidden shadow-2xl flex items-center justify-center">
         <img
-          src="./praveen_portrait.jpg"
+          src={praveenPortrait}
           alt="Praveen Kumar E"
           className="w-full h-full object-cover object-top filter brightness-[1.02] contrast-[1.06] group-hover:scale-105 transition-transform duration-700"
           onError={(e) => {
-            (e.currentTarget as HTMLImageElement).src = "./praveen.png";
+            (e.currentTarget as HTMLImageElement).src = praveenPng;
           }}
         />
 

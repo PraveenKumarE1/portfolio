@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { GraduationCap, Briefcase, Award, Code2, Brain, Terminal, Compass, Sparkles } from "lucide-react";
 import { personal, stats, strengths } from "../../data/portfolio";
+import praveenPortrait from "../../assets/praveen_portrait.jpg";
+import praveenPng from "../../assets/praveen.png";
 
 function AnimatedCounter({ target, suffix = "" }: { target: string; suffix?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -130,11 +132,11 @@ export default function About() {
                   <div className="absolute -inset-1 rounded-full border border-dashed border-purple-400/30 animate-spin" style={{ animationDuration: "20s" }} />
                   <div className="w-full h-full rounded-full overflow-hidden border border-white/20 shadow-lg shadow-purple-600/25 bg-slate-900 flex items-center justify-center">
                     <img
-                      src="./praveen_portrait.jpg"
+                      src={praveenPortrait}
                       alt="Praveen Kumar E"
                       className="w-full h-full object-cover object-top"
                       onError={(e) => {
-                        (e.currentTarget as HTMLImageElement).src = "./praveen.png";
+                        (e.currentTarget as HTMLImageElement).src = praveenPng;
                       }}
                     />
                   </div>
