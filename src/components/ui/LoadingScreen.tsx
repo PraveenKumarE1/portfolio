@@ -5,20 +5,38 @@ interface LoadingScreenProps {
   onComplete: () => void;
 }
 
-// Infinity (∞) path in a 240×120 viewBox, tracing both loops from the center crossing
+// Precision Infinity (∞) path in a 240×120 viewBox
 const INFINITY_PATH =
   "M 120,60 C 120,28 94,8 70,16 C 40,26 28,52 28,60 C 28,68 40,94 70,104 C 94,112 120,92 120,60 C 120,28 146,8 170,16 C 200,26 212,52 212,60 C 212,68 200,94 170,104 C 146,112 120,92 120,60";
 
 export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
   const [visible, setVisible] = useState(true);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    // Hide the loading screen at 2.1s, call onComplete at 2.8s (allows fade-out)
-    const hide = setTimeout(() => setVisible(false), 2100);
-    const done = setTimeout(() => onComplete(), 2800);
+    // 3 seconds progress counter from 0% to 100%
+    const intervalTime = 30; // update every 30ms
+    const totalDuration = 3000; // exactly 3 seconds
+    const step = 100 / (totalDuration / intervalTime);
+
+    const timer = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(timer);
+          return 100;
+        }
+        return Math.min(100, Math.round(prev + step));
+      });
+    }, intervalTime);
+
+    // Hide at exactly 3.0s, trigger completion at 3.6s for smooth fade out
+    const hideTimeout = setTimeout(() => setVisible(false), 3000);
+    const completeTimeout = setTimeout(() => onComplete(), 3600);
+
     return () => {
-      clearTimeout(hide);
-      clearTimeout(done);
+      clearInterval(timer);
+      clearTimeout(hideTimeout);
+      clearTimeout(completeTimeout);
     };
   }, [onComplete]);
 
@@ -26,104 +44,160 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
     <AnimatePresence>
       {visible && (
         <motion.div
-          key="loading-screen"
+          key="infinite-loading-screen"
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center select-none"
-          style={{ backgroundColor: "#06060a" }}
+          exit={{ opacity: 0, scale: 1.03 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center select-none overflow-hidden bg-[#07070a]"
         >
-          {/* ── Ambient teal-purple background glow (matching reference) ── */}
+          {/* Multi-Color Ambient Deep Space Glow */}
           <div
-            className="absolute pointer-events-none"
+            className="absolute pointer-events-none w-[600px] h-[600px] rounded-full opacity-60 animate-pulse"
             style={{
-              width: "700px",
-              height: "500px",
               background:
-                "radial-gradient(ellipse at 48% 52%, rgba(55,30,160,0.28) 0%, rgba(0,110,105,0.16) 42%, transparent 68%)",
-              filter: "blur(55px)",
+                "radial-gradient(circle, rgba(59,130,246,0.22) 0%, rgba(139,92,246,0.18) 40%, rgba(6,182,212,0.12) 65%, transparent 80%)",
+              filter: "blur(60px)",
+              animationDuration: "3s",
             }}
           />
 
-          {/* ── Infinity Symbol SVG ── */}
-          <div className="relative">
+          {/* Core Brand Header */}
+          <motion.div
+            initial={{ opacity: 0, y: -15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex items-center gap-2 mb-8 text-xs font-mono tracking-widest text-slate-400 uppercase"
+          >
+            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
+            <span className="text-white font-bold">PRAVEEN KUMAR E</span>
+            <span className="text-slate-600">·</span>
+            <span className="text-purple-400 font-semibold">PORTFOLIO OS</span>
+          </motion.div>
+
+          {/* Futuristic Glowing Infinity Loop SVG */}
+          <div className="relative flex items-center justify-center">
+            {/* Center Pulsing Sparkle Core */}
+            <div className="absolute w-6 h-6 rounded-full bg-cyan-400/40 blur-md animate-ping pointer-events-none" />
+
             <svg
               viewBox="0 0 240 120"
-              width="270"
-              height="135"
-              style={{ overflow: "visible" }}
+              width="300"
+              height="150"
+              className="overflow-visible"
             >
               <defs>
-                {/* Bloom/neon glow filter */}
-                <filter id="ldr-bloom" x="-80%" y="-80%" width="260%" height="260%">
-                  <feGaussianBlur in="SourceGraphic" stdDeviation="7" result="blur" />
+                {/* Linear gradient for infinity stroke */}
+                <linearGradient id="inf-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#06B6D4" />
+                  <stop offset="35%" stopColor="#3B82F6" />
+                  <stop offset="70%" stopColor="#8B5CF6" />
+                  <stop offset="100%" stopColor="#EC4899" />
+                </linearGradient>
+
+                {/* Intense Neon Glow Filter */}
+                <filter id="neon-glow" x="-50%" y="-50%" width="200%" height="200%">
+                  <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur1" />
+                  <feGaussianBlur in="SourceGraphic" stdDeviation="14" result="blur2" />
                   <feMerge>
-                    <feMergeNode in="blur" />
+                    <feMergeNode in="blur2" />
+                    <feMergeNode in="blur1" />
                     <feMergeNode in="SourceGraphic" />
                   </feMerge>
                 </filter>
               </defs>
 
-              {/* 1. Dim full-path base (always visible) */}
+              {/* 1. Track Base Guide (Subtle) */}
               <path
                 d={INFINITY_PATH}
                 fill="none"
-                stroke="rgba(90,60,200,0.20)"
+                stroke="rgba(255, 255, 255, 0.08)"
                 strokeWidth="4"
                 strokeLinecap="round"
               />
 
-              {/* 2. Soft purple glow bloom layer (blurred) */}
+              {/* 2. Deep Outer Neon Aura Bloom */}
               <path
                 d={INFINITY_PATH}
                 fill="none"
-                stroke="rgba(125,75,255,0.52)"
-                strokeWidth="11"
+                stroke="url(#inf-gradient)"
+                strokeWidth="12"
                 strokeLinecap="round"
+                className="opacity-50"
                 style={{
-                  strokeDasharray: "220 380",
-                  animation: "ldr-neon 1.9s linear infinite",
-                  filter: "blur(7px)",
+                  strokeDasharray: "200 400",
+                  animation: "inf-loop 2s linear infinite",
+                  filter: "blur(8px)",
                 }}
               />
 
-              {/* 3. Bright white-purple neon stroke (sharp leading edge) */}
+              {/* 3. High-Intensity Sharp Glowing Laser Beam */}
               <path
                 d={INFINITY_PATH}
                 fill="none"
-                stroke="rgba(235,215,255,0.96)"
+                stroke="url(#inf-gradient)"
+                strokeWidth="4.5"
+                strokeLinecap="round"
+                filter="url(#neon-glow)"
+                style={{
+                  strokeDasharray: "200 400",
+                  animation: "inf-loop 2s linear infinite",
+                }}
+              />
+
+              {/* 4. Leading Ultra-Bright White Head Particle */}
+              <path
+                d={INFINITY_PATH}
+                fill="none"
+                stroke="#FFFFFF"
                 strokeWidth="3.5"
                 strokeLinecap="round"
-                filter="url(#ldr-bloom)"
                 style={{
-                  strokeDasharray: "220 380",
-                  animation: "ldr-neon 1.9s linear infinite",
+                  strokeDasharray: "30 570",
+                  animation: "inf-loop 2s linear infinite",
+                  filter: "drop-shadow(0 0 8px #FFFFFF)",
                 }}
               />
             </svg>
           </div>
 
-          {/* ── "Loading..." text ── */}
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: [0, 0.65, 0.65, 0.3] }}
-            transition={{
-              delay: 0.4,
-              duration: 1.8,
-              times: [0, 0.15, 0.85, 1],
-              repeat: Infinity,
-              repeatType: "loop",
-            }}
-            className="mt-8 text-[13px] font-mono text-slate-500 tracking-[0.30em]"
-          >
-            Loading...
-          </motion.p>
+          {/* Progress Percentage & Status Readout */}
+          <div className="mt-8 flex flex-col items-center gap-2">
+            <div className="flex items-center gap-3">
+              <span className="text-xl font-bold font-mono tracking-wider text-white">
+                {progress}%
+              </span>
+              <span className="text-slate-600">|</span>
+              <span className="text-xs font-mono text-cyan-400 font-medium tracking-wide">
+                {progress < 40
+                  ? "INITIALIZING SYSTEM CORE..."
+                  : progress < 80
+                  ? "LOADING AI WORKFLOWS & REPOS..."
+                  : "READY TO LAUNCH"}
+              </span>
+            </div>
 
-          {/* CSS keyframe: move the dash segment forward along the path */}
+            {/* Micro Progress Bar Line */}
+            <div className="w-56 h-1 rounded-full bg-white/10 overflow-hidden mt-1 p-[1px]">
+              <div
+                className="h-full rounded-full bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 transition-all duration-75"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+
+            <span className="text-[10px] font-mono text-slate-500 tracking-widest mt-2 uppercase">
+              3.0s Auto-Launch Sequence
+            </span>
+          </div>
+
+          {/* Keyframe Animation for Infinite Path Offset */}
           <style>{`
-            @keyframes ldr-neon {
-              from { stroke-dashoffset: 0;    }
-              to   { stroke-dashoffset: -600; }
+            @keyframes inf-loop {
+              0% {
+                stroke-dashoffset: 0;
+              }
+              100% {
+                stroke-dashoffset: -600;
+              }
             }
           `}</style>
         </motion.div>
