@@ -124,12 +124,19 @@ export default function About() {
             {/* Profile Overview Card with Spinning Ring & PK Initials */}
             <div className="clean-card p-6 border border-purple-500/20 bg-gradient-to-b from-purple-900/[0.1] via-blue-900/[0.05] to-transparent">
               <div className="flex items-center gap-4 pb-4 border-b border-white/[0.08]">
-                {/* Profile graphic with animated spinning ring from previous version */}
+                {/* Profile graphic with animated spinning ring & real portrait */}
                 <div className="relative w-14 h-14 shrink-0">
                   <div className="absolute inset-0 rounded-full border border-blue-400/40 animate-spin-slow" />
                   <div className="absolute -inset-1 rounded-full border border-dashed border-purple-400/30 animate-spin" style={{ animationDuration: "20s" }} />
-                  <div className="w-full h-full rounded-full bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 flex items-center justify-center font-display font-bold text-white text-lg shadow-lg shadow-purple-600/25">
-                    PK
+                  <div className="w-full h-full rounded-full overflow-hidden border border-white/20 shadow-lg shadow-purple-600/25 bg-slate-900 flex items-center justify-center">
+                    <img
+                      src="./praveen_portrait.jpg"
+                      alt="Praveen Kumar E"
+                      className="w-full h-full object-cover object-top"
+                      onError={(e) => {
+                        (e.currentTarget as HTMLImageElement).src = "./praveen.png";
+                      }}
+                    />
                   </div>
                 </div>
 
