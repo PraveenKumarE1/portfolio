@@ -66,51 +66,77 @@ export default function Certifications() {
           </div>
         </div>
 
-        {/* Filter Navigation Tabs */}
-        <div className="flex flex-wrap gap-2.5 mb-12">
-          <button
-            onClick={() => setActiveFilter("all")}
-            className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-montserrat font-medium transition-all duration-300 ${
-              activeFilter === "all"
-                ? "bg-first text-white shadow-lg shadow-first/40 border border-first scale-105"
-                : "bg-container border border-white/[0.08] text-slate-300 hover:text-white hover:border-first/40"
-            }`}
-          >
-            <span>All Certificates</span>
-            <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/20 text-white">
-              {certifications.length}
-            </span>
-          </button>
-
-          <button
-            onClick={() => setActiveFilter("hackathon")}
-            className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-montserrat font-medium transition-all duration-300 ${
-              activeFilter === "hackathon"
-                ? "bg-first text-white shadow-lg shadow-first/40 border border-first scale-105"
-                : "bg-container border border-white/[0.08] text-slate-300 hover:text-white hover:border-first/40"
-            }`}
-          >
-            <i className="ri-trophy-line text-sm" />
-            <span>Hackathons &amp; Events</span>
-            <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/20 text-white">
-              {certifications.filter((c) => c.title.toLowerCase().includes("hackathon") || c.badge.toLowerCase().includes("participation")).length}
-            </span>
-          </button>
-
-          <button
-            onClick={() => setActiveFilter("technical")}
-            className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-montserrat font-medium transition-all duration-300 ${
-              activeFilter === "technical"
-                ? "bg-first text-white shadow-lg shadow-first/40 border border-first scale-105"
-                : "bg-container border border-white/[0.08] text-slate-300 hover:text-white hover:border-first/40"
-            }`}
-          >
-            <i className="ri-award-line text-sm" />
-            <span>Courses &amp; Training</span>
-            <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/20 text-white">
-              {certifications.filter((c) => !c.title.toLowerCase().includes("hackathon") && !c.badge.toLowerCase().includes("participation")).length}
-            </span>
-          </button>
+        {/* Filter Navigation Tabs – 3D Flip Rotation Effect */}
+        <div className="flex flex-wrap gap-2.5 mb-12" style={{ perspective: "600px" }}>
+          {(
+            [
+              {
+                key: "all" as const,
+                label: "All Certificates",
+                icon: null,
+                count: certifications.length,
+              },
+              {
+                key: "hackathon" as const,
+                label: "Hackathons & Events",
+                icon: "ri-trophy-line",
+                count: certifications.filter(
+                  (c) =>
+                    c.title.toLowerCase().includes("hackathon") ||
+                    c.badge.toLowerCase().includes("participation")
+                ).length,
+              },
+              {
+                key: "technical" as const,
+                label: "Courses & Training",
+                icon: "ri-award-line",
+                count: certifications.filter(
+                  (c) =>
+                    !c.title.toLowerCase().includes("hackathon") &&
+                    !c.badge.toLowerCase().includes("participation")
+                ).length,
+              },
+            ] as { key: "all" | "hackathon" | "technical"; label: string; icon: string | null; count: number }[]
+          ).map((tab) => {
+            const isSelected = activeFilter === tab.key;
+            return (
+              <motion.button
+                key={tab.key}
+                onClick={() => setActiveFilter(tab.key)}
+                whileHover={{
+                  rotateY: 12,
+                  rotateX: -4,
+                  scale: 1.06,
+                  transition: { duration: 0.25, ease: "easeOut" },
+                }}
+                whileTap={{
+                  rotateY: -8,
+                  scale: 0.96,
+                  transition: { duration: 0.15 },
+                }}
+                animate={
+                  isSelected
+                    ? {
+                        rotateY: [0, 180, 360],
+                        transition: { duration: 0.5, ease: "easeInOut" },
+                      }
+                    : { rotateY: 0 }
+                }
+                style={{ transformStyle: "preserve-3d" }}
+                className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-montserrat font-medium transition-colors duration-300 ${
+                  isSelected
+                    ? "bg-first text-white shadow-lg shadow-first/40 border border-first"
+                    : "bg-container border border-white/[0.08] text-slate-300 hover:text-white hover:border-first/40"
+                }`}
+              >
+                {tab.icon && <i className={`${tab.icon} text-sm`} />}
+                <span>{tab.label}</span>
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/20 text-white">
+                  {tab.count}
+                </span>
+              </motion.button>
+            );
+          })}
         </div>
 
         {/* ══════════════════════════════════════════════════

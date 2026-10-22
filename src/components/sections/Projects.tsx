@@ -121,7 +121,7 @@ export default function Projects() {
 
   const activeTab = filterTabs.find((t) => t.id === activeFilterId) || filterTabs[0];
   const filteredProjects = projects.filter(activeTab.filter);
-  const displayedProjects = showAllProjects ? filteredProjects : filteredProjects.slice(0, 6);
+  const displayedProjects = showAllProjects ? filteredProjects : filteredProjects;
 
   return (
     <section id="projects" className="relative py-24 bg-void overflow-hidden">
@@ -164,18 +164,41 @@ export default function Projects() {
           </div>
         </div>
 
-        {/* Filter Pills */}
-        <div className="flex flex-wrap gap-2.5 mb-12">
+        {/* Filter Pills – 3D Flip Rotation Effect */}
+        <div className="flex flex-wrap gap-2.5 mb-12" style={{ perspective: "600px" }}>
           {filterTabs.map((tab) => {
             const count = projects.filter(tab.filter).length;
             const isSelected = activeFilterId === tab.id;
             return (
-              <button
+              <motion.button
                 key={tab.id}
-                onClick={() => setActiveFilterId(tab.id)}
-                className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-montserrat font-medium transition-all duration-300 ${
+                onClick={() => {
+                  setActiveFilterId(tab.id);
+                  setShowAllProjects(false);
+                }}
+                whileHover={{
+                  rotateY: 12,
+                  rotateX: -4,
+                  scale: 1.06,
+                  transition: { duration: 0.25, ease: "easeOut" },
+                }}
+                whileTap={{
+                  rotateY: -8,
+                  scale: 0.96,
+                  transition: { duration: 0.15 },
+                }}
+                animate={
                   isSelected
-                    ? "bg-first text-white shadow-lg shadow-first/40 border border-first scale-105"
+                    ? {
+                        rotateY: [0, 180, 360],
+                        transition: { duration: 0.5, ease: "easeInOut" },
+                      }
+                    : { rotateY: 0 }
+                }
+                style={{ transformStyle: "preserve-3d" }}
+                className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-montserrat font-medium transition-colors duration-300 ${
+                  isSelected
+                    ? "bg-first text-white shadow-lg shadow-first/40 border border-first"
                     : "bg-container border border-white/[0.08] text-slate-300 hover:text-white hover:border-first/40"
                 }`}
               >
@@ -183,7 +206,7 @@ export default function Projects() {
                 <span className={`text-[10px] px-2 py-0.5 rounded-full ${isSelected ? "bg-white/20 text-white" : "bg-white/10 text-slate-400"}`}>
                   {count}
                 </span>
-              </button>
+              </motion.button>
             );
           })}
         </div>
@@ -196,7 +219,7 @@ export default function Projects() {
               keyHighlights: ["Verified Architecture", "Open Source Repository"],
               badge: project.category,
             };
-            const formattedIndex = String(idx + 1).padStart(2, "0");
+            const formattedIndex = String(project.id).padStart(2, "0");
 
             return (
               <motion.article
@@ -278,20 +301,7 @@ export default function Projects() {
           })}
         </div>
 
-        {/* Toggle Button: Show All Projects / Show Featured */}
-        <div className="mt-14 flex justify-center">
-          <button
-            onClick={() => setShowAllProjects(!showAllProjects)}
-            className="button-panda inline-flex items-center gap-3"
-          >
-            <span>
-              {showAllProjects
-                ? "Show Top Featured (6 Projects)"
-                : `Explore All Work (${filteredProjects.length} Projects)`}
-            </span>
-            <i className={`ri-arrow-down-s-line text-xl transition-transform duration-300 ${showAllProjects ? "rotate-180" : ""}`} />
-          </button>
-        </div>
+        {/* All projects shown above */}
 
       </div>
 
