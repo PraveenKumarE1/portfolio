@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import { GraduationCap, Briefcase, Award, Code2, Brain, Terminal, Compass, Sparkles } from "lucide-react";
 import { personal, stats, strengths } from "../../data/portfolio";
+import praveenImg from "../../assets/praveen.png";
 import praveenPortrait from "../../assets/praveen_portrait.jpg";
-import praveenPng from "../../assets/praveen.png";
 
 function AnimatedCounter({ target, suffix = "" }: { target: string; suffix?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -35,178 +34,194 @@ function AnimatedCounter({ target, suffix = "" }: { target: string; suffix?: str
 }
 
 export default function About() {
-  const statColors = [
-    { text: "text-blue-400", border: "hover:border-blue-500/40", shadow: "group-hover:shadow-blue-500/10" },
-    { text: "text-purple-400", border: "hover:border-purple-500/40", shadow: "group-hover:shadow-purple-500/10" },
-    { text: "text-cyan-400", border: "hover:border-cyan-500/40", shadow: "group-hover:shadow-cyan-500/10" },
-    { text: "text-emerald-400", border: "hover:border-emerald-500/40", shadow: "group-hover:shadow-emerald-500/10" },
-  ];
-
   return (
-    <section id="about" className="relative section-padding border-t border-white/[0.05]">
-      {/* Background ambient lighting */}
-      <div className="absolute top-1/2 -left-20 w-80 h-80 bg-blue-600/10 blur-[130px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-80 h-80 bg-purple-600/10 blur-[130px] rounded-full pointer-events-none" />
+    <section id="about" className="relative py-24 overflow-hidden bg-void">
+      {/* Background radial glow */}
+      <div className="absolute top-1/3 -left-32 w-96 h-96 bg-first/15 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-10 right-0 w-96 h-96 bg-first-alt/10 rounded-full blur-[140px] pointer-events-none" />
 
-      <div className="max-w-6xl mx-auto">
-        {/* Section Header */}
-        <div className="mb-14">
-          <span className="text-xs font-mono text-cyan-400 uppercase tracking-widest block mb-2">
-            01 / Background & Journey
-          </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-display text-white tracking-tight">
-            About <span className="gradient-blue-cyan">Me</span>
-          </h2>
-        </div>
-
-        {/* 2-Column Content Layout */}
-        <div className="grid lg:grid-cols-12 gap-10 items-start">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Top Split: Text & Panda Portrait Blobs */}
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center mb-16">
           
-          {/* Left Column: Biography & Education */}
-          <div className="lg:col-span-7 space-y-6 text-slate-300 leading-relaxed">
-            <p className="text-base sm:text-lg text-slate-200">
-              I am an Artificial Intelligence & Data Science undergraduate student with a passion for building software that solves practical problems. My work ranges from <span className="text-emerald-400 font-medium">computer vision research in retinal image analysis</span> to <span className="text-cyan-400 font-medium">full-stack web platforms</span> and <span className="text-purple-400 font-medium">predictive machine learning systems</span>.
+          {/* Left Text Column */}
+          <div className="lg:col-span-7 space-y-6 text-left">
+            <span className="text-xs font-unbounded text-first tracking-widest uppercase block">
+              // 01 · ABOUT ME
+            </span>
+            
+            <h2 className="font-unbounded text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight leading-[1.2]">
+              <span className="text-first">Creativity</span>
+              <br />
+              Is My Passion
+            </h2>
+
+            <p className="font-montserrat text-base sm:text-lg text-slate-300 leading-relaxed">
+              I'm an <b className="text-first font-semibold">AI & Data Science Engineer</b> passionate about experimenting with <b className="text-first font-semibold">intelligent algorithms and creative software</b>. Driven by relentless curiosity, I engineer end-to-end solutions spanning <b className="text-white font-medium">retinal computer vision models</b>, <b className="text-white font-medium">multi-agent LLM systems</b>, and high-performance <b className="text-white font-medium">modern web applications</b>.
             </p>
 
-            <p className="text-sm sm:text-base text-slate-400">
-              During my academic career, I completed a virtual <span className="text-white font-medium">Data Science Internship at CodeAlpha</span> and underwent dedicated <span className="text-white font-medium">Generative AI Industrial Training at Fantasy Solution</span> in Trichy. I believe in writing modular code, understanding algorithmic foundations, and delivering clean, responsive digital experiences.
+            <p className="font-montserrat text-sm sm:text-base text-slate-400 leading-relaxed">
+              Currently pursuing my B.Tech in Artificial Intelligence & Data Science at Shree Venkateshwara Hi-Tech Engineering College with a <span className="text-white font-semibold">9.17 CGPA</span>. Recognized as an active finalist across multiple national-level hackathons and technical symposiums.
             </p>
 
-            {/* Education Card with Cyan/Blue styling */}
-            <div className="clean-card p-6 border border-blue-500/20 bg-gradient-to-r from-blue-900/[0.08] to-purple-900/[0.08] mt-8 hover:border-blue-500/40">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-blue-600/20 border border-blue-500/40 flex items-center justify-center text-cyan-400 shrink-0 shadow-lg shadow-blue-600/20">
-                  <GraduationCap size={24} />
-                </div>
-                <div>
-                  <span className="text-xs font-mono text-cyan-400 uppercase tracking-wider block mb-1">
-                    Undergraduate Degree (2024–2028)
-                  </span>
-                  <h3 className="text-lg font-bold text-white font-display">
-                    {personal.degree}
-                  </h3>
-                  <p className="text-sm text-slate-300 mt-1">
-                    {personal.college}
-                  </p>
-                  <p className="text-xs text-slate-400 font-mono mt-1">
-                    {personal.collegeLocation}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Core Competencies */}
-            <div className="pt-4">
-              <h4 className="text-xs font-mono text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2">
-                <Compass size={14} className="text-purple-400" /> Core Strengths & Traits
-              </h4>
-              <div className="flex flex-wrap gap-2">
-                {strengths.map((trait, idx) => {
-                  const pillColors = [
-                    "border-blue-500/30 text-blue-300 hover:bg-blue-600/10",
-                    "border-purple-500/30 text-purple-300 hover:bg-purple-600/10",
-                    "border-cyan-500/30 text-cyan-300 hover:bg-cyan-600/10",
-                    "border-emerald-500/30 text-emerald-300 hover:bg-emerald-600/10",
-                  ];
-                  return (
-                    <span
-                      key={trait}
-                      className={`px-3.5 py-1.5 rounded-lg text-xs font-mono bg-white/[0.03] border ${pillColors[idx % 4]} transition-all`}
-                    >
-                      {trait}
-                    </span>
-                  );
-                })}
-              </div>
+            {/* CTA Buttons */}
+            <div className="flex flex-wrap items-center gap-4 pt-2">
+              <a
+                href="#contact"
+                className="button-panda inline-flex items-center gap-2"
+              >
+                Let's Talk <i className="ri-send-plane-line text-lg" />
+              </a>
+              
+              <a
+                href={personal.github}
+                target="_blank"
+                rel="noreferrer"
+                className="button-secondary-panda inline-flex items-center gap-2"
+              >
+                GitHub Profile <i className="ri-github-line text-lg" />
+              </a>
             </div>
           </div>
 
-          {/* Right Column: Key Stats & Overview Box with Spinning Avatar Ring */}
-          <div className="lg:col-span-5 space-y-5">
-            {/* Profile Overview Card with Spinning Ring & PK Initials */}
-            <div className="clean-card p-6 border border-purple-500/20 bg-gradient-to-b from-purple-900/[0.1] via-blue-900/[0.05] to-transparent">
-              <div className="flex items-center gap-4 pb-4 border-b border-white/[0.08]">
-                {/* Profile graphic with animated spinning ring & real portrait */}
-                <div className="relative w-14 h-14 shrink-0">
-                  <div className="absolute inset-0 rounded-full border border-blue-400/40 animate-spin-slow" />
-                  <div className="absolute -inset-1 rounded-full border border-dashed border-purple-400/30 animate-spin" style={{ animationDuration: "20s" }} />
-                  <div className="w-full h-full rounded-full overflow-hidden border border-white/20 shadow-lg shadow-purple-600/25 bg-slate-900 flex items-center justify-center">
-                    <img
-                      src={praveenPortrait}
-                      alt="Praveen Kumar E"
-                      className="w-full h-full object-cover object-top"
-                      onError={(e) => {
-                        (e.currentTarget as HTMLImageElement).src = praveenPng;
-                      }}
-                    />
+          {/* Right Column: Panda Signature Portrait with Dual Rotating Blobs */}
+          <div className="lg:col-span-5 flex justify-center relative">
+            <div className="relative w-[300px] sm:w-[360px] h-[380px] sm:h-[440px] flex items-center justify-center">
+              
+              {/* Dual Rotating Blobs */}
+              <div 
+                className="blob-animate absolute -top-4 -left-4 w-56 h-56 pointer-events-none" 
+                style={{ animationDuration: "14s" }}
+              />
+              <div 
+                className="blob-animate absolute -bottom-6 -right-6 w-64 h-64 pointer-events-none" 
+                style={{ animationDirection: "reverse", animationDuration: "18s" }}
+              />
+
+              {/* Portrait Image Container */}
+              <div className="relative z-10 w-[260px] sm:w-[300px] h-[350px] sm:h-[400px] overflow-hidden rounded-[2.5rem] bg-[#0c0c14] border border-first/25 shadow-2xl shadow-first/20 flex items-center justify-center">
+                <img
+                  src={praveenImg}
+                  alt="Praveen Kumar E"
+                  className="w-full h-full object-cover object-top filter brightness-105 contrast-105"
+                  onError={(e) => {
+                    (e.currentTarget as HTMLImageElement).src = praveenPortrait;
+                  }}
+                />
+                
+                {/* Bottom Gradient Fade */}
+                <div 
+                  className="absolute inset-x-0 bottom-0 h-28 pointer-events-none"
+                  style={{
+                    background: "linear-gradient(180deg, rgba(2,2,8,0) 0%, rgba(2,2,8,0.95) 90%, #020208 100%)"
+                  }}
+                />
+
+                {/* Status Badge */}
+                <div className="absolute bottom-4 left-4 right-4 z-20 flex items-center justify-between px-3.5 py-2 rounded-xl bg-[#0f0f16]/90 backdrop-blur-md border border-first/30">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+                    <span className="text-[11px] font-unbounded text-white font-medium">OPEN TO WORK</span>
                   </div>
-                </div>
-
-                <div>
-                  <h3 className="font-bold text-white font-display text-base">Praveen Kumar E</h3>
-                  <p className="text-xs text-cyan-400 font-mono">B.Tech AI & Data Science</p>
-                </div>
-              </div>
-
-              <div className="space-y-3 pt-4 text-xs font-mono text-slate-300">
-                <div className="flex justify-between py-1 border-b border-white/[0.04]">
-                  <span className="text-slate-400">Academic Status:</span>
-                  <span className="text-emerald-400 font-semibold">Active Student</span>
-                </div>
-                <div className="flex justify-between py-1 border-b border-white/[0.04]">
-                  <span className="text-slate-400">Location:</span>
-                  <span className="text-slate-200">{personal.location}</span>
-                </div>
-                <div className="flex justify-between py-1 border-b border-white/[0.04]">
-                  <span className="text-slate-400">Specialization:</span>
-                  <span className="text-purple-400 font-medium">Machine Learning & Web</span>
-                </div>
-                <div className="flex justify-between py-1">
-                  <span className="text-slate-400">Verified Credentials:</span>
-                  <span className="text-cyan-400 font-semibold">5 Certifications</span>
+                  <span className="text-[11px] font-montserrat text-first font-semibold">2026 Batch</span>
                 </div>
               </div>
             </div>
+          </div>
+        </div>
 
-            {/* Stats Grid with Animated Numbers */}
-            <div className="grid grid-cols-2 gap-3.5">
-              {stats.map((stat, idx) => {
-                const colorConfig = statColors[idx % statColors.length];
-                return (
-                  <div
-                    key={stat.label}
-                    className={`clean-card p-5 border border-white/10 ${colorConfig.border} flex flex-col items-center justify-center text-center group transition-all`}
+        {/* Stats Grid in Panda Coders Style */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+          {stats.map((item, idx) => (
+            <motion.div
+              key={item.label}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.1 }}
+              className="panda-card p-6 text-center group"
+            >
+              <div className="font-unbounded text-3xl sm:text-4xl font-bold text-white mb-2 group-hover:text-first transition-colors">
+                <AnimatedCounter target={item.value} suffix={item.suffix} />
+              </div>
+              <div className="font-montserrat text-xs text-slate-400 uppercase tracking-wider font-medium">
+                {item.label}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Education & Traits Section */}
+        <div className="grid md:grid-cols-12 gap-6">
+          
+          {/* Education Card */}
+          <div className="md:col-span-7 panda-card p-6 sm:p-8 flex flex-col justify-between">
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-xs font-unbounded text-first tracking-wider uppercase">
+                  Education Background
+                </span>
+                <span className="text-xs font-montserrat px-3 py-1 rounded-full bg-first/15 text-first border border-first/30">
+                  2024 – 2028
+                </span>
+              </div>
+
+              <h3 className="font-unbounded text-lg sm:text-xl font-bold text-white mb-2">
+                {personal.degree}
+              </h3>
+              
+              <p className="font-montserrat text-sm text-slate-300 mb-1">
+                {personal.college}
+              </p>
+              
+              <p className="font-montserrat text-xs text-slate-400 flex items-center gap-1.5 mt-2">
+                <i className="ri-map-pin-2-line text-first" />
+                {personal.collegeLocation}
+              </p>
+            </div>
+
+            <div className="mt-6 pt-4 border-t border-white/[0.08] flex items-center justify-between">
+              <span className="text-xs font-montserrat text-slate-400">Current CGPA Score</span>
+              <span className="font-unbounded text-base font-bold text-first">9.17 / 10.0</span>
+            </div>
+          </div>
+
+          {/* Traits & Competencies */}
+          <div className="md:col-span-5 panda-card p-6 sm:p-8 flex flex-col justify-between">
+            <div>
+              <span className="text-xs font-unbounded text-first tracking-wider uppercase block mb-4">
+                Core Traits & Ethics
+              </span>
+              <div className="flex flex-wrap gap-2.5">
+                {strengths.map((trait) => (
+                  <span
+                    key={trait}
+                    className="font-montserrat text-xs px-3.5 py-2 rounded-full bg-void text-slate-200 border border-white/10 hover:border-first/60 hover:text-first transition-all"
                   >
-                    <span className={`text-2xl sm:text-3xl font-bold font-display ${colorConfig.text} transition-transform group-hover:scale-105`}>
-                      <AnimatedCounter target={stat.value} suffix={stat.suffix} />
-                    </span>
-                    <span className="text-xs font-mono text-slate-400 uppercase tracking-wider mt-1.5">
-                      {stat.label}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Technical Focus Highlights with colorful icons */}
-            <div className="clean-card p-5 border border-white/10 space-y-3">
-              <div className="flex items-center gap-3 text-xs text-slate-300">
-                <Brain size={16} className="text-purple-400 shrink-0" />
-                <span>Deep Learning & Neural Network Architectures</span>
-              </div>
-              <div className="flex items-center gap-3 text-xs text-slate-300">
-                <Code2 size={16} className="text-cyan-400 shrink-0" />
-                <span>Responsive Frontend Apps (React, Vite, Tailwind)</span>
-              </div>
-              <div className="flex items-center gap-3 text-xs text-slate-300">
-                <Terminal size={16} className="text-emerald-400 shrink-0" />
-                <span>Python ML Stack (PyTorch, OpenCV, Scikit-learn)</span>
+                    {trait}
+                  </span>
+                ))}
+                <span className="font-montserrat text-xs px-3.5 py-2 rounded-full bg-void text-slate-200 border border-white/10 hover:border-first/60 hover:text-first transition-all">
+                  Problem Solver
+                </span>
+                <span className="font-montserrat text-xs px-3.5 py-2 rounded-full bg-void text-slate-200 border border-white/10 hover:border-first/60 hover:text-first transition-all">
+                  Hackathon Finalist
+                </span>
               </div>
             </div>
 
+            <div className="mt-6 pt-4 border-t border-white/[0.08] flex items-center justify-between">
+              <span className="text-xs font-montserrat text-slate-400">Available For</span>
+              <span className="font-montserrat text-xs font-semibold text-emerald-400 flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                Internships & AI Roles
+              </span>
+            </div>
           </div>
 
         </div>
+
       </div>
     </section>
   );

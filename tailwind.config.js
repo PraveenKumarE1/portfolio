@@ -4,12 +4,21 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Inter", "system-ui", "sans-serif"],
-        display: ["Space Grotesk", "sans-serif"],
+        sans: ["Montserrat", "Inter", "system-ui", "sans-serif"],
+        display: ["Unbounded", "sans-serif"],
+        unbounded: ["Unbounded", "sans-serif"],
+        montserrat: ["Montserrat", "sans-serif"],
         mono: ["JetBrains Mono", "monospace"],
       },
       colors: {
-        void: "#050508",
+        void: "#020208",
+        container: "#0f0f16",
+        first: {
+          DEFAULT: "hsl(255, 60%, 64%)",
+          alt: "hsl(255, 80%, 56%)",
+          light: "hsl(255, 60%, 74%)",
+          dark: "hsl(255, 60%, 46%)",
+        },
         surface: "rgba(255,255,255,0.04)",
         border: "rgba(255,255,255,0.08)",
         blue: {
@@ -20,9 +29,9 @@ export default {
         },
         violet: {
           400: "#A78BFA",
-          500: "#7C3AED",
-          600: "#6D28D9",
-          glow: "#7C3AED",
+          500: "#8a6fe8",
+          600: "#7249f7",
+          glow: "#8a6fe8",
         },
         slate: {
           100: "#F1F5F9",

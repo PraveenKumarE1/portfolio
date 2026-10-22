@@ -48,14 +48,14 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, scale: 1.03 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center select-none overflow-hidden bg-[#07070a]"
+          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center select-none overflow-hidden bg-void"
         >
           {/* Multi-Color Ambient Deep Space Glow */}
           <div
             className="absolute pointer-events-none w-[600px] h-[600px] rounded-full opacity-60 animate-pulse"
             style={{
               background:
-                "radial-gradient(circle, rgba(59,130,246,0.22) 0%, rgba(139,92,246,0.18) 40%, rgba(6,182,212,0.12) 65%, transparent 80%)",
+                "radial-gradient(circle, rgba(138,111,232,0.3) 0%, rgba(114,73,247,0.2) 40%, rgba(6,182,212,0.12) 65%, transparent 80%)",
               filter: "blur(60px)",
               animationDuration: "3s",
             }}

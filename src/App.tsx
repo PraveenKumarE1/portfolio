@@ -16,7 +16,7 @@ const Contact = lazy(() => import("./components/sections/Contact"));
 function SectionLoader() {
   return (
     <div className="flex items-center justify-center py-24">
-      <div className="w-8 h-8 rounded-full border-2 border-blue-500/20 border-t-blue-500 animate-spin" />
+      <div className="w-8 h-8 rounded-full border-2 border-first/20 border-t-first animate-spin" />
     </div>
   );
 }
@@ -36,7 +36,7 @@ export default function App() {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-[#07070a] text-slate-100 selection:bg-blue-600/30 selection:text-white">
+    <div className="relative min-h-screen bg-void text-slate-100 selection:bg-first/30 selection:text-white font-montserrat">
       {/* Interactive Cursor Glow */}
       <CursorGlow />
 

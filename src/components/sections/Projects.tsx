@@ -1,93 +1,81 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, X, CheckCircle2, ChevronRight, Layers, Lightbulb, Zap, Code2, Activity, Cpu, Database, Eye, RefreshCw, GitBranch, Star } from "lucide-react";
 import { projects } from "../../data/portfolio";
-import Tilt from "react-parallax-tilt";
 
-function GithubIcon({ size = 14 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
-      <path d="M9 18c-4.51 2-5-2-7-2" />
-    </svg>
-  );
-}
-
-// Clear high-impact summaries for recruiters and reviewers
 const projectQuickGrasp: Record<number, { simpleWhat: string; keyHighlights: string[]; badge: string }> = {
   1: {
-    simpleWhat: "Unified AI platform that scans student resumes, assesses aptitude, and recommends tailored career placements.",
-    keyHighlights: ["Automated resume skill parser", "Instant aptitude & coding evaluator", "Personalized placement roadmaps"],
-    badge: "AI + EdTech",
+    simpleWhat: "AI platform scanning student resumes, assessing aptitude, and recommending personalized placements.",
+    keyHighlights: ["Automated resume skill parser", "Instant aptitude evaluator"],
+    badge: "AI / EdTech",
   },
   2: {
-    simpleWhat: "Location-based shopping platform comparing product prices, distance, and live stock across local stores on interactive maps.",
-    keyHighlights: ["Interactive Leaflet map store discovery", "Live price & stock comparison", "Supabase realtime database"],
-    badge: "Full-Stack Web & Maps",
+    simpleWhat: "Location-based shopping platform comparing prices, distance, and live stock on interactive Leaflet maps.",
+    keyHighlights: ["Interactive Leaflet map discovery", "Supabase realtime sync"],
+    badge: "Full-Stack AI",
   },
   3: {
-    simpleWhat: "Medical AI research system analyzing fundus eye photographs to screen diabetic retinopathy on clinical grades 0 to 4.",
-    keyHighlights: ["OpenCV blood vessel segmentation", "PyTorch CNN classification models", "Automated clinical report generation"],
+    simpleWhat: "Medical AI research system analyzing fundus eye photographs to screen diabetic retinopathy (Grades 0-4).",
+    keyHighlights: ["OpenCV blood vessel segmentation", "PyTorch CNN diagnostic grading"],
     badge: "Medical AI & Vision",
   },
   4: {
-    simpleWhat: "Machine learning model predicting optimal career tracks for engineering students based on technical and soft skill vectors.",
-    keyHighlights: ["Scikit-learn Random Forest model", "Skill gap & strength analysis", "Step-by-step learning roadmaps"],
+    simpleWhat: "Machine learning model predicting optimal career tracks for engineering students based on skills.",
+    keyHighlights: ["Scikit-learn Random Forest model", "Skill gap & strength analysis"],
     badge: "Machine Learning",
   },
   5: {
-    simpleWhat: "Intelligent study planner using Linear Regression to forecast exam readiness and prioritize weak subject areas.",
-    keyHighlights: ["Regression readiness score engine", "Interactive Chart.js visualizations", "SQLite study log persistence"],
-    badge: "Predictive Analytics",
+    simpleWhat: "Intelligent study planner using Linear Regression to forecast exam readiness and prioritize weak topics.",
+    keyHighlights: ["Readiness score prediction", "SQLite persistence & Chart.js"],
+    badge: "Predictive AI",
   },
   6: {
-    simpleWhat: "Modern hotel and resort booking web application with dynamic room inventory and realtime database synchronization.",
-    keyHighlights: ["React 18 & TypeScript architecture", "Supabase cloud database storage", "Responsive luxury room showcase"],
+    simpleWhat: "Modern hotel and resort booking web application with dynamic room inventory & realtime database.",
+    keyHighlights: ["React 18 & TypeScript", "Supabase cloud backend"],
     badge: "Web Application",
   },
   7: {
-    simpleWhat: "Lightweight conversational chatbot powered by Google's latest Gemini 2.5 Flash large language model.",
-    keyHighlights: ["Google Gemini API integration", "Clean Streamlit responsive interface", "Environment variable API key security"],
+    simpleWhat: "Conversational chatbot powered by Google's latest Gemini 2.5 Flash large language model.",
+    keyHighlights: ["Gemini 2.5 API integration", "Streamlit responsive interface"],
     badge: "Generative AI",
   },
   8: {
     simpleWhat: "Configurable cryptographic Python security utility for generating strong, high-entropy random passwords.",
-    keyHighlights: ["Custom length & symbol toggles", "High-entropy random generation", "Lightweight CLI utility"],
+    keyHighlights: ["Custom entropy parameters", "Fast CLI utility"],
     badge: "Security Utility",
   },
   9: {
-    simpleWhat: "Data science internship portfolio containing data exploration, statistical analysis, and visualization pipelines.",
-    keyHighlights: ["Exploratory Data Analysis (EDA)", "Pandas & NumPy data cleansing", "Matplotlib statistical graphics"],
+    simpleWhat: "Data science internship portfolio containing data exploration, statistical analysis, and visualizations.",
+    keyHighlights: ["Exploratory Data Analysis (EDA)", "Pandas & Matplotlib analytics"],
     badge: "Data Science",
   },
   10: {
-    simpleWhat: "Interactive developer portfolio engineered with 3D CSS transforms, React, and modern UI architectures.",
-    keyHighlights: ["Interactive 3D geometry engine", "Cinematic opening screen animation", "Zero AI imagery, 100% human crafted"],
-    badge: "Developer Portfolio",
+    simpleWhat: "Interactive developer portfolio engineered with modern UI architectures and dynamic effects.",
+    keyHighlights: ["Panda Coders design system", "Responsive modern animations"],
+    badge: "Portfolio Site",
   },
   11: {
     simpleWhat: "High-performance static blog generated with Astro and deployed on Cloudflare Workers edge network.",
-    keyHighlights: ["Static Site Generation (SSG)", "Markdown & MDX article support", "Cloudflare Workers edge delivery"],
+    keyHighlights: ["Static Site Generation (SSG)", "Cloudflare Workers edge delivery"],
     badge: "Cloud & Static Site",
   },
   12: {
     simpleWhat: "Automated candidate resume parsing against target job descriptions with instant keyword matching & ATS scores.",
-    keyHighlights: ["PyPDF2 resume text extraction", "Keyword density & gap analysis", "Instant ATS match scoring algorithm"],
+    keyHighlights: ["PyPDF2 resume text extraction", "Instant ATS match scoring"],
     badge: "AI Resume Parsing",
   },
   13: {
     simpleWhat: "All-in-one financial operating system for early-stage startups created during a National Level Hackathon.",
-    keyHighlights: ["Cap table & equity dilution engine", "Burn rate & runway forecasting", "Automated monthly investor reports"],
+    keyHighlights: ["Cap table & equity dilution engine", "Burn rate & runway forecasting"],
     badge: "Hackathon FinTech OS",
   },
   14: {
     simpleWhat: "Next-gen intelligent agent orchestration and multi-model autonomous task execution workflow engine.",
-    keyHighlights: ["Multi-agent task orchestration", "Semantic memory & tool routing", "Real-time streaming pipeline"],
+    keyHighlights: ["Multi-agent task orchestration", "Real-time streaming pipeline"],
     badge: "Agentic AI System",
   },
   15: {
-    simpleWhat: "Interactive ATS resume creation tool with dynamic section formatting, live compliance scoring, and instant PDF export.",
-    keyHighlights: ["Live ATS compliance score check", "Dynamic section customization", "One-click export for recruiters"],
+    simpleWhat: "Interactive ATS resume creation tool with dynamic section formatting, live compliance scoring, and PDF export.",
+    keyHighlights: ["Live ATS compliance score check", "One-click export for recruiters"],
     badge: "ATS Resume Builder",
   },
 };
@@ -96,9 +84,9 @@ const filterTabs = [
   { id: "all", label: "All Projects", filter: () => true },
   { id: "featured", label: "Featured", filter: (p: any) => p.featured },
   { id: "ai", label: "AI & ML", filter: (p: any) => p.category.includes("AI") || p.category.includes("Machine Learning") },
-  { id: "healthcare", label: "Healthcare AI", filter: (p: any) => p.category.includes("Healthcare") },
+  { id: "vision", label: "Computer Vision", filter: (p: any) => p.category.includes("Vision") || p.category.includes("Healthcare") },
   { id: "web", label: "Web & Full-Stack", filter: (p: any) => p.category.includes("Web") || p.category.includes("Full-Stack") },
-  { id: "genai", label: "Generative AI", filter: (p: any) => p.category.includes("Generative AI") },
+  { id: "genai", label: "Generative AI", filter: (p: any) => p.category.includes("Generative AI") || p.category.includes("Agent") },
 ];
 
 export default function Projects() {
@@ -109,7 +97,6 @@ export default function Projects() {
   const [isSyncing, setIsSyncing] = useState(false);
   const [lastSynced, setLastSynced] = useState<string>("Just now");
 
-  // Dynamic GitHub API Live Auto-Sync Hook
   useEffect(() => {
     async function syncGithubRepos() {
       setIsSyncing(true);
@@ -123,7 +110,7 @@ export default function Projects() {
           }
         }
       } catch (err) {
-        console.log("GitHub live sync active using cached portfolio data");
+        console.log("GitHub live sync using cached portfolio data");
       } finally {
         setIsSyncing(false);
       }
@@ -134,39 +121,42 @@ export default function Projects() {
 
   const activeTab = filterTabs.find((t) => t.id === activeFilterId) || filterTabs[0];
   const filteredProjects = projects.filter(activeTab.filter);
-  const displayedProjects = showAllProjects ? filteredProjects : filteredProjects.slice(0, 3);
+  const displayedProjects = showAllProjects ? filteredProjects : filteredProjects.slice(0, 6);
 
   return (
-    <section id="projects" className="relative section-padding border-t border-white/[0.05]">
+    <section id="projects" className="relative py-24 bg-void overflow-hidden">
       {/* Background ambient lighting */}
-      <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-blue-600/10 blur-[160px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-10 right-1/4 w-[500px] h-[500px] bg-purple-600/10 blur-[160px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-first/15 blur-[160px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-10 right-1/4 w-[500px] h-[500px] bg-first-alt/10 blur-[160px] rounded-full pointer-events-none" />
 
-      <div className="max-w-6xl mx-auto">
-        {/* Header with Live GitHub Auto-Sync Status */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-6">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6 text-left">
           <div>
-            <div className="flex items-center gap-3 mb-2">
-              <span className="text-xs font-mono text-emerald-400 uppercase tracking-widest block">
-                03 / Engineering Portfolio
+            <div className="flex items-center gap-3 mb-3">
+              <span className="text-xs font-unbounded text-first tracking-widest uppercase block">
+                // 03 · PORTFOLIO
               </span>
-              <span className="text-slate-700">|</span>
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="text-slate-600">|</span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-montserrat bg-first/15 border border-first/30 text-first font-medium">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
                 Live GitHub Sync Active
               </span>
             </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-display text-white tracking-tight">
-              Featured <span className="gradient-emerald-teal">Projects</span>
+            
+            <h2 className="font-unbounded text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight leading-[1.2]">
+              I make Incredible <br />
+              <span className="text-first">Projects</span>
             </h2>
           </div>
           
           <div className="flex flex-col items-start md:items-end gap-2">
-            <p className="text-sm font-mono text-slate-400 max-w-md md:text-right">
-              {liveRepoCount}+ verified open-source repositories auto-synced from GitHub, designed for high performance and real-world outcomes.
+            <p className="font-montserrat text-sm text-slate-400 max-w-md md:text-right">
+              {liveRepoCount}+ verified open-source repositories auto-synced from GitHub, engineered for scalable impact and real-world utility.
             </p>
-            <div className="flex items-center gap-2 text-[11px] font-mono text-slate-500">
-              <GithubIcon size={12} />
+            <div className="flex items-center gap-2 text-xs font-montserrat text-slate-500">
+              <i className="ri-github-fill text-slate-400 text-sm" />
               <span>@PraveenKumarE1</span>
               <span>·</span>
               <span className="text-slate-400">Synced: {lastSynced}</span>
@@ -174,8 +164,8 @@ export default function Projects() {
           </div>
         </div>
 
-        {/* Filter Tabs with Dynamic Counts */}
-        <div className="flex flex-wrap gap-2 mb-12">
+        {/* Filter Pills */}
+        <div className="flex flex-wrap gap-2.5 mb-12">
           {filterTabs.map((tab) => {
             const count = projects.filter(tab.filter).length;
             const isSelected = activeFilterId === tab.id;
@@ -183,14 +173,14 @@ export default function Projects() {
               <button
                 key={tab.id}
                 onClick={() => setActiveFilterId(tab.id)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono transition-all duration-200 border ${
+                className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-montserrat font-medium transition-all duration-300 ${
                   isSelected
-                    ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white border-blue-400 shadow-md shadow-blue-600/30 scale-105"
-                    : "bg-white/[0.02] border-white/10 text-slate-400 hover:text-white hover:bg-white/[0.05]"
+                    ? "bg-first text-white shadow-lg shadow-first/40 border border-first scale-105"
+                    : "bg-container border border-white/[0.08] text-slate-300 hover:text-white hover:border-first/40"
                 }`}
               >
                 <span>{tab.label}</span>
-                <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${isSelected ? "bg-white/20 text-white" : "bg-white/5 text-slate-400"}`}>
+                <span className={`text-[10px] px-2 py-0.5 rounded-full ${isSelected ? "bg-white/20 text-white" : "bg-white/10 text-slate-400"}`}>
                   {count}
                 </span>
               </button>
@@ -198,158 +188,108 @@ export default function Projects() {
           })}
         </div>
 
-        {/* Projects Grid: Clear, Easy-to-Understand Cards */}
+        {/* Projects Grid: Target Site Architecture */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-7">
-          {displayedProjects.map((project) => {
+          {displayedProjects.map((project, idx) => {
             const grasp = projectQuickGrasp[project.id] || {
               simpleWhat: project.description,
-              keyHighlights: ["Verified Open Source Codebase", "Structured Architecture"],
+              keyHighlights: ["Verified Architecture", "Open Source Repository"],
               badge: project.category,
             };
+            const formattedIndex = String(idx + 1).padStart(2, "0");
 
             return (
-              <Tilt
+              <motion.article
                 key={project.id}
-                tiltMaxAngleX={5}
-                tiltMaxAngleY={5}
-                glareEnable
-                glareMaxOpacity={0.04}
-                glareColor={project.color}
-                glarePosition="all"
-                glareBorderRadius="1.25rem"
-                className="h-full"
+                initial={{ opacity: 0, y: 25 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: (idx % 3) * 0.1, duration: 0.5 }}
+                className="relative bg-container rounded-[2.5rem] p-7 border border-white/[0.06] overflow-hidden group hover:border-first/50 transition-all duration-500 flex flex-col justify-between"
               >
-                <div
-                  className="clean-card h-full overflow-hidden border border-white/10 flex flex-col justify-between group transition-all duration-300 relative hover:shadow-2xl"
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = `${project.color}70`;
-                    e.currentTarget.style.boxShadow = `0 20px 40px -12px rgba(0,0,0,0.6), 0 0 35px -6px ${project.color}30`;
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)";
-                    e.currentTarget.style.boxShadow = "none";
-                  }}
-                >
-                  {/* Top Color Accent Band */}
-                  <div
-                    className="px-5 py-3 border-b flex items-center justify-between"
-                    style={{
-                      background: `linear-gradient(90deg, ${project.color}20 0%, rgba(255,255,255,0.01) 100%)`,
-                      borderColor: `${project.color}30`,
-                    }}
-                  >
-                    <span
-                      className="text-[11px] font-mono font-bold tracking-wide flex items-center gap-1.5"
-                      style={{ color: project.color }}
-                    >
-                      <span className="w-2 h-2 rounded-full" style={{ backgroundColor: project.color }} />
-                      {grasp.badge}
-                    </span>
+                {/* Glowing Corner Blob */}
+                <div 
+                  className="absolute -right-24 -bottom-24 w-52 h-52 rounded-full bg-first/20 blur-[50px] pointer-events-none group-hover:bg-first/35 transition-all duration-500" 
+                />
 
-                    {project.featured && (
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/15 border border-amber-500/40 text-amber-300 font-semibold">
-                        ★ Featured
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Main Card Content: Designed for Immediate Understanding */}
-                  <div className="p-6 flex-1 flex flex-col justify-between">
-                    <div>
-                      {/* Project Name */}
-                      <h3 className="font-display font-bold text-xl text-white group-hover:text-white transition-colors mb-2">
-                        {project.title}
-                      </h3>
-
-                      {/* 1-Sentence "What it does" */}
-                      <p className="text-xs text-slate-300 leading-relaxed mb-4">
-                        {grasp.simpleWhat}
-                      </p>
-
-                      {/* 3 Key Highlights (Quick Grasp) */}
-                      <div className="space-y-1.5 mb-5 p-3 rounded-xl bg-white/[0.02] border border-white/5">
-                        {grasp.keyHighlights.map((hl) => (
-                          <div key={hl} className="flex items-center gap-2 text-[11px] text-slate-400">
-                            <CheckCircle2 size={12} style={{ color: project.color }} className="shrink-0" />
-                            <span className="truncate">{hl}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div>
-                      {/* Tech Stack Pills */}
-                      <div className="flex flex-wrap gap-1.5 mb-5">
-                        {project.tech.slice(0, 4).map((tech) => (
-                          <span
-                            key={tech}
-                            className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/[0.04] border border-white/10 text-slate-300"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                        {project.tech.length > 4 && (
-                          <span className="text-[10px] font-mono px-2 py-0.5 rounded text-slate-500">
-                            +{project.tech.length - 4}
-                          </span>
-                        )}
-                      </div>
-
-                      {/* Action Buttons: Clear & Distinct */}
-                      <div className="flex items-center gap-2 pt-3 border-t border-white/[0.06]">
-                        <a
-                          href={project.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-lg text-xs font-mono font-medium bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 text-slate-300 hover:text-white transition-colors"
-                        >
-                          <GithubIcon size={14} />
-                          <span>View Code</span>
-                        </a>
-
-                        <button
-                          onClick={() => setSelectedProject(project)}
-                          className="flex items-center justify-center gap-1 py-2.5 px-3.5 rounded-lg text-xs font-mono font-medium transition-all"
-                          style={{
-                            backgroundColor: `${project.color}20`,
-                            borderColor: `${project.color}50`,
-                            borderWidth: "1px",
-                            color: project.color,
-                          }}
-                        >
-                          <span>Full Specs</span>
-                          <ChevronRight size={14} />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-
+                {/* Top Number & Category */}
+                <div className="flex items-center justify-between relative z-10 mb-5">
+                  <h1 className="font-unbounded text-4xl sm:text-5xl font-bold text-white/90 group-hover:text-first transition-colors">
+                    {formattedIndex}
+                  </h1>
+                  <span className="font-montserrat text-xs px-3.5 py-1.5 rounded-full bg-first/15 text-first border border-first/30 font-medium">
+                    {grasp.badge}
+                  </span>
                 </div>
-              </Tilt>
+
+                {/* Main Data Section */}
+                <div className="relative z-10 flex-1 flex flex-col justify-between mb-6">
+                  <div>
+                    <h2 className="font-unbounded text-lg sm:text-xl font-bold text-white mb-2 leading-snug group-hover:text-first transition-colors line-clamp-2">
+                      {project.title}
+                    </h2>
+
+                    <p className="font-montserrat text-xs text-slate-300 leading-relaxed mb-4 line-clamp-2">
+                      {grasp.simpleWhat}
+                    </p>
+
+                    <p className="font-montserrat text-[11px] uppercase tracking-wider text-first font-semibold mb-1.5">
+                      Techstack used
+                    </p>
+                    <p className="font-montserrat text-xs text-slate-400 mb-4 line-clamp-1">
+                      {project.tech.slice(0, 4).join(", ")}
+                    </p>
+                  </div>
+
+                  {/* Highlights Box */}
+                  <div className="space-y-1.5 p-3 rounded-2xl bg-void/70 border border-white/[0.05]">
+                    {grasp.keyHighlights.slice(0, 2).map((hl) => (
+                      <div key={hl} className="flex items-center gap-2 text-[11px] font-montserrat text-slate-300">
+                        <i className="ri-checkbox-circle-fill text-first text-xs shrink-0" />
+                        <span className="truncate">{hl}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Bottom Image / Action Bar */}
+                <div className="relative z-10 pt-4 border-t border-white/[0.06] flex items-center justify-between gap-3">
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-void text-xs font-montserrat font-medium text-slate-300 border border-white/10 hover:border-first hover:text-white transition-all"
+                  >
+                    <i className="ri-github-fill text-base" />
+                    <span>View Code</span>
+                  </a>
+
+                  {/* Signature Round Panda Button to open specs */}
+                  <button
+                    onClick={() => setSelectedProject(project)}
+                    title="View Full Specifications"
+                    className="w-11 h-11 rounded-full bg-void border-2 border-first text-white flex items-center justify-center hover:bg-first hover:text-void hover:scale-110 shadow-lg shadow-first/20 transition-all duration-300 shrink-0"
+                  >
+                    <i className="ri-arrow-right-up-long-line text-lg" />
+                  </button>
+                </div>
+              </motion.article>
             );
           })}
         </div>
 
-        {/* Toggle Button: Show All Projects / Show Featured 3 */}
-        <div className="mt-12 flex justify-center">
+        {/* Toggle Button: Show All Projects / Show Featured */}
+        <div className="mt-14 flex justify-center">
           <button
             onClick={() => setShowAllProjects(!showAllProjects)}
-            className="flex items-center gap-2.5 px-7 py-3.5 rounded-2xl text-xs font-mono font-semibold text-white transition-all duration-300 shadow-xl"
-            style={{
-              background: "linear-gradient(135deg, rgba(37,99,235,0.85) 0%, rgba(124,58,237,0.85) 100%)",
-              border: "1px solid rgba(255,255,255,0.15)",
-              boxShadow: "0 10px 30px rgba(37,99,235,0.30)",
-            }}
+            className="button-panda inline-flex items-center gap-3"
           >
             <span>
               {showAllProjects
-                ? "Show Featured (3 Projects)"
+                ? "Show Top Featured (6 Projects)"
                 : `Explore All Work (${filteredProjects.length} Projects)`}
             </span>
-            <ChevronRight
-              size={15}
-              className={`transition-transform duration-300 ${showAllProjects ? "-rotate-90" : "rotate-90"}`}
-            />
+            <i className={`ri-arrow-down-s-line text-xl transition-transform duration-300 ${showAllProjects ? "rotate-180" : ""}`} />
           </button>
         </div>
 
@@ -370,62 +310,52 @@ export default function Projects() {
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.95, y: 20 }}
               transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-              className="relative w-full max-w-2xl max-h-[85vh] overflow-y-auto bg-[#0c0c14] rounded-2xl p-6 md:p-8 shadow-2xl text-left border"
+              className="relative w-full max-w-2xl max-h-[85vh] overflow-y-auto bg-container rounded-[2.5rem] p-6 sm:p-8 shadow-2xl text-left border border-first/40"
               style={{
-                borderColor: `${selectedProject.color}60`,
-                boxShadow: `0 0 50px ${selectedProject.color}20`,
+                boxShadow: "0 0 60px rgba(138, 111, 232, 0.25)",
               }}
               onClick={(e) => e.stopPropagation()}
             >
               {/* Close Button */}
               <button
                 onClick={() => setSelectedProject(null)}
-                className="absolute top-5 right-5 p-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 hover:text-white transition-colors"
+                className="absolute top-6 right-6 w-10 h-10 rounded-full bg-void hover:bg-first/20 border border-white/10 text-slate-300 hover:text-white flex items-center justify-center transition-all"
                 aria-label="Close modal"
               >
-                <X size={18} />
+                <i className="ri-close-line text-xl" />
               </button>
 
               {/* Modal Header */}
-              <div className="mb-6 pr-8">
-                <span
-                  className="text-xs font-mono uppercase tracking-wider block mb-1 font-semibold"
-                  style={{ color: selectedProject.color }}
-                >
+              <div className="mb-6 pr-10">
+                <span className="font-montserrat text-xs uppercase tracking-wider block mb-2 font-semibold text-first">
                   {selectedProject.category}
                 </span>
-                <h3 className="text-2xl font-bold font-display text-white">
+                <h3 className="font-unbounded text-2xl sm:text-3xl font-bold text-white">
                   {selectedProject.title}
                 </h3>
-                <p className="text-xs font-mono text-slate-400 mt-1">
+                <p className="font-montserrat text-xs text-slate-400 mt-1">
                   {selectedProject.tagline}
                 </p>
               </div>
 
               {/* Problem / Solution Grid */}
               <div className="grid md:grid-cols-2 gap-4 mb-6">
-                <div className="p-4 rounded-xl bg-white/[0.02] border border-white/10">
-                  <div className="flex items-center gap-2 mb-2 text-blue-400">
-                    <Lightbulb size={16} />
-                    <span className="text-xs font-mono uppercase tracking-wider text-slate-300">Problem Addressed</span>
+                <div className="p-5 rounded-2xl bg-void border border-white/10">
+                  <div className="flex items-center gap-2 mb-2 text-first">
+                    <i className="ri-lightbulb-line text-lg" />
+                    <span className="font-montserrat text-xs uppercase tracking-wider text-slate-200 font-semibold">Problem Addressed</span>
                   </div>
-                  <p className="text-xs text-slate-300 leading-relaxed">
+                  <p className="font-montserrat text-xs text-slate-300 leading-relaxed">
                     {selectedProject.problem}
                   </p>
                 </div>
 
-                <div
-                  className="p-4 rounded-xl border"
-                  style={{
-                    backgroundColor: `${selectedProject.color}10`,
-                    borderColor: `${selectedProject.color}40`,
-                  }}
-                >
-                  <div className="flex items-center gap-2 mb-2" style={{ color: selectedProject.color }}>
-                    <Zap size={16} />
-                    <span className="text-xs font-mono uppercase tracking-wider text-white">Engineering Solution</span>
+                <div className="p-5 rounded-2xl bg-first/10 border border-first/30">
+                  <div className="flex items-center gap-2 mb-2 text-first">
+                    <i className="ri-flashlight-line text-lg" />
+                    <span className="font-montserrat text-xs uppercase tracking-wider text-white font-semibold">Engineering Solution</span>
                   </div>
-                  <p className="text-xs text-slate-300 leading-relaxed">
+                  <p className="font-montserrat text-xs text-slate-300 leading-relaxed">
                     {selectedProject.solution}
                   </p>
                 </div>
@@ -433,13 +363,13 @@ export default function Projects() {
 
               {/* Key Features */}
               <div className="mb-6">
-                <h4 className="text-xs font-mono uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-2">
-                  <Layers size={14} style={{ color: selectedProject.color }} /> Architectural Modules & Features
+                <h4 className="font-montserrat text-xs uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-2 font-semibold">
+                  <i className="ri-stack-line text-first" /> Architectural Modules & Features
                 </h4>
                 <div className="space-y-2">
                   {selectedProject.features.map((feature) => (
-                    <div key={feature} className="flex items-start gap-2.5 text-xs text-slate-300">
-                      <CheckCircle2 size={14} style={{ color: selectedProject.color }} className="shrink-0 mt-0.5" />
+                    <div key={feature} className="flex items-start gap-2.5 font-montserrat text-xs text-slate-300">
+                      <i className="ri-checkbox-circle-fill text-first text-sm shrink-0 mt-0.5" />
                       <span>{feature}</span>
                     </div>
                   ))}
@@ -448,19 +378,14 @@ export default function Projects() {
 
               {/* Technology Stack */}
               <div className="mb-8">
-                <h4 className="text-xs font-mono uppercase tracking-wider text-slate-400 mb-2">
+                <h4 className="font-montserrat text-xs uppercase tracking-wider text-slate-400 mb-2 font-semibold">
                   Complete Tech Stack
                 </h4>
-                <div className="flex flex-wrap gap-1.5">
+                <div className="flex flex-wrap gap-2">
                   {selectedProject.tech.map((t) => (
                     <span
                       key={t}
-                      className="text-xs font-mono px-2.5 py-1 rounded border"
-                      style={{
-                        backgroundColor: `${selectedProject.color}15`,
-                        borderColor: `${selectedProject.color}40`,
-                        color: selectedProject.color,
-                      }}
+                      className="font-montserrat text-xs px-3 py-1 rounded-full bg-void border border-first/30 text-first"
                     >
                       {t}
                     </span>
@@ -474,14 +399,11 @@ export default function Projects() {
                   href={selectedProject.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-mono font-semibold text-white transition-colors"
-                  style={{
-                    backgroundColor: selectedProject.color,
-                  }}
+                  className="button-panda inline-flex items-center gap-2 text-xs"
                 >
-                  <GithubIcon size={15} />
-                  <span>Open GitHub Repository (PraveenKumarE1)</span>
-                  <ArrowUpRight size={14} />
+                  <i className="ri-github-fill text-base" />
+                  <span>Open GitHub Repository</span>
+                  <i className="ri-arrow-right-up-line" />
                 </a>
 
                 {selectedProject.githubAlt && (
@@ -489,9 +411,10 @@ export default function Projects() {
                     href={selectedProject.githubAlt}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-mono bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 text-slate-300 hover:text-white transition-colors"
+                    className="button-secondary-panda inline-flex items-center gap-2 text-xs"
                   >
-                    <span>Secondary Repo (08190267)</span>
+                    <span>Secondary Repo</span>
+                    <i className="ri-external-link-line" />
                   </a>
                 )}
               </div>

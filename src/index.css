@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Unbounded:wght@200..900&family=JetBrains+Mono:wght@400;500;600&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -6,9 +6,19 @@
 
 @layer base {
   :root {
-    --bg-main: #07070a;
-    --card-bg: rgba(255, 255, 255, 0.025);
-    --card-border: rgba(255, 255, 255, 0.08);
+    --hue: 255;
+    --first-color: hsl(var(--hue), 60%, 64%);
+    --first-color-alt: hsl(var(--hue), 80%, 56%);
+    --first-color-alt-2: hsl(var(--hue), 60%, 56%);
+    --first-color-light: hsl(var(--hue), 60%, 74%);
+    --title-color: hsl(240, 8%, 95%);
+    --text-color: hsl(240, 8%, 70%);
+    --text-color-light: hsl(240, 8%, 50%);
+    --body-color: hsl(240, 100%, 2%);
+    --container-color: hsl(240, 8%, 6%);
+
+    --body-font: "Montserrat", sans-serif;
+    --second-font: "Unbounded", sans-serif;
   }
 
   * {
@@ -20,114 +30,194 @@
   html {
     scroll-behavior: smooth;
     scrollbar-width: thin;
-    scrollbar-color: rgba(59, 130, 246, 0.4) #07070a;
-    background-color: #07070a;
+    scrollbar-color: hsl(var(--hue), 60%, 56%) hsl(240, 100%, 2%);
+    background-color: var(--body-color);
   }
 
   ::-webkit-scrollbar {
-    width: 6px;
+    width: 7px;
   }
   ::-webkit-scrollbar-track {
-    background: #07070a;
+    background: hsl(240, 6%, 6%);
   }
   ::-webkit-scrollbar-thumb {
-    background: linear-gradient(to bottom, #3b82f6, #8b5cf6);
+    background: linear-gradient(180deg, var(--first-color-alt) 0%, var(--first-color-light) 100%);
     border-radius: 9999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(to bottom, #60a5fa, #a78bfa);
+    background: var(--first-color);
   }
 
   body {
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    background-color: #07070a;
-    color: #f1f5f9;
+    font-family: var(--body-font);
+    background-color: var(--body-color);
+    color: var(--text-color);
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
   }
 
+  h1, h2, h3, h4, .font-unbounded, .font-display {
+    font-family: var(--second-font);
+    color: var(--title-color);
+  }
+
   ::selection {
-    background: rgba(59, 130, 246, 0.35);
+    background: hsla(var(--hue), 60%, 64%, 0.35);
     color: #ffffff;
   }
 }
 
 @layer components {
+  /* Reusable Section Padding */
   .section-padding {
-    padding-top: 6rem;
-    padding-bottom: 6rem;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
   }
   @media (min-width: 768px) {
     .section-padding {
-      padding-top: 8rem;
-      padding-bottom: 8rem;
+      padding-top: 7rem;
+      padding-bottom: 7rem;
       padding-left: 2.5rem;
       padding-right: 2.5rem;
     }
   }
 
-  /* Clean human-crafted card with subtle modern glass & colored hover */
-  .clean-card {
-    background: rgba(255, 255, 255, 0.025);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 1.25rem;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  /* Target Site Signature Glowing Button */
+  .button-panda {
+    background-color: var(--body-color);
+    border: 3px solid var(--first-color);
+    color: var(--title-color);
+    padding: 0.9rem 2rem;
+    box-shadow:
+      0 8px 32px hsla(var(--hue), 60%, 64%, 0.45),
+      inset 8px -8px 30px var(--first-color-alt-2);
+    border-radius: 4rem;
+    font-family: var(--second-font);
+    font-weight: 600;
+    font-size: 0.875rem;
+    display: inline-flex;
+    align-items: center;
+    column-gap: 0.6rem;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
   }
 
-  .clean-card:hover {
-    background: rgba(255, 255, 255, 0.045);
-    transform: translateY(-3px);
+  .button-panda:hover {
+    box-shadow:
+      0 12px 48px hsla(var(--hue), 60%, 64%, 0.75),
+      inset 8px -8px 30px var(--first-color-alt-2);
+    transform: translateY(-2px);
+    color: #ffffff;
+  }
+
+  /* Secondary pill button */
+  .button-secondary-panda {
+    background-color: var(--container-color);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--title-color);
+    padding: 0.85rem 1.75rem;
+    border-radius: 4rem;
+    font-family: var(--second-font);
+    font-weight: 500;
+    font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    column-gap: 0.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .button-secondary-panda:hover {
+    border-color: var(--first-color);
+    color: var(--first-color);
+    box-shadow: 0 0 20px hsla(var(--hue), 60%, 64%, 0.25);
+  }
+
+  /* Card styling from target design */
+  .panda-card {
+    background-color: var(--container-color);
+    border-radius: 2.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .panda-card:hover {
+    border-color: hsla(var(--hue), 60%, 64%, 0.35);
+    box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.8), 0 0 35px -5px hsla(var(--hue), 60%, 64%, 0.15);
   }
 }
 
 @layer utilities {
-  .font-display {
-    font-family: 'Space Grotesk', sans-serif;
+  .font-unbounded {
+    font-family: var(--second-font);
   }
-  .font-mono {
-    font-family: 'JetBrains Mono', monospace;
-  }
-
-  .perspective-1000 {
-    perspective: 1000px;
+  .font-montserrat {
+    font-family: var(--body-font);
   }
 
-  .preserve-3d {
-    transform-style: preserve-3d;
+  /* Ambient Blurred Rotating Gradient Blob */
+  .blob-animate {
+    background: linear-gradient(
+      180deg,
+      var(--first-color-alt) 20%,
+      var(--first-color-light) 100%
+    );
+    border-radius: 50%;
+    position: absolute;
+    filter: blur(40px);
+    z-index: 0;
+    animation: animateBlob 6s linear infinite;
+    pointer-events: none;
   }
 
-  /* Vibrant Modern Gradients */
-  .gradient-hero-text {
-    background: linear-gradient(135deg, #60a5fa 0%, #38bdf8 30%, #818cf8 70%, #c084fc 100%);
+  .blob-static {
+    background: linear-gradient(
+      180deg,
+      var(--first-color) 0%,
+      var(--first-color-alt) 100%
+    );
+    border-radius: 50%;
+    filter: blur(55px);
+    position: absolute;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* Target site text mask gradient */
+  .text-gradient-purple {
+    background: linear-gradient(135deg, hsl(var(--hue), 60%, 74%) 0%, hsl(var(--hue), 80%, 56%) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
+}
 
-  .gradient-blue-cyan {
-    background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+@keyframes animateBlob {
+  0% {
+    transform: rotate(0deg);
   }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 
-  .gradient-purple-pink {
-    background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
   }
+  100% {
+    transform: translateX(-50%);
+  }
+}
 
-  .gradient-emerald-teal {
-    background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: scroll 24s linear infinite;
+}
 
-  .gradient-amber-orange {
-    background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
+.animate-marquee:hover {
+  animation-play-state: paused;
 }

@@ -1,18 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Award, CheckCircle2, ShieldCheck, Copy, Check, Eye, X, ExternalLink, ThumbsUp, MessageSquare, Repeat2, Share2, Sparkles } from "lucide-react";
 import { certifications, linkedinPosts } from "../../data/portfolio";
-import Tilt from "react-parallax-tilt";
-
-function LinkedinIcon({ size = 16, className = "" }: { size?: number; className?: string }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-      <rect x="2" y="9" width="4" height="12" />
-      <circle cx="4" cy="4" r="2" />
-    </svg>
-  );
-}
 
 export default function Certifications() {
   const [copiedId, setCopiedId] = useState<number | null>(null);
@@ -28,253 +16,210 @@ export default function Certifications() {
   };
 
   return (
-    <section id="certifications" className="relative section-padding border-t border-white/[0.05]">
-      {/* Background colorful ambient glow */}
-      <div className="absolute top-1/4 -right-20 w-[500px] h-[500px] bg-indigo-600/15 blur-[160px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-10 -left-20 w-[500px] h-[500px] bg-pink-600/10 blur-[150px] rounded-full pointer-events-none" />
+    <section id="certifications" className="relative py-24 bg-void overflow-hidden">
+      {/* Background ambient lighting */}
+      <div className="absolute top-1/4 -right-32 w-96 h-96 bg-first/15 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-10 -left-32 w-96 h-96 bg-first-alt/10 rounded-full blur-[140px] pointer-events-none" />
 
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-6">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6 text-left">
           <div>
-            <div className="flex items-center gap-3 mb-2">
-              <span className="text-xs font-mono text-pink-400 uppercase tracking-widest block">
-                05 / Verifications & Credentials
+            <div className="flex items-center gap-3 mb-3">
+              <span className="text-xs font-unbounded text-first tracking-widest uppercase block">
+                // 05 · ACCREDITATIONS
               </span>
-              <span className="text-slate-700">|</span>
+              <span className="text-slate-600">|</span>
               <a
                 href="https://www.linkedin.com/in/praveen-kumar-e-952444358/recent-activity/all/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono bg-blue-500/10 border border-blue-500/30 text-blue-400 hover:bg-blue-500/20 transition-colors"
+                className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-montserrat bg-first/15 border border-first/30 text-first font-medium hover:bg-first/25 transition-colors"
               >
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
                 <span>LinkedIn Auto-Sync Active</span>
-                <ExternalLink size={10} />
+                <i className="ri-external-link-line text-xs" />
               </a>
             </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-display text-white tracking-tight">
-              Certificates & <span className="gradient-purple-pink">LinkedIn Feed</span>
+
+            <h2 className="font-unbounded text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight leading-[1.2]">
+              Verified <span className="text-first">Credentials</span>
+              <br />
+              &amp; Achievements
             </h2>
           </div>
+
           <div className="flex flex-col items-start md:items-end gap-1">
-            <p className="text-sm font-mono text-slate-400 max-w-md md:text-right">
-              Official academic honors, hackathon achievements, and verified LinkedIn activity feeds.
+            <p className="font-montserrat text-sm text-slate-400 max-w-md md:text-right">
+              Official academic honors, hackathon awards, and live-synced LinkedIn activity feeds.
             </p>
             <a
               href="https://www.linkedin.com/in/praveen-kumar-e-952444358/recent-activity/all/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[11px] font-mono text-cyan-400 hover:underline flex items-center gap-1"
+              className="text-xs font-montserrat text-first hover:underline flex items-center gap-1.5 mt-1"
             >
-              <span>Open Praveen's Live LinkedIn Activity</span>
-              <ExternalLink size={11} />
+              <span>View Praveen's Live Activity on LinkedIn</span>
+              <i className="ri-arrow-right-up-line text-sm" />
             </a>
           </div>
         </div>
 
         {/* Filter Navigation Tabs */}
-        <div className="flex flex-wrap gap-2 mb-10">
+        <div className="flex flex-wrap gap-2.5 mb-12">
           <button
             onClick={() => setActiveTab("all")}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono transition-all border ${
+            className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-montserrat font-medium transition-all duration-300 ${
               activeTab === "all"
-                ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white border-purple-400 shadow-lg shadow-purple-600/30 scale-105"
-                : "bg-white/[0.02] border-white/10 text-slate-400 hover:text-white"
+                ? "bg-first text-white shadow-lg shadow-first/40 border border-first scale-105"
+                : "bg-container border border-white/[0.08] text-slate-300 hover:text-white hover:border-first/40"
             }`}
           >
-            <span>All Credentials & Posts</span>
-            <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-white/20 text-white">
+            <span>All Credentials &amp; Posts</span>
+            <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/20 text-white">
               {certifications.length + linkedinPosts.length}
             </span>
           </button>
 
           <button
             onClick={() => setActiveTab("certs")}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono transition-all border ${
+            className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-montserrat font-medium transition-all duration-300 ${
               activeTab === "certs"
-                ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white border-purple-400 shadow-lg shadow-purple-600/30 scale-105"
-                : "bg-white/[0.02] border-white/10 text-slate-400 hover:text-white"
+                ? "bg-first text-white shadow-lg shadow-first/40 border border-first scale-105"
+                : "bg-container border border-white/[0.08] text-slate-300 hover:text-white hover:border-first/40"
             }`}
           >
-            <Award size={13} />
+            <i className="ri-award-line text-sm" />
             <span>Official Certificates</span>
-            <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-white/20 text-white">
+            <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/20 text-white">
               {certifications.length}
             </span>
           </button>
 
           <button
             onClick={() => setActiveTab("linkedin")}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono transition-all border ${
+            className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-montserrat font-medium transition-all duration-300 ${
               activeTab === "linkedin"
-                ? "bg-gradient-to-r from-blue-600 to-cyan-600 text-white border-blue-400 shadow-lg shadow-blue-600/30 scale-105"
-                : "bg-white/[0.02] border-white/10 text-slate-400 hover:text-white"
+                ? "bg-first text-white shadow-lg shadow-first/40 border border-first scale-105"
+                : "bg-container border border-white/[0.08] text-slate-300 hover:text-white hover:border-first/40"
             }`}
           >
-            <LinkedinIcon size={13} />
-            <span>LinkedIn Posts & Hackathons</span>
-            <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-blue-500/30 text-cyan-300">
+            <i className="ri-linkedin-box-line text-sm" />
+            <span>LinkedIn Posts &amp; Hackathons</span>
+            <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/20 text-white">
               {linkedinPosts.length}
             </span>
           </button>
         </div>
 
         {/* ══════════════════════════════════════════════════
-            1. Official Certifications Grid (Tilt Cards)
+            1. Official Certifications Grid (Panda Coders Card Style)
             ══════════════════════════════════════════════════ */}
         {(activeTab === "all" || activeTab === "certs") && (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-7 mb-12">
-            {certifications.map((cert) => (
-              <Tilt
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-7 mb-14">
+            {certifications.map((cert, idx) => (
+              <motion.article
                 key={cert.id}
-                tiltMaxAngleX={6}
-                tiltMaxAngleY={6}
-                glareEnable
-                glareMaxOpacity={0.05}
-                glareColor={cert.color}
-                glarePosition="all"
-                glareBorderRadius="1.25rem"
-                className="h-full"
+                initial={{ opacity: 0, y: 25 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: (idx % 3) * 0.1, duration: 0.5 }}
+                onClick={() => setActiveCert(cert)}
+                className="relative bg-container rounded-[2.5rem] p-7 border border-white/[0.06] overflow-hidden group hover:border-first/50 transition-all duration-500 flex flex-col justify-between cursor-pointer"
               >
-                <div
-                  onClick={() => setActiveCert(cert)}
-                  className="clean-card h-full overflow-hidden border border-white/10 flex flex-col justify-between group transition-all duration-300 relative cursor-pointer"
-                  style={{
-                    background: "linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(10,10,18,0.9) 100%)",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = `${cert.color}70`;
-                    e.currentTarget.style.boxShadow = `0 20px 40px -12px rgba(0,0,0,0.6), 0 0 35px -6px ${cert.color}30`;
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)";
-                    e.currentTarget.style.boxShadow = "none";
-                  }}
-                >
-                  {/* Certificate Sample Header Band with Official Seal Styling */}
-                  <div
-                    className="relative px-6 pt-5 pb-4 border-b flex items-center justify-between"
-                    style={{
-                      background: `linear-gradient(90deg, ${cert.color}15 0%, rgba(255,255,255,0.02) 100%)`,
-                      borderColor: `${cert.color}30`,
-                    }}
-                  >
-                    {/* Official Rosette / Seal Badge */}
-                    <div className="flex items-center gap-3">
-                      <div
-                        className="w-10 h-10 rounded-full border-2 flex items-center justify-center shadow-lg"
-                        style={{
-                          backgroundColor: `${cert.color}20`,
-                          borderColor: cert.color,
-                          color: cert.color,
-                          boxShadow: `0 0 16px ${cert.color}35`,
-                        }}
-                      >
-                        <Award size={20} />
-                      </div>
-                      <div>
-                        <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400 block">
-                          OFFICIAL CREDENTIAL
-                        </span>
-                        <span className="text-xs font-mono font-bold text-white tracking-wide">
-                          {cert.issuer.split("|")[0].trim()}
-                        </span>
-                      </div>
-                    </div>
+                {/* Glowing Corner Blob */}
+                <div 
+                  className="absolute -right-24 -bottom-24 w-52 h-52 rounded-full bg-first/20 blur-[50px] pointer-events-none group-hover:bg-first/35 transition-all duration-500" 
+                />
 
-                    {/* Score / Grade Ribbon Badge */}
-                    <span
-                      className="text-[10px] font-mono px-2.5 py-1 rounded-full border font-bold tracking-wide shadow-sm"
-                      style={{
-                        backgroundColor: `${cert.color}25`,
-                        borderColor: `${cert.color}60`,
-                        color: cert.color,
-                      }}
-                    >
-                      {cert.badge}
-                    </span>
+                {/* Top Badge & Verified Stars */}
+                <div className="relative z-10 mb-4 flex items-center justify-between">
+                  <span className="font-montserrat text-[11px] font-semibold px-3 py-1 rounded-full bg-first/15 text-first border border-first/30">
+                    {cert.badge}
+                  </span>
+                  
+                  {/* Verified Rating Stars */}
+                  <div className="flex items-center gap-1 text-amber-400 text-sm">
+                    <i className="ri-star-fill" />
+                    <i className="ri-star-fill" />
+                    <i className="ri-star-fill" />
+                    <i className="ri-star-fill" />
+                    <i className="ri-star-fill" />
                   </div>
-
-                  {/* Certificate Body (Document Sample Layout) */}
-                  <div className="p-6 flex-1 flex flex-col justify-between">
-                    <div>
-                      {cert.image && (
-                        <div className="relative h-44 overflow-hidden rounded-xl border border-white/10 mb-4 group/img bg-black/60">
-                          <img
-                            src={cert.image}
-                            alt={cert.title}
-                            className="w-full h-full object-cover object-center group-hover/img:scale-105 transition-transform duration-500"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a12] via-transparent to-transparent opacity-60" />
-                          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover/img:opacity-100 transition-opacity bg-black/40 backdrop-blur-[2px]">
-                            <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-black/80 border border-white/20 text-xs font-mono text-white">
-                              <Eye size={14} className="text-cyan-400" /> Click to View
-                            </span>
-                          </div>
-                        </div>
-                      )}
-
-                      <div className="flex items-center gap-1.5 text-[10px] font-mono text-slate-500 mb-1.5">
-                        <span>RECIPIENT:</span>
-                        <span className="text-slate-300 font-semibold">PRAVEEN KUMAR E</span>
-                      </div>
-
-                      <h3 className="font-display font-bold text-lg text-white group-hover:text-white transition-colors mb-2 leading-snug">
-                        {cert.title}
-                      </h3>
-
-                      <p className="text-xs text-slate-300 font-medium mb-1">
-                        {cert.issuer}
-                      </p>
-
-                      <p className="text-xs font-mono text-slate-400 mb-4">
-                        {cert.date}
-                      </p>
-                    </div>
-
-                    {/* Verification ID box with copy button */}
-                    <div
-                      className="p-3 rounded-xl border flex items-center justify-between text-xs font-mono mb-4"
-                      style={{
-                        backgroundColor: "rgba(255,255,255,0.02)",
-                        borderColor: "rgba(255,255,255,0.06)",
-                      }}
-                    >
-                      <div className="min-w-0 pr-2">
-                        <span className="text-[10px] text-slate-500 block uppercase">Serial / Identifier:</span>
-                        <span className="text-slate-300 truncate block text-[11px]" title={cert.code}>
-                          {cert.code}
-                        </span>
-                      </div>
-
-                      <button
-                        onClick={(e) => handleCopy(cert.id, cert.code, e)}
-                        className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-colors shrink-0"
-                        title="Copy Certificate Identifier"
-                      >
-                        {copiedId === cert.id ? <Check size={14} className="text-emerald-400" /> : <Copy size={14} />}
-                      </button>
-                    </div>
-
-                    {/* Footer seal */}
-                    <div className="pt-3 border-t border-white/[0.06] flex items-center justify-between">
-                      <span className="text-[10px] font-mono text-slate-500 flex items-center gap-1">
-                        <ShieldCheck size={12} className="text-emerald-400" /> Tamper-Proof Verified
-                      </span>
-
-                      <span
-                        className="inline-flex items-center gap-1 text-xs font-mono font-semibold"
-                        style={{ color: cert.color }}
-                      >
-                        <CheckCircle2 size={13} />
-                        <span>Active Credential</span>
-                      </span>
-                    </div>
-                  </div>
-
                 </div>
-              </Tilt>
+
+                {/* Certificate Preview Image */}
+                {cert.image && (
+                  <div className="relative h-44 rounded-2xl overflow-hidden border border-white/10 mb-5 bg-black/60 group/img">
+                    <img
+                      src={cert.image}
+                      alt={cert.title}
+                      className="w-full h-full object-cover object-center group-hover/img:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60" />
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover/img:opacity-100 transition-opacity bg-black/50 backdrop-blur-[2px]">
+                      <span className="flex items-center gap-2 px-4 py-2 rounded-full bg-void border border-first/50 text-xs font-montserrat text-white shadow-xl">
+                        <i className="ri-eye-line text-first" /> Click to Expand
+                      </span>
+                    </div>
+                  </div>
+                )}
+
+                {/* Certificate Details */}
+                <div className="relative z-10 flex-1 flex flex-col justify-between mb-4">
+                  <div>
+                    <span className="font-montserrat text-[10px] text-slate-400 block mb-1">
+                      RECIPIENT: <b className="text-white">PRAVEEN KUMAR E</b>
+                    </span>
+
+                    <h3 className="font-unbounded text-base sm:text-lg font-bold text-white mb-2 leading-snug group-hover:text-first transition-colors line-clamp-2">
+                      {cert.title}
+                    </h3>
+
+                    <p className="font-montserrat text-xs text-first font-medium mb-1">
+                      {cert.issuer}
+                    </p>
+
+                    <p className="font-montserrat text-xs text-slate-400 mb-4">
+                      {cert.date}
+                    </p>
+                  </div>
+
+                  {/* Serial / Identifier Box */}
+                  <div className="p-3 rounded-xl bg-void border border-white/[0.06] flex items-center justify-between text-xs font-montserrat">
+                    <div className="min-w-0 pr-2">
+                      <span className="text-[10px] text-slate-500 block uppercase">Identifier:</span>
+                      <span className="text-slate-300 truncate block text-[11px]" title={cert.code}>
+                        {cert.code}
+                      </span>
+                    </div>
+
+                    <button
+                      onClick={(e) => handleCopy(cert.id, cert.code, e)}
+                      className="p-1.5 rounded-lg bg-white/5 hover:bg-first/20 text-slate-400 hover:text-white transition-colors shrink-0"
+                      title="Copy Certificate Identifier"
+                    >
+                      {copiedId === cert.id ? (
+                        <i className="ri-check-line text-emerald-400 text-base" />
+                      ) : (
+                        <i className="ri-file-copy-line text-base" />
+                      )}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Card Footer */}
+                <div className="relative z-10 pt-4 border-t border-white/[0.06] flex items-center justify-between text-xs font-montserrat">
+                  <span className="text-slate-400 flex items-center gap-1.5">
+                    <i className="ri-shield-check-fill text-emerald-400 text-sm" /> Verified
+                  </span>
+
+                  <span className="text-first font-semibold flex items-center gap-1">
+                    <i className="ri-checkbox-circle-fill text-sm" /> Active Record
+                  </span>
+                </div>
+              </motion.article>
             ))}
           </div>
         )}
@@ -285,72 +230,66 @@ export default function Certifications() {
         {(activeTab === "all" || activeTab === "linkedin") && (
           <div className="mb-12">
             <div className="flex items-center gap-3 mb-6">
-              <LinkedinIcon size={18} className="text-blue-400" />
-              <h3 className="text-xl font-display font-bold text-white">
+              <i className="ri-linkedin-box-fill text-2xl text-first" />
+              <h3 className="font-unbounded text-xl sm:text-2xl font-bold text-white">
                 Live LinkedIn Activity &amp; Posts
               </h3>
-              <span className="text-xs font-mono px-2.5 py-0.5 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-300">
-                Synced from @Praveen Kumar E
-              </span>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid md:grid-cols-2 gap-7">
               {linkedinPosts.map((post) => (
                 <div
                   key={post.id}
                   onClick={() => setActivePost(post)}
-                  className="clean-card p-6 border border-white/10 hover:border-blue-500/50 flex flex-col justify-between transition-all duration-300 group cursor-pointer"
-                  style={{
-                    background: "rgba(10, 12, 22, 0.95)",
-                  }}
+                  className="bg-container rounded-[2.5rem] p-7 border border-white/[0.06] hover:border-first/50 flex flex-col justify-between transition-all duration-300 group cursor-pointer relative overflow-hidden"
                 >
                   <div>
                     {/* Post Author Header */}
                     <div className="flex items-center justify-between pb-4 mb-4 border-b border-white/[0.06]">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-blue-600/30 border border-blue-400/40 flex items-center justify-center text-white font-bold font-mono text-xs">
+                        <div className="w-11 h-11 rounded-full bg-void border-2 border-first flex items-center justify-center text-white font-unbounded text-xs font-bold shadow-md shadow-first/20">
                           PK
                         </div>
                         <div>
                           <div className="flex items-center gap-1.5">
-                            <span className="font-display font-semibold text-white text-sm">
+                            <span className="font-montserrat font-bold text-white text-sm">
                               {post.author}
                             </span>
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                            <span className="w-2 h-2 rounded-full bg-emerald-400" />
                           </div>
-                          <p className="text-[11px] font-mono text-slate-400 line-clamp-1">
+                          <p className="text-xs font-montserrat text-slate-400 line-clamp-1">
                             {post.authorRole}
                           </p>
                         </div>
                       </div>
 
                       <div className="flex flex-col items-end">
-                        <span className="text-[10px] font-mono text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded border border-cyan-500/20">
+                        <span className="text-[10px] font-montserrat text-first bg-first/15 px-2.5 py-1 rounded-full border border-first/30 font-semibold">
                           {post.badge}
                         </span>
-                        <span className="text-[10px] font-mono text-slate-500 mt-1">
+                        <span className="text-[10px] font-montserrat text-slate-500 mt-1">
                           {post.postedDate}
                         </span>
                       </div>
                     </div>
 
-                    {/* Post Content Text */}
-                    <p className="text-xs text-slate-300 leading-relaxed mb-4">
+                    {/* Post Content */}
+                    <p className="font-montserrat text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
                       {post.text}
                     </p>
 
-                    {/* Attached Post Images (Dual Side-by-Side: Certificate + Lab Photo) */}
+                    {/* Post Image Attachments */}
                     {post.images && post.images.length > 0 && (
-                      <div className="grid grid-cols-2 gap-2 mb-4 rounded-xl overflow-hidden border border-white/10 bg-black/60 p-1">
+                      <div className="grid grid-cols-2 gap-2 mb-4 rounded-2xl overflow-hidden border border-white/10 bg-black/60 p-1.5">
                         {post.images.map((imgSrc, idx) => (
-                          <div key={idx} className="relative h-32 rounded-lg overflow-hidden group/subimg">
+                          <div key={idx} className="relative h-32 rounded-xl overflow-hidden group/subimg">
                             <img
                               src={imgSrc}
                               alt={`LinkedIn post attachment ${idx + 1}`}
                               className="w-full h-full object-cover object-center group-hover/subimg:scale-105 transition-transform duration-300"
                             />
-                            <div className="absolute inset-0 bg-black/30 opacity-0 group-hover/subimg:opacity-100 flex items-center justify-center transition-opacity">
-                              <Eye size={16} className="text-white drop-shadow" />
+                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/subimg:opacity-100 flex items-center justify-center transition-opacity">
+                              <i className="ri-eye-line text-white text-lg drop-shadow" />
                             </div>
                           </div>
                         ))}
@@ -358,11 +297,11 @@ export default function Certifications() {
                     )}
                   </div>
 
-                  {/* Post Footer & Engagement Row */}
-                  <div className="pt-3 border-t border-white/[0.06] flex items-center justify-between text-xs font-mono text-slate-400">
-                    <div className="flex items-center gap-3 text-[11px]">
-                      <span className="flex items-center gap-1 text-blue-400">
-                        <ThumbsUp size={12} /> {post.likes}
+                  {/* Post Footer */}
+                  <div className="pt-4 border-t border-white/[0.06] flex items-center justify-between text-xs font-montserrat text-slate-400">
+                    <div className="flex items-center gap-3">
+                      <span className="flex items-center gap-1.5 text-first font-medium">
+                        <i className="ri-thumb-up-line" /> {post.likes}
                       </span>
                       <span>·</span>
                       <span className="text-slate-500">{post.impressions}</span>
@@ -373,10 +312,10 @@ export default function Certifications() {
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={(e) => e.stopPropagation()}
-                      className="flex items-center gap-1 text-cyan-400 hover:text-white transition-colors"
+                      className="flex items-center gap-1.5 text-first hover:text-white transition-colors font-medium"
                     >
                       <span>View on LinkedIn</span>
-                      <ExternalLink size={12} />
+                      <i className="ri-arrow-right-up-line" />
                     </a>
                   </div>
                 </div>
@@ -404,94 +343,83 @@ export default function Certifications() {
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.92, y: 20 }}
               transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-              className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto bg-[#0a0a14] rounded-2xl p-6 md:p-8 shadow-2xl text-left border"
+              className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto bg-container rounded-[2.5rem] p-6 sm:p-8 shadow-2xl text-left border border-first/40"
               style={{
-                borderColor: `${activeCert.color}60`,
-                boxShadow: `0 0 50px ${activeCert.color}25`,
+                boxShadow: "0 0 60px rgba(138, 111, 232, 0.25)",
               }}
               onClick={(e) => e.stopPropagation()}
             >
               {/* Close Button */}
               <button
                 onClick={() => setActiveCert(null)}
-                className="absolute top-5 right-5 p-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 hover:text-white transition-colors"
+                className="absolute top-6 right-6 w-10 h-10 rounded-full bg-void hover:bg-first/20 border border-white/10 text-slate-300 hover:text-white flex items-center justify-center transition-all"
                 aria-label="Close modal"
               >
-                <X size={18} />
+                <i className="ri-close-line text-xl" />
               </button>
 
               {/* Modal Header */}
-              <div className="mb-5 pr-8">
+              <div className="mb-6 pr-10">
                 <div className="flex items-center gap-2 mb-2">
-                  <span
-                    className="text-xs font-mono uppercase tracking-wider px-2.5 py-0.5 rounded-full border font-semibold"
-                    style={{
-                      backgroundColor: `${activeCert.color}15`,
-                      borderColor: `${activeCert.color}40`,
-                      color: activeCert.color,
-                    }}
-                  >
+                  <span className="font-montserrat text-xs uppercase tracking-wider px-3 py-1 rounded-full bg-first/15 border border-first/30 text-first font-semibold">
                     {activeCert.badge}
                   </span>
-                  <span className="text-xs font-mono text-slate-400">{activeCert.date}</span>
+                  <span className="font-montserrat text-xs text-slate-400">{activeCert.date}</span>
                 </div>
-                <h3 className="text-2xl font-bold font-display text-white">
+                <h3 className="font-unbounded text-2xl sm:text-3xl font-bold text-white">
                   {activeCert.title}
                 </h3>
-                <p className="text-sm text-slate-300 font-medium mt-1">
+                <p className="font-montserrat text-sm text-first font-medium mt-1">
                   {activeCert.issuer}
                 </p>
               </div>
 
               {/* Certificate Image View */}
               {activeCert.image && (
-                <div className="rounded-xl overflow-hidden border border-white/15 mb-6 bg-black shadow-2xl flex items-center justify-center max-h-[55vh]">
+                <div className="rounded-2xl overflow-hidden border border-white/15 mb-6 bg-black shadow-2xl flex items-center justify-center max-h-[55vh]">
                   <img
                     src={activeCert.image}
                     alt={activeCert.title}
-                    className="w-full h-full object-contain max-h-[55vh]"
+                    className="w-full h-auto max-h-[55vh] object-contain"
                   />
                 </div>
               )}
 
-              {/* Verification Info & Action Row */}
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4 rounded-xl bg-white/[0.02] border border-white/10">
+              {/* Certificate Metadata */}
+              <div className="p-4 rounded-2xl bg-void border border-white/10 mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-montserrat">
                 <div>
-                  <span className="text-[10px] font-mono text-slate-500 uppercase block">Credential Identifier</span>
-                  <span className="text-xs font-mono text-slate-200 font-medium">{activeCert.code}</span>
+                  <span className="text-slate-400 block mb-0.5">Official Verification ID:</span>
+                  <span className="font-mono text-white text-sm font-semibold select-all">
+                    {activeCert.code}
+                  </span>
                 </div>
 
-                <div className="flex items-center gap-2.5 w-full sm:w-auto">
-                  <button
-                    onClick={(e) => handleCopy(activeCert.id, activeCert.code, e)}
-                    className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-mono text-slate-300 hover:text-white transition-colors"
-                  >
-                    {copiedId === activeCert.id ? (
-                      <>
-                        <Check size={14} className="text-emerald-400" />
-                        <span>Copied</span>
-                      </>
-                    ) : (
-                      <>
-                        <Copy size={14} />
-                        <span>Copy ID</span>
-                      </>
-                    )}
-                  </button>
-
-                  {activeCert.image && (
-                    <a
-                      href={activeCert.image}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl text-xs font-mono font-semibold text-white transition-opacity"
-                      style={{ backgroundColor: activeCert.color }}
-                    >
-                      <span>Open Image</span>
-                      <ExternalLink size={13} />
-                    </a>
+                <button
+                  onClick={(e) => handleCopy(activeCert.id, activeCert.code, e)}
+                  className="button-secondary-panda inline-flex items-center gap-2 text-xs py-2 px-4 self-start sm:self-auto"
+                >
+                  {copiedId === activeCert.id ? (
+                    <>
+                      <i className="ri-check-line text-emerald-400" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <i className="ri-file-copy-line" />
+                      <span>Copy ID</span>
+                    </>
                   )}
-                </div>
+                </button>
+              </div>
+
+              <div className="pt-4 border-t border-white/10 flex justify-end">
+                <button
+                  onClick={() => setActiveCert(null)}
+                  className="button-panda inline-flex items-center gap-2 text-xs"
+                >
+                  <span>Close Viewer</span>
+                  <i className="ri-close-line" />
+                </button>
               </div>
             </motion.div>
           </motion.div>
@@ -515,60 +443,66 @@ export default function Certifications() {
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.92, y: 20 }}
               transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-              className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto bg-[#0a0a14] rounded-2xl p-6 md:p-8 shadow-2xl text-left border border-blue-500/40"
+              className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-container rounded-[2.5rem] p-6 sm:p-8 shadow-2xl text-left border border-first/40"
+              style={{
+                boxShadow: "0 0 60px rgba(138, 111, 232, 0.25)",
+              }}
               onClick={(e) => e.stopPropagation()}
             >
+              {/* Close Button */}
               <button
                 onClick={() => setActivePost(null)}
-                className="absolute top-5 right-5 p-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 hover:text-white transition-colors"
-                aria-label="Close modal"
+                className="absolute top-6 right-6 w-10 h-10 rounded-full bg-void hover:bg-first/20 border border-white/10 text-slate-300 hover:text-white flex items-center justify-center transition-all"
+                aria-label="Close post modal"
               >
-                <X size={18} />
+                <i className="ri-close-line text-xl" />
               </button>
 
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-11 h-11 rounded-full bg-blue-600/30 border border-blue-400 flex items-center justify-center text-white font-bold font-mono text-sm">
+              <div className="flex items-center gap-3 pb-4 mb-4 border-b border-white/[0.08]">
+                <div className="w-12 h-12 rounded-full bg-void border-2 border-first flex items-center justify-center text-white font-unbounded text-sm font-bold shadow-md shadow-first/20">
                   PK
                 </div>
                 <div>
-                  <h4 className="font-display font-bold text-white text-base">
+                  <h4 className="font-montserrat font-bold text-white text-base">
                     {activePost.author}
                   </h4>
-                  <p className="text-xs font-mono text-slate-400">
-                    {activePost.authorRole} · <span className="text-cyan-400">{activePost.postedDate}</span>
+                  <p className="font-montserrat text-xs text-slate-400">
+                    {activePost.authorRole}
                   </p>
                 </div>
               </div>
 
-              <p className="text-sm text-slate-200 leading-relaxed mb-6">
+              <p className="font-montserrat text-sm text-slate-200 leading-relaxed mb-6">
                 {activePost.text}
               </p>
 
-              {/* High-res Image Gallery in Modal */}
               {activePost.images && activePost.images.length > 0 && (
-                <div className="space-y-3 mb-6">
-                  {activePost.images.map((img, idx) => (
-                    <div key={idx} className="rounded-xl overflow-hidden border border-white/10 bg-black max-h-[45vh] flex items-center justify-center">
-                      <img src={img} alt={`Post item ${idx + 1}`} className="w-full h-full object-contain max-h-[45vh]" />
+                <div className="space-y-4 mb-6">
+                  {activePost.images.map((imgSrc, i) => (
+                    <div key={i} className="rounded-2xl overflow-hidden border border-white/15 bg-black">
+                      <img
+                        src={imgSrc}
+                        alt={`Attachment ${i + 1}`}
+                        className="w-full h-auto max-h-[60vh] object-contain"
+                      />
                     </div>
                   ))}
                 </div>
               )}
 
-              <div className="flex items-center justify-between pt-4 border-t border-white/10">
-                <div className="text-xs font-mono text-slate-400">
-                  <span>{activePost.impressions}</span> · <span className="text-blue-400">{activePost.likes}</span>
-                </div>
+              <div className="pt-4 border-t border-white/10 flex items-center justify-between">
+                <span className="font-montserrat text-xs text-slate-400">
+                  {activePost.likes} · {activePost.impressions}
+                </span>
 
                 <a
                   href={activePost.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-mono font-semibold bg-blue-600 hover:bg-blue-500 text-white transition-colors"
+                  className="button-panda inline-flex items-center gap-2 text-xs"
                 >
-                  <LinkedinIcon size={14} />
                   <span>Open on LinkedIn</span>
-                  <ExternalLink size={13} />
+                  <i className="ri-arrow-right-up-line" />
                 </a>
               </div>
             </motion.div>

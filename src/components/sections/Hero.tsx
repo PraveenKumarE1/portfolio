@@ -1,11 +1,10 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Mail, Phone, MapPin, ChevronDown, Sparkles, Cpu, Database, Code2, Brain } from "lucide-react";
+import { ArrowUpRight, FileText, Mail, Phone, MapPin, ChevronDown } from "lucide-react";
 import { personal } from "../../data/portfolio";
 import praveenPortrait from "../../assets/praveen_portrait.jpg";
 import praveenPng from "../../assets/praveen.png";
 
-function GithubIcon({ size = 16 }: { size?: number }) {
+function GithubIcon({ size = 18 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
@@ -14,7 +13,7 @@ function GithubIcon({ size = 16 }: { size?: number }) {
   );
 }
 
-function LinkedinIcon({ size = 16 }: { size?: number }) {
+function LinkedinIcon({ size = 18 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
@@ -24,278 +23,201 @@ function LinkedinIcon({ size = 16 }: { size?: number }) {
   );
 }
 
-// Sleek 3D Interactive Holographic AI Core & Concentric Tech Orbits
-function Geometric3DCube() {
-  const [rotate, setRotate] = useState({ x: 12, y: 20 });
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    setRotate({ x: -y * 30, y: x * 30 });
-  };
-
-  const handleMouseLeave = () => {
-    setRotate({ x: 12, y: 20 });
-  };
-
-  return (
-    <div
-      className="relative w-80 h-80 md:w-[420px] md:h-[420px] flex items-center justify-center cursor-pointer select-none perspective-1000"
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-    >
-      {/* Background Multi-Color Ambient Radial Glow */}
-      <div className="absolute w-72 h-72 rounded-full bg-gradient-to-tr from-blue-600/25 via-purple-600/20 to-cyan-400/25 blur-3xl pointer-events-none" />
-
-      {/* Orbiting Tech Badges */}
-      <motion.div
-        animate={{ rotate: 360 }}
-        transition={{ duration: 32, repeat: Infinity, ease: "linear" }}
-        className="absolute w-[310px] h-[310px] md:w-[370px] md:h-[370px] pointer-events-none z-20"
-      >
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 px-3 py-1 rounded-xl bg-[#090914]/90 border border-blue-500/50 text-blue-300 text-[11px] font-mono flex items-center gap-1.5 shadow-lg shadow-blue-500/20 backdrop-blur-md">
-          <Cpu size={13} className="text-blue-400" /> AI & ML
-        </div>
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 px-3 py-1 rounded-xl bg-[#090914]/90 border border-purple-500/50 text-purple-300 text-[11px] font-mono flex items-center gap-1.5 shadow-lg shadow-purple-500/20 backdrop-blur-md">
-          <Database size={13} className="text-purple-400" /> Data Science
-        </div>
-        <div className="absolute top-1/2 left-0 -translate-y-1/2 px-3 py-1 rounded-xl bg-[#090914]/90 border border-cyan-500/50 text-cyan-300 text-[11px] font-mono flex items-center gap-1.5 shadow-lg shadow-cyan-500/20 backdrop-blur-md">
-          <Code2 size={13} className="text-cyan-400" /> React & Node
-        </div>
-        <div className="absolute top-1/2 right-0 -translate-y-1/2 px-3 py-1 rounded-xl bg-[#090914]/90 border border-emerald-500/50 text-emerald-300 text-[11px] font-mono flex items-center gap-1.5 shadow-lg shadow-emerald-500/20 backdrop-blur-md">
-          <Brain size={13} className="text-emerald-400" /> Computer Vision
-        </div>
-      </motion.div>
-
-      {/* 3D Holographic AI Core Sphere & Rings Container */}
-      <motion.div
-        animate={{
-          rotateX: [rotate.x, rotate.x + 6, rotate.x],
-          rotateY: [rotate.y, rotate.y + 360],
-        }}
-        transition={{
-          rotateY: { duration: 25, repeat: Infinity, ease: "linear" },
-          rotateX: { duration: 5, repeat: Infinity, ease: "easeInOut" },
-        }}
-        className="w-48 h-48 md:w-56 md:h-56 relative preserve-3d flex items-center justify-center"
-      >
-        {/* Central Pulsing AI Core Sphere */}
-        <div className="absolute w-20 h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-tr from-blue-500 via-purple-500 to-cyan-400 p-0.5 shadow-[0_0_50px_rgba(59,130,246,0.6)] animate-pulse">
-          <div className="w-full h-full rounded-full bg-[#070712] flex items-center justify-center border border-white/20">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-400 to-purple-400 blur-[2px] opacity-80" />
-            <span className="absolute font-mono font-bold text-[11px] text-white tracking-wider">AI CORE</span>
-          </div>
-        </div>
-
-        {/* Inner Holographic Octagon Ring */}
-        <div
-          className="absolute inset-0 rounded-3xl border-2 border-dashed border-cyan-400/40 shadow-[0_0_25px_rgba(6,182,212,0.25)] animate-spin"
-          style={{ animationDuration: "18s", transform: "rotateX(60deg) rotateZ(45deg)" }}
-        />
-
-        {/* Middle Glowing Purple Ring */}
-        <div
-          className="absolute inset-3 rounded-full border border-purple-500/60 shadow-[0_0_30px_rgba(168,85,247,0.3)]"
-          style={{ transform: "rotateY(65deg) rotateZ(30deg)" }}
-        />
-
-        {/* Outer Electric Blue Ring */}
-        <div
-          className="absolute -inset-3 rounded-full border border-blue-500/50 shadow-[0_0_35px_rgba(59,130,246,0.3)] animate-spin"
-          style={{ animationDuration: "30s", animationDirection: "reverse", transform: "rotateX(70deg) rotateZ(-20deg)" }}
-        />
-      </motion.div>
-    </div>
-  );
-}
-
-// Praveen Portrait visual merged cleanly into dark background
-function PraveenPortraitVisual() {
-  return (
-    <div className="relative w-full max-w-[400px] aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl flex items-center justify-center border border-white/10 group">
-      {/* Ambient background glowing aura */}
-      <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/20 via-purple-600/20 to-cyan-600/20 opacity-80 blur-3xl rounded-full" />
-      <div className="absolute w-72 h-72 rounded-full bg-blue-500/15 blur-2xl" />
-
-      {/* Portrait Image container with seamless edge vignette / gradient mask */}
-      <div className="relative w-full h-full rounded-3xl overflow-hidden shadow-2xl flex items-center justify-center">
-        <img
-          src={praveenPortrait}
-          alt="Praveen Kumar E"
-          className="w-full h-full object-cover object-top filter brightness-[1.02] contrast-[1.06] group-hover:scale-105 transition-transform duration-700"
-          onError={(e) => {
-            (e.currentTarget as HTMLImageElement).src = praveenPng;
-          }}
-        />
-
-        {/* Seamless 4-side Edge Vignette & Bottom Gradient Fade */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: `
-              radial-gradient(ellipse at center, transparent 40%, #07070a 98%),
-              linear-gradient(to top, #07070a 0%, transparent 28%),
-              linear-gradient(to bottom, #07070a 0%, transparent 15%)
-            `,
-          }}
-        />
-      </div>
-    </div>
-  );
-}
-
 export default function Hero() {
   return (
-    <section id="home" className="relative min-h-screen flex items-center pt-28 pb-16 overflow-hidden">
-      {/* Ambient Multi-Color Glows */}
-      <div className="absolute top-1/4 -left-20 w-[500px] h-[500px] bg-blue-600/15 blur-[150px] rounded-full pointer-events-none" />
-      <div className="absolute top-1/3 -right-20 w-[500px] h-[500px] bg-purple-600/15 blur-[150px] rounded-full pointer-events-none" />
-      <div className="absolute -bottom-20 left-1/3 w-[450px] h-[450px] bg-cyan-500/10 blur-[140px] rounded-full pointer-events-none" />
+    <section id="home" className="relative min-h-screen pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden flex items-center justify-center">
+      {/* Background Soft Purple Ambient Glow */}
+      <div className="blob-static top-1/4 -left-20 w-80 h-80 opacity-40" />
+      <div className="blob-static top-1/3 -right-20 w-96 h-96 opacity-30" />
 
-      <div className="max-w-6xl mx-auto px-6 md:px-12 w-full grid lg:grid-cols-12 gap-12 lg:gap-8 items-center relative z-10">
-        
-        {/* Left Column */}
-        <div className="lg:col-span-7 flex flex-col items-start text-left">
+      {/* Hero Bottom Gradient Shadow to ground portrait seamlessly */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none z-10"
+        style={{
+          background: "linear-gradient(180deg, hsla(240, 100%, 2%, 0) 0%, hsl(240, 100%, 2%) 95%)",
+        }}
+      />
+
+      <div className="max-w-6xl mx-auto px-6 md:px-10 w-full relative z-20">
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-4 items-center">
           
-          {/* Availability pill with emerald pulse */}
+          {/* Left / Top Information: "Hello, I'm" & Name in Unbounded Font */}
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-gradient-to-r from-blue-600/15 via-purple-600/15 to-emerald-600/15 border border-blue-500/30 text-xs font-mono mb-6"
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-4 flex flex-col items-start z-20"
           >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[hsla(255,60%,64%,0.12)] border border-[hsla(255,60%,64%,0.3)] mb-4">
+              <span className="w-2 h-2 rounded-full bg-[hsl(255,60%,64%)] animate-ping" />
+              <span className="text-xs font-mono text-[hsl(255,60%,74%)] font-medium">
+                Available for Roles
+              </span>
+            </div>
+
+            <h3 className="text-lg md:text-xl font-medium text-[hsl(255,60%,64%)] font-unbounded mb-2">
+              Hello, I'm
+            </h3>
+
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-unbounded text-white tracking-tight leading-[1.1] mb-6">
+              Praveen <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-[hsl(255,60%,74%)]">
+                Kumar E
+              </span>
+            </h1>
+
+            <p className="text-sm font-montserrat text-slate-400 max-w-sm leading-relaxed mb-6">
+              3rd-year B.Tech in AI &amp; Data Science. Crafting neural vision systems, autonomous workflows, and production-grade full-stack products.
+            </p>
+
+            {/* CTAs matching target signature button */}
+            <div className="flex flex-wrap items-center gap-4">
+              <a href="#projects" className="button-panda">
+                <span>View Projects</span>
+                <ArrowUpRight size={16} />
+              </a>
+
+              <a
+                href="#contact"
+                className="button-secondary-panda"
+              >
+                <span>Get in Touch</span>
+              </a>
+            </div>
+
+            {/* Social Icons row */}
+            <div className="flex items-center gap-4 mt-8 pt-4 border-t border-white/10 w-full">
+              <a
+                href={personal.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-white/[0.04] border border-white/10 flex items-center justify-center text-slate-300 hover:text-[hsl(255,60%,64%)] hover:border-[hsl(255,60%,64%)] hover:shadow-[0_0_15px_hsla(255,60%,64%,0.4)] transition-all"
+                aria-label="GitHub"
+              >
+                <GithubIcon size={18} />
+              </a>
+
+              <a
+                href={personal.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-white/[0.04] border border-white/10 flex items-center justify-center text-slate-300 hover:text-[hsl(255,60%,64%)] hover:border-[hsl(255,60%,64%)] hover:shadow-[0_0_15px_hsla(255,60%,64%,0.4)] transition-all"
+                aria-label="LinkedIn"
+              >
+                <LinkedinIcon size={18} />
+              </a>
+
+              <a
+                href={`mailto:${personal.email}`}
+                className="w-10 h-10 rounded-full bg-white/[0.04] border border-white/10 flex items-center justify-center text-slate-300 hover:text-[hsl(255,60%,64%)] hover:border-[hsl(255,60%,64%)] hover:shadow-[0_0_15px_hsla(255,60%,64%,0.4)] transition-all"
+                aria-label="Email"
+              >
+                <Mail size={18} />
+              </a>
+
+              <a
+                href={`tel:${personal.phone}`}
+                className="w-10 h-10 rounded-full bg-white/[0.04] border border-white/10 flex items-center justify-center text-slate-300 hover:text-[hsl(255,60%,64%)] hover:border-[hsl(255,60%,64%)] hover:shadow-[0_0_15px_hsla(255,60%,64%,0.4)] transition-all"
+                aria-label="Phone"
+              >
+                <Phone size={17} />
+              </a>
+            </div>
+          </motion.div>
+
+          {/* Center Column: Portrait with Rotating Purple Glow Blob (Target Site Signature) */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.92 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-5 flex flex-col items-center justify-center relative my-6 lg:my-0"
+          >
+            {/* Animated Rotating Gradient Blob Behind Portrait */}
+            <div
+              className="blob-animate w-[280px] h-[280px] sm:w-[350px] sm:h-[350px] md:w-[400px] md:h-[400px]"
+              style={{
+                filter: "blur(48px)",
+                opacity: 0.85,
+              }}
+            />
+
+            {/* Portrait Container */}
+            <div className="relative w-[280px] sm:w-[330px] md:w-[370px] aspect-[4/5] rounded-[2.5rem] overflow-hidden border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.8)] z-10 group">
+              <img
+                src={praveenPortrait}
+                alt="Praveen Kumar E"
+                className="w-full h-full object-cover object-top filter brightness-[1.03] contrast-[1.05] group-hover:scale-105 transition-transform duration-700"
+                onError={(e) => {
+                  (e.currentTarget as HTMLImageElement).src = praveenPng;
+                }}
+              />
+
+              {/* Seamless gradient fade at bottom of portrait */}
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background:
+                    "linear-gradient(180deg, transparent 60%, rgba(2, 2, 8, 0.7) 85%, #020208 100%)",
+                }}
+              />
+            </div>
+          </motion.div>
+
+          {/* Right Column: Stacked Profession Display (Creative / AI & Data Science / Developer) */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-3 flex flex-col items-start lg:items-end text-left lg:text-right z-20"
+          >
+            <span className="text-xs font-mono uppercase tracking-widest text-[hsl(255,60%,64%)] mb-2">
+              Discipline
             </span>
-            <span className="text-emerald-400 font-medium">Available for Opportunities</span>
-            <span className="text-slate-600">|</span>
-            <span className="text-cyan-400">AI & DS 2024–2028</span>
-          </motion.div>
 
-          {/* Main Name Heading with Multi-Color Shimmer */}
-          <motion.h1
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1, duration: 0.6 }}
-            className="text-4xl sm:text-6xl md:text-7xl font-bold font-display tracking-tight text-white leading-[1.08] mb-4"
-          >
-            Praveen Kumar <span className="gradient-hero-text">E</span>
-          </motion.h1>
+            <div className="mb-6">
+              <h3 className="text-xl md:text-2xl font-unbounded text-slate-300 font-medium">
+                Creative
+              </h3>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-unbounded font-bold text-[hsl(255,60%,64%)] drop-shadow-[0_0_20px_hsla(255,60%,64%,0.4)] my-1">
+                AI &amp; DS
+              </h2>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-unbounded font-bold text-white">
+                Engineer
+              </h2>
+            </div>
 
-          {/* Subtitle / Role with color gradient */}
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-            className="text-base sm:text-lg font-mono font-medium mb-6 tracking-wide flex flex-wrap items-center gap-2"
-          >
-            <span className="text-blue-400">AI & Data Science Engineer</span>
-            <span className="text-slate-600 hidden sm:inline">·</span>
-            <span className="text-purple-400">Full-Stack Developer</span>
-          </motion.p>
+            <div className="space-y-3 text-xs font-mono text-slate-400">
+              <div className="flex items-center lg:justify-end gap-2">
+                <MapPin size={13} className="text-[hsl(255,60%,64%)]" />
+                <span>{personal.location}</span>
+              </div>
+              <div className="flex items-center lg:justify-end gap-2 text-slate-300">
+                <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                <span>15+ GitHub Repositories</span>
+              </div>
+              <div className="flex items-center lg:justify-end gap-2 text-slate-300">
+                <span className="w-2 h-2 rounded-full bg-[hsl(255,60%,64%)]" />
+                <span>7+ Verified Certifications</span>
+              </div>
+            </div>
 
-          {/* Narrative Description */}
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.6 }}
-            className="text-slate-300 text-base md:text-lg max-w-xl leading-relaxed mb-8 font-normal"
-          >
-            3rd-year B.Tech student at Shree Venkateshwara Hi-tech Engineering College. Building intelligent machine learning solutions, computer vision models, and modern digital applications.
-          </motion.p>
-
-          {/* Location & Contact row */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.35, duration: 0.6 }}
-            className="flex flex-wrap items-center gap-4 text-xs font-mono text-slate-400 mb-8"
-          >
-            <span className="flex items-center gap-1.5">
-              <MapPin size={14} className="text-emerald-400" />
-              {personal.location}
-            </span>
-            <span className="text-slate-600">·</span>
-            <a href={`tel:${personal.phone}`} className="flex items-center gap-1.5 hover:text-cyan-400 transition-colors">
-              <Phone size={14} className="text-cyan-400" />
-              {personal.phone}
-            </a>
-            <span className="text-slate-600">·</span>
-            <a href={`mailto:${personal.email}`} className="flex items-center gap-1.5 hover:text-blue-400 transition-colors">
-              <Mail size={14} className="text-blue-400" />
-              {personal.email}
+            {/* Resume button link */}
+            <a
+              href="#contact"
+              className="mt-8 flex items-center gap-2 text-xs font-unbounded text-slate-300 hover:text-[hsl(255,60%,64%)] transition-colors group"
+            >
+              <span>Explore My Background</span>
+              <ArrowUpRight size={15} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
             </a>
           </motion.div>
 
-          {/* Action CTAs with gradient buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.6 }}
-            className="flex flex-wrap items-center gap-3.5 mb-8"
-          >
-            <a
-              href="#projects"
-              className="flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-semibold bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white transition-all duration-200 shadow-lg shadow-blue-600/30 hover:shadow-purple-600/40"
-            >
-              <span>Explore Projects (13+)</span>
-              <ArrowUpRight size={16} />
-            </a>
-
-            <a
-              href={`mailto:${personal.email}`}
-              className="flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-semibold bg-white/[0.04] hover:bg-white/[0.08] text-slate-200 hover:text-white border border-white/10 hover:border-cyan-500/40 transition-all duration-200"
-            >
-              <span>Get in Touch</span>
-            </a>
-          </motion.div>
-
-          {/* Social Links */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 0.6 }}
-            className="flex items-center gap-3 pt-2"
-          >
-            <a
-              href={personal.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-10 h-10 rounded-xl bg-white/[0.03] hover:bg-blue-600/20 border border-white/10 hover:border-blue-500/40 text-slate-400 hover:text-blue-400 flex items-center justify-center transition-all duration-200 shadow-sm"
-              aria-label="GitHub Profile"
-            >
-              <GithubIcon size={18} />
-            </a>
-            <a
-              href={personal.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-10 h-10 rounded-xl bg-white/[0.03] hover:bg-purple-600/20 border border-white/10 hover:border-purple-500/40 text-slate-400 hover:text-purple-400 flex items-center justify-center transition-all duration-200 shadow-sm"
-              aria-label="LinkedIn Profile"
-            >
-              <LinkedinIcon size={18} />
-            </a>
-          </motion.div>
         </div>
-
-        {/* Right Column: Praveen's Portrait seamlessly merged into dark background */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.94 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.25, duration: 0.7 }}
-          className="lg:col-span-5 flex flex-col items-center justify-center"
-        >
-          <PraveenPortraitVisual />
-        </motion.div>
-
       </div>
 
       {/* Down arrow indicator */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-1 opacity-60 hover:opacity-100 transition-opacity">
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 hidden md:flex flex-col items-center opacity-60 hover:opacity-100 transition-opacity">
         <a href="#about" aria-label="Scroll to About">
-          <ChevronDown size={20} className="animate-bounce text-cyan-400" />
+          <ChevronDown size={22} className="animate-bounce text-[hsl(255,60%,64%)]" />
         </a>
       </div>
     </section>

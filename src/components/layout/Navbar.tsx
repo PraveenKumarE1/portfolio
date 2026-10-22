@@ -1,14 +1,16 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Menu } from "lucide-react";
+import { X, Menu, ArrowUpRight } from "lucide-react";
+import { personal } from "../../data/portfolio";
 
 const navLinks = [
   { id: "home",           label: "Home"     },
-  { id: "about",          label: "About"    },
-  { id: "skills",         label: "Skills"   },
+  { id: "about",          label: "About Me" },
   { id: "projects",       label: "Projects" },
   { id: "experience",     label: "Work"     },
+  { id: "skills",         label: "Skills"   },
   { id: "certifications", label: "Certs"    },
+  { id: "contact",        label: "Contact"  },
 ];
 
 export default function Navbar() {
@@ -19,11 +21,14 @@ export default function Navbar() {
   /* ── Scroll spy ── */
   useEffect(() => {
     const onScroll = () => {
-      setScrolled(window.scrollY > 30);
-      const offset = window.scrollY + 130;
+      setScrolled(window.scrollY > 40);
+      const offset = window.scrollY + 140;
       for (let i = navLinks.length - 1; i >= 0; i--) {
         const el = document.getElementById(navLinks[i].id);
-        if (el && el.offsetTop <= offset) { setActive(navLinks[i].id); break; }
+        if (el && el.offsetTop <= offset) {
+          setActive(navLinks[i].id);
+          break;
+        }
       }
     };
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -39,65 +44,35 @@ export default function Navbar() {
 
   return (
     <>
-      {/* ════════════════════════════════════════════════════════
-          Glassmorphism floating pill — inspired by image 1 design
-          ════════════════════════════════════════════════════════ */}
-      <motion.header
-        initial={{ y: -90, opacity: 0 }}
-        animate={{ y: 0,   opacity: 1 }}
-        transition={{ delay: 0.15, duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-4xl"
+      <header
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+          scrolled
+            ? "bg-[#020208]/90 backdrop-blur-md border-b border-white/[0.06] shadow-[0_10px_30px_rgba(0,0,0,0.8)]"
+            : "bg-gradient-to-b from-[#020208] via-[#020208]/80 to-transparent"
+        }`}
       >
+        {/* Animated Corner Blob (Target Site Signature) */}
         <div
-          className="relative flex items-center justify-between px-5 py-[11px] rounded-2xl overflow-hidden"
-          style={{
-            background:           "rgba(9, 9, 20, 0.82)",
-            backdropFilter:       "blur(26px)",
-            WebkitBackdropFilter: "blur(26px)",
-            border:               "1px solid rgba(255,255,255,0.09)",
-            boxShadow: [
-              "0 8px 32px rgba(0,0,0,0.55)",
-              "inset 0 1px 0 rgba(255,255,255,0.07)",
-              /* warm golden underglow (image 1's signature glow) */
-              scrolled
-                ? "0 28px 80px -18px rgba(245,158,11,0.18)"
-                : "0 18px 60px -18px rgba(245,158,11,0.09)",
-            ].join(", "),
-            transition: "box-shadow 0.5s ease",
-          }}
-        >
-          {/* Warm bottom hairline accent */}
-          <div
-            className="absolute bottom-0 left-8 right-8 h-px pointer-events-none"
-            style={{
-              background: "linear-gradient(90deg, transparent, rgba(245,158,11,0.35), transparent)",
-              opacity: scrolled ? 1 : 0.5,
-              transition: "opacity 0.5s",
-            }}
-          />
+          className="blob-animate -top-12 -left-12 w-32 h-32"
+          style={{ opacity: scrolled ? 0.4 : 0.8 }}
+        />
 
-          {/* ── Logo ── */}
+        <div className="max-w-6xl mx-auto px-6 md:px-10 h-20 md:h-24 flex items-center justify-between relative z-10">
+          {/* Logo in bold Unbounded font */}
           <a
             href="#home"
             onClick={(e) => goto(e, "home")}
-            className="flex items-center gap-2.5 shrink-0 z-10"
+            className="flex items-center gap-2 group"
           >
             <span
-              className="w-[34px] h-[34px] rounded-xl flex items-center justify-center text-white text-[11px] font-bold font-mono shadow-lg"
-              style={{
-                background: "linear-gradient(135deg, #2563eb 0%, #7c3aed 100%)",
-                boxShadow: "0 0 18px rgba(99,102,241,0.40)",
-              }}
+              className="text-lg sm:text-xl font-bold font-unbounded text-white tracking-tight group-hover:text-[hsl(255,60%,64%)] transition-colors"
             >
-              PK
-            </span>
-            <span className="hidden sm:block text-[13px] font-display font-semibold text-white tracking-tight">
-              Praveen <span className="text-blue-400">Kumar</span>
+              Praveen <span className="text-[hsl(255,60%,64%)]">Kumar</span>
             </span>
           </a>
 
-          {/* ── Desktop Nav Links ── */}
-          <nav className="hidden md:flex items-center gap-0.5 relative z-10">
+          {/* Desktop Nav Links */}
+          <nav className="hidden lg:flex items-center gap-9">
             {navLinks.map((link) => {
               const isActive = active === link.id;
               return (
@@ -105,128 +80,107 @@ export default function Navbar() {
                   key={link.id}
                   href={`#${link.id}`}
                   onClick={(e) => goto(e, link.id)}
-                  className={`relative px-3.5 py-1.5 text-xs font-mono font-medium rounded-lg transition-colors duration-200 ${
-                    isActive ? "text-white" : "text-slate-400 hover:text-slate-200"
+                  className={`text-xs font-unbounded font-medium transition-all duration-300 relative py-1 ${
+                    isActive
+                      ? "text-[hsl(255,60%,64%)] drop-shadow-[0_0_12px_hsl(255,60%,64%)]"
+                      : "text-slate-300 hover:text-[hsl(255,60%,64%)] hover:drop-shadow-[0_0_10px_hsl(255,60%,64%)]"
                   }`}
                 >
+                  {link.label}
                   {isActive && (
                     <motion.span
-                      layoutId="nav-active-pill"
-                      className="absolute inset-0 rounded-lg"
-                      style={{
-                        background: "rgba(255,255,255,0.08)",
-                        border:     "1px solid rgba(255,255,255,0.11)",
-                      }}
-                      transition={{ type: "spring", stiffness: 420, damping: 35 }}
+                      layoutId="nav-underline"
+                      className="absolute bottom-0 left-0 right-0 h-[2px] bg-[hsl(255,60%,64%)] rounded-full shadow-[0_0_8px_hsl(255,60%,64%)]"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
                     />
                   )}
-                  <span className="relative z-10">{link.label}</span>
                 </a>
               );
             })}
           </nav>
 
-          {/* ── Right controls ── */}
-          <div className="flex items-center gap-2 z-10">
+          {/* Right Action Button */}
+          <div className="flex items-center gap-3">
             <a
               href="#contact"
               onClick={(e) => goto(e, "contact")}
-              className="hidden sm:inline-flex items-center px-4 py-1.5 rounded-xl text-xs font-mono font-semibold text-white transition-all duration-200"
-              style={{
-                background:  "linear-gradient(135deg, #2563eb, #7c3aed)",
-                boxShadow:   "0 4px 16px rgba(99,102,241,0.30)",
-              }}
+              className="hidden sm:inline-flex button-panda !py-2.5 !px-6 !text-xs !shadow-[0_4px_20px_hsla(255,60%,64%,0.4)]"
             >
-              Contact
+              <span>Let's Talk</span>
+              <ArrowUpRight size={14} />
             </a>
 
-            {/* Mobile hamburger */}
+            {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileOpen(true)}
-              className="md:hidden w-9 h-9 flex items-center justify-center rounded-xl text-slate-300 hover:text-white hover:bg-white/[0.07] transition-colors"
+              className="lg:hidden w-10 h-10 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-center text-slate-200 hover:text-white hover:border-[hsl(255,60%,64%)] transition-colors"
               aria-label="Open menu"
             >
-              <Menu size={18} />
+              <Menu size={20} />
             </button>
           </div>
         </div>
-      </motion.header>
+      </header>
 
-      {/* ════════════════
-          Mobile Drawer
-          ════════════════ */}
+      {/* Mobile Drawer */}
       <AnimatePresence>
         {mobileOpen && (
           <>
-            {/* Backdrop */}
             <motion.div
-              key="nav-backdrop"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
-              className="fixed inset-0 z-[60] bg-black/70 backdrop-blur-sm"
+              className="fixed inset-0 z-[60] bg-black/80 backdrop-blur-md"
               onClick={() => setMobileOpen(false)}
             />
 
-            {/* Drawer panel */}
             <motion.aside
-              key="nav-drawer"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
-              transition={{ type: "spring", stiffness: 400, damping: 42 }}
-              className="fixed right-0 top-0 bottom-0 z-[61] w-72 flex flex-col"
-              style={{
-                background:           "rgba(8, 8, 18, 0.97)",
-                backdropFilter:       "blur(28px)",
-                WebkitBackdropFilter: "blur(28px)",
-                borderLeft:           "1px solid rgba(255,255,255,0.08)",
-              }}
+              transition={{ type: "spring", stiffness: 350, damping: 35 }}
+              className="fixed right-0 top-0 bottom-0 z-[61] w-80 bg-[#0c0c14] border-l border-white/10 p-6 flex flex-col justify-between"
             >
-              {/* Drawer header */}
-              <div className="flex items-center justify-between px-6 py-5 border-b border-white/[0.06]">
-                <span className="text-sm font-display font-semibold text-white">Navigation</span>
-                <button
-                  onClick={() => setMobileOpen(false)}
-                  className="w-8 h-8 rounded-lg bg-white/[0.06] flex items-center justify-center text-slate-300 hover:text-white transition-colors"
-                >
-                  <X size={16} />
-                </button>
+              <div>
+                <div className="flex items-center justify-between pb-6 border-b border-white/10 mb-6">
+                  <span className="font-unbounded font-bold text-white text-base">
+                    Menu
+                  </span>
+                  <button
+                    onClick={() => setMobileOpen(false)}
+                    className="w-9 h-9 rounded-xl bg-white/5 flex items-center justify-center text-slate-400 hover:text-white"
+                  >
+                    <X size={18} />
+                  </button>
+                </div>
+
+                <nav className="flex flex-col gap-3">
+                  {navLinks.map((link) => (
+                    <a
+                      key={link.id}
+                      href={`#${link.id}`}
+                      onClick={(e) => goto(e, link.id)}
+                      className={`px-4 py-3 rounded-2xl text-xs font-unbounded transition-all ${
+                        active === link.id
+                          ? "bg-[hsla(255,60%,64%,0.15)] text-[hsl(255,60%,64%)] border border-[hsla(255,60%,64%,0.3)] shadow-[0_0_15px_hsla(255,60%,64%,0.2)]"
+                          : "text-slate-300 hover:bg-white/5"
+                      }`}
+                    >
+                      {link.label}
+                    </a>
+                  ))}
+                </nav>
               </div>
 
-              {/* Links */}
-              <nav className="flex flex-col p-4 gap-1 flex-1">
-                {navLinks.map((link) => (
-                  <a
-                    key={link.id}
-                    href={`#${link.id}`}
-                    onClick={(e) => goto(e, link.id)}
-                    className={`px-4 py-3 rounded-xl text-sm font-mono font-medium transition-all duration-200 ${
-                      active === link.id
-                        ? "bg-white/[0.08] text-white border border-white/[0.10]"
-                        : "text-slate-400 hover:text-white hover:bg-white/[0.04]"
-                    }`}
-                  >
-                    {link.label}
-                  </a>
-                ))}
-
+              <div className="pt-6 border-t border-white/10 flex flex-col gap-3">
                 <a
-                  href="#contact"
-                  onClick={(e) => goto(e, "contact")}
-                  className="mt-4 px-4 py-3 rounded-xl text-sm font-mono font-semibold text-white text-center"
-                  style={{ background: "linear-gradient(135deg, #2563eb, #7c3aed)" }}
+                  href={`mailto:${personal.email}`}
+                  className="button-panda justify-center text-center !py-3 !text-xs w-full"
                 >
-                  Get in Touch
+                  <span>{personal.email}</span>
                 </a>
-              </nav>
-
-              {/* Drawer footer warm glow accent */}
-              <div
-                className="h-px mx-6 mb-6"
-                style={{ background: "linear-gradient(90deg, transparent, rgba(245,158,11,0.4), transparent)" }}
-              />
+              </div>
             </motion.aside>
           </>
         )}

@@ -1,100 +1,72 @@
 import { useEffect, useRef, useState } from "react";
 
 export default function CursorGlow() {
-  const dotRef = useRef<HTMLDivElement>(null);
-  const ringRef = useRef<HTMLDivElement>(null);
-  const glowRef = useRef<HTMLDivElement>(null);
-  const mouse = useRef({ x: 0, y: 0 });
-  const ring = useRef({ x: 0, y: 0 });
+  const cursorRef = useRef<HTMLDivElement>(null);
+  const mouse = useRef({ x: -100, y: -100 });
+  const pos = useRef({ x: -100, y: -100 });
   const [visible, setVisible] = useState(false);
+  const [hovered, setHovered] = useState(false);
 
   useEffect(() => {
+    // Only enable on desktop pointer devices
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+
     const handleMove = (e: MouseEvent) => {
       mouse.current = { x: e.clientX, y: e.clientY };
-      setVisible(true);
-      if (dotRef.current) {
-        dotRef.current.style.left = e.clientX + "px";
-        dotRef.current.style.top = e.clientY + "px";
-      }
-      if (glowRef.current) {
-        glowRef.current.style.left = e.clientX + "px";
-        glowRef.current.style.top = e.clientY + "px";
-      }
+      if (!visible) setVisible(true);
     };
 
     const handleLeave = () => setVisible(false);
 
-    const animateRing = () => {
-      ring.current.x += (mouse.current.x - ring.current.x) * 0.12;
-      ring.current.y += (mouse.current.y - ring.current.y) * 0.12;
-      if (ringRef.current) {
-        ringRef.current.style.left = ring.current.x + "px";
-        ringRef.current.style.top = ring.current.y + "px";
-      }
-      requestAnimationFrame(animateRing);
-    };
+    let animId: number;
+    const animate = () => {
+      pos.current.x += (mouse.current.x - pos.current.x) * 0.18;
+      pos.current.y += (mouse.current.y - pos.current.y) * 0.18;
 
-    const handleInteractable = () => {
-      document.querySelectorAll("a, button, [data-cursor]").forEach((el) => {
-        el.addEventListener("mouseenter", () => {
-          if (dotRef.current) {
-            dotRef.current.style.width = "14px";
-            dotRef.current.style.height = "14px";
-            dotRef.current.style.background = "#A78BFA";
-          }
-          if (ringRef.current) {
-            ringRef.current.style.width = "50px";
-            ringRef.current.style.height = "50px";
-            ringRef.current.style.borderColor = "rgba(167,139,250,0.6)";
-          }
-        });
-        el.addEventListener("mouseleave", () => {
-          if (dotRef.current) {
-            dotRef.current.style.width = "8px";
-            dotRef.current.style.height = "8px";
-            dotRef.current.style.background = "#60A5FA";
-          }
-          if (ringRef.current) {
-            ringRef.current.style.width = "32px";
-            ringRef.current.style.height = "32px";
-            ringRef.current.style.borderColor = "rgba(96,165,250,0.5)";
-          }
-        });
-      });
+      if (cursorRef.current) {
+        cursorRef.current.style.transform = `translate3d(${pos.current.x}px, ${pos.current.y}px, 0) translate(-50%, -50%)`;
+      }
+      animId = requestAnimationFrame(animate);
+    };
+    animId = requestAnimationFrame(animate);
+
+    const checkHover = (e: MouseEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (target && target.closest("a, button, [role='button'], input, textarea, .projects__card, .services__card")) {
+        setHovered(true);
+      } else {
+        setHovered(false);
+      }
     };
 
     window.addEventListener("mousemove", handleMove);
-    document.addEventListener("mouseleave", handleLeave);
-    const rafId = requestAnimationFrame(animateRing);
-    const observer = new MutationObserver(handleInteractable);
-    observer.observe(document.body, { childList: true, subtree: true });
-    handleInteractable();
+    window.addEventListener("mousemove", checkHover);
+    document.body.addEventListener("mouseleave", handleLeave);
 
     return () => {
       window.removeEventListener("mousemove", handleMove);
-      document.removeEventListener("mouseleave", handleLeave);
-      cancelAnimationFrame(rafId);
-      observer.disconnect();
+      window.removeEventListener("mousemove", checkHover);
+      document.body.removeEventListener("mouseleave", handleLeave);
+      cancelAnimationFrame(animId);
     };
-  }, []);
+  }, [visible]);
+
+  if (!visible) return null;
 
   return (
-    <>
-      <div
-        id="cursor-glow"
-        ref={glowRef}
-        style={{ opacity: visible ? 1 : 0 }}
-      />
-      <div
-        id="cursor-dot"
-        ref={dotRef}
-        style={{ opacity: visible ? 1 : 0 }}
-      />
-      <div
-        id="cursor-ring"
-        ref={ringRef}
-        style={{ opacity: visible ? 1 : 0 }}
-      />
-    </>
+    <div
+      ref={cursorRef}
+      className="fixed top-0 left-0 pointer-events-none z-[99999] transition-all duration-200"
+      style={{
+        width: hovered ? "65px" : "44px",
+        height: hovered ? "65px" : "44px",
+        borderRadius: "50%",
+        backgroundColor: "hsl(255, 60%, 74%)",
+        boxShadow: hovered
+          ? "0 0 35px hsl(255, 60%, 64%)"
+          : "0 0 24px hsl(255, 60%, 64%)",
+        mixBlendMode: "difference",
+      }}
+    />
   );
 }
