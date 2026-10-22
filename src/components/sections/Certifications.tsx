@@ -2,24 +2,10 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { certifications } from "../../data/portfolio";
 
-const filterTabs = [
-  { id: "all", label: "All Certificates", filter: () => true },
-  { 
-    id: "hackathons", 
-    label: "Hackathons & Competitions", 
-    filter: (c: typeof certifications[0]) => c.title.toLowerCase().includes("hackathon") || c.title.toLowerCase().includes("war") 
-  },
-  { 
-    id: "training", 
-    label: "Courses & Industrial Training", 
-    filter: (c: typeof certifications[0]) => !c.title.toLowerCase().includes("hackathon") && !c.title.toLowerCase().includes("war") 
-  },
-];
-
 export default function Certifications() {
   const [copiedId, setCopiedId] = useState<number | null>(null);
   const [activeCert, setActiveCert] = useState<(typeof certifications)[0] | null>(null);
-  const [activeFilterId, setActiveFilterId] = useState("all");
+  const [activeFilter, setActiveFilter] = useState<"all" | "hackathon" | "technical">("all");
 
   const handleCopy = (id: number, text: string, e?: React.MouseEvent) => {
     if (e) e.stopPropagation();
@@ -28,8 +14,21 @@ export default function Certifications() {
     setTimeout(() => setCopiedId(null), 2000);
   };
 
-  const activeTab = filterTabs.find((t) => t.id === activeFilterId) || filterTabs[0];
-  const filteredCerts = certifications.filter(activeTab.filter);
+  const filteredCerts = certifications.filter((cert) => {
+    if (activeFilter === "hackathon") {
+      return (
+        cert.title.toLowerCase().includes("hackathon") ||
+        cert.badge.toLowerCase().includes("hack") ||
+        cert.badge.toLowerCase().includes("participation")
+      );
+    }
+    if (activeFilter === "technical") {
+      return (
+        !cert.title.toLowerCase().includes("hackathon")
+      );
+    }
+    return true;
+  });
 
   return (
     <section id="certifications" className="relative py-24 bg-void overflow-hidden">
@@ -49,7 +48,7 @@ export default function Certifications() {
               <span className="text-slate-600">|</span>
               <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-montserrat bg-first/15 border border-first/30 text-first font-medium">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-                <span>{certifications.length} Verified Credentials</span>
+                <span>Verified Credentials</span>
               </span>
             </div>
 
@@ -62,42 +61,56 @@ export default function Certifications() {
 
           <div className="flex flex-col items-start md:items-end gap-1">
             <p className="font-montserrat text-sm text-slate-400 max-w-md md:text-right">
-              Official academic honors, national hackathon awards, and certified industrial training records.
+              Official academic honors, national hackathon awards, and verified technical certifications.
             </p>
-            <a
-              href="https://www.linkedin.com/in/praveen-kumar-e-952444358/details/certifications/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-xs font-montserrat text-first hover:underline flex items-center gap-1.5 mt-1 font-medium"
-            >
-              <span>View Praveen's Verified LinkedIn Certifications</span>
-              <i className="ri-arrow-right-up-line text-sm" />
-            </a>
           </div>
         </div>
 
         {/* Filter Navigation Tabs */}
         <div className="flex flex-wrap gap-2.5 mb-12">
-          {filterTabs.map((tab) => {
-            const count = certifications.filter(tab.filter).length;
-            const isSelected = activeFilterId === tab.id;
-            return (
-              <button
-                key={tab.id}
-                onClick={() => setActiveFilterId(tab.id)}
-                className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-montserrat font-medium transition-all duration-300 ${
-                  isSelected
-                    ? "bg-first text-white shadow-lg shadow-first/40 border border-first scale-105"
-                    : "bg-container border border-white/[0.08] text-slate-300 hover:text-white hover:border-first/40"
-                }`}
-              >
-                <span>{tab.label}</span>
-                <span className={`text-[10px] px-2 py-0.5 rounded-full ${isSelected ? "bg-white/20 text-white" : "bg-white/10 text-slate-400"}`}>
-                  {count}
-                </span>
-              </button>
-            );
-          })}
+          <button
+            onClick={() => setActiveFilter("all")}
+            className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-montserrat font-medium transition-all duration-300 ${
+              activeFilter === "all"
+                ? "bg-first text-white shadow-lg shadow-first/40 border border-first scale-105"
+                : "bg-container border border-white/[0.08] text-slate-300 hover:text-white hover:border-first/40"
+            }`}
+          >
+            <span>All Certificates</span>
+            <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/20 text-white">
+              {certifications.length}
+            </span>
+          </button>
+
+          <button
+            onClick={() => setActiveFilter("hackathon")}
+            className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-montserrat font-medium transition-all duration-300 ${
+              activeFilter === "hackathon"
+                ? "bg-first text-white shadow-lg shadow-first/40 border border-first scale-105"
+                : "bg-container border border-white/[0.08] text-slate-300 hover:text-white hover:border-first/40"
+            }`}
+          >
+            <i className="ri-trophy-line text-sm" />
+            <span>Hackathons &amp; Events</span>
+            <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/20 text-white">
+              {certifications.filter((c) => c.title.toLowerCase().includes("hackathon") || c.badge.toLowerCase().includes("participation")).length}
+            </span>
+          </button>
+
+          <button
+            onClick={() => setActiveFilter("technical")}
+            className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-montserrat font-medium transition-all duration-300 ${
+              activeFilter === "technical"
+                ? "bg-first text-white shadow-lg shadow-first/40 border border-first scale-105"
+                : "bg-container border border-white/[0.08] text-slate-300 hover:text-white hover:border-first/40"
+            }`}
+          >
+            <i className="ri-award-line text-sm" />
+            <span>Courses &amp; Training</span>
+            <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/20 text-white">
+              {certifications.filter((c) => !c.title.toLowerCase().includes("hackathon") && !c.badge.toLowerCase().includes("participation")).length}
+            </span>
+          </button>
         </div>
 
         {/* ══════════════════════════════════════════════════
