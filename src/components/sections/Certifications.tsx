@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { certifications } from "../../data/portfolio";
 
-const AUTOPLAY_INTERVAL = 4000; // 4.0 seconds per slide
+const AUTOPLAY_INTERVAL = 3000; // 3 seconds per slide
 
 export default function Certifications() {
   const [copiedId, setCopiedId] = useState<number | null>(null);
@@ -46,9 +46,9 @@ export default function Certifications() {
     setCurrentIndex((prev) => (prev < filteredCerts.length - 1 ? prev + 1 : 0));
   }, [filteredCerts.length]);
 
-  // Autoplay timer
+  // Autoplay timer - automatic rotation for all time (3 second intervals)
   useEffect(() => {
-    if (viewMode !== "3d" || isPaused || activeCert || filteredCerts.length <= 1) {
+    if (viewMode !== "3d" || isPaused || filteredCerts.length <= 1) {
       return;
     }
     const timer = setInterval(() => {
@@ -56,7 +56,7 @@ export default function Certifications() {
     }, AUTOPLAY_INTERVAL);
 
     return () => clearInterval(timer);
-  }, [viewMode, isPaused, activeCert, filteredCerts.length, handleNext]);
+  }, [viewMode, isPaused, filteredCerts.length, handleNext]);
 
   // Keyboard navigation
   useEffect(() => {
@@ -184,11 +184,7 @@ export default function Certifications() {
             MODE 1: 3D CYLINDRICAL CAROUSEL (Netflix CoverFlow Style)
             ══════════════════════════════════════════════════ */}
         {viewMode === "3d" ? (
-          <div 
-            className="relative py-8 select-none"
-            onMouseEnter={() => setIsPaused(true)}
-            onMouseLeave={() => setIsPaused(false)}
-          >
+          <div className="relative py-8 select-none">
             <div 
               className="relative w-full h-[520px] sm:h-[560px] flex items-center justify-center overflow-visible"
               style={{ perspective: "1200px" }}
@@ -389,10 +385,10 @@ export default function Certifications() {
                   title={isPaused ? "Resume autoplay" : "Pause autoplay"}
                 >
                   <i className={isPaused ? "ri-play-fill text-first" : "ri-pause-fill text-first"} />
-                  <span>{isPaused ? "Paused" : "Auto-sliding (4.0s)"}</span>
+                  <span>{isPaused ? "Paused" : "Auto-rotating (3s)"}</span>
                 </button>
                 <span className="text-slate-600 text-xs">·</span>
-                <span className="text-slate-500 font-montserrat text-[11px]">Hover over cards to inspect</span>
+                <span className="text-slate-500 font-montserrat text-[11px]">Continuous 3D rotation</span>
               </div>
             </div>
           </div>

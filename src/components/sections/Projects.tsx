@@ -89,7 +89,7 @@ const filterTabs = [
   { id: "genai", label: "Generative AI", filter: (p: any) => p.category.includes("Generative AI") || p.category.includes("Agent") },
 ];
 
-const AUTOPLAY_INTERVAL = 3800; // 3.8 seconds per slide
+const AUTOPLAY_INTERVAL = 3000; // 3 seconds per slide
 
 export default function Projects() {
   const [activeFilterId, setActiveFilterId] = useState("all");
@@ -139,9 +139,9 @@ export default function Projects() {
     setCurrentIndex((prev) => (prev < filteredProjects.length - 1 ? prev + 1 : 0));
   }, [filteredProjects.length]);
 
-  // Autoplay timer
+  // Autoplay timer - automatic rotation for all time (3 second intervals)
   useEffect(() => {
-    if (viewMode !== "3d" || isPaused || selectedProject || filteredProjects.length <= 1) {
+    if (viewMode !== "3d" || isPaused || filteredProjects.length <= 1) {
       return;
     }
     const timer = setInterval(() => {
@@ -149,7 +149,7 @@ export default function Projects() {
     }, AUTOPLAY_INTERVAL);
 
     return () => clearInterval(timer);
-  }, [viewMode, isPaused, selectedProject, filteredProjects.length, handleNext]);
+  }, [viewMode, isPaused, filteredProjects.length, handleNext]);
 
   // Keyboard navigation
   useEffect(() => {
@@ -247,11 +247,7 @@ export default function Projects() {
             MODE 1: AUTO-SLIDING 3D CYLINDER CAROUSEL
             ══════════════════════════════════════════════════ */}
         {viewMode === "3d" ? (
-          <div 
-            className="relative py-8 select-none"
-            onMouseEnter={() => setIsPaused(true)}
-            onMouseLeave={() => setIsPaused(false)}
-          >
+          <div className="relative py-8 select-none">
             {/* Carousel Stage with 3D Perspective */}
             <div 
               className="relative w-full h-[520px] sm:h-[560px] flex items-center justify-center overflow-visible"
@@ -437,10 +433,10 @@ export default function Projects() {
                   title={isPaused ? "Resume autoplay" : "Pause autoplay"}
                 >
                   <i className={isPaused ? "ri-play-fill text-first" : "ri-pause-fill text-first"} />
-                  <span>{isPaused ? "Paused" : "Auto-sliding (3.8s)"}</span>
+                  <span>{isPaused ? "Paused" : "Auto-rotating (3s)"}</span>
                 </button>
                 <span className="text-slate-600 text-xs">·</span>
-                <span className="text-slate-500 font-montserrat text-[11px]">Hover over cards to inspect</span>
+                <span className="text-slate-500 font-montserrat text-[11px]">Continuous 3D rotation</span>
               </div>
             </div>
           </div>
