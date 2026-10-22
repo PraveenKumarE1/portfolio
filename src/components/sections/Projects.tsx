@@ -89,7 +89,7 @@ const filterTabs = [
   { id: "genai", label: "Generative AI", filter: (p: any) => p.category.includes("Generative AI") || p.category.includes("Agent") },
 ];
 
-const AUTOPLAY_INTERVAL = 3000; // 3 seconds per slide
+const AUTOPLAY_INTERVAL = 2000; // 2 seconds per slide
 
 export default function Projects() {
   const [activeFilterId, setActiveFilterId] = useState("all");
@@ -100,6 +100,42 @@ export default function Projects() {
   const [lastSynced, setLastSynced] = useState<string>("Just now");
   const [viewMode, setViewMode] = useState<"3d" | "grid">("3d");
   const [isPaused, setIsPaused] = useState(false);
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
+  const [mouseTilt, setMouseTilt] = useState<number>(0);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStartX(e.touches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (touchStartX === null) return;
+    const currentX = e.touches[0].clientX;
+    const diff = currentX - touchStartX;
+    setMouseTilt((diff / 400) * 15);
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX === null) return;
+    const endX = e.changedTouches[0].clientX;
+    const diff = endX - touchStartX;
+    if (diff > 40) {
+      handlePrev();
+    } else if (diff < -40) {
+      handleNext();
+    }
+    setTouchStartX(null);
+    setMouseTilt(0);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const normalizedX = (e.clientX - rect.left) / rect.width - 0.5;
+    setMouseTilt(normalizedX * 14);
+  };
+
+  const handleMouseLeave = () => {
+    setMouseTilt(0);
+  };
 
   useEffect(() => {
     async function syncGithubRepos() {
@@ -192,7 +228,7 @@ export default function Projects() {
           
           <div className="flex flex-col items-start md:items-end gap-3">
             <p className="font-montserrat text-sm text-slate-400 max-w-md md:text-right">
-              {liveRepoCount}+ verified open-source repositories auto-sliding in 3D. Hover to pause.
+              {liveRepoCount}+ verified open-source repositories auto-sliding in 3D (2s). Touch swipe &amp; mouse tracking active.
             </p>
 
             {/* View Mode Switcher */}
@@ -247,7 +283,14 @@ export default function Projects() {
             MODE 1: AUTO-SLIDING 3D CYLINDER CAROUSEL
             ══════════════════════════════════════════════════ */}
         {viewMode === "3d" ? (
-          <div className="relative py-8 select-none">
+          <div 
+            className="relative py-8 select-none touch-pan-y cursor-grab active:cursor-grabbing"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+          >
             {/* Carousel Stage with 3D Perspective */}
             <div 
               className="relative w-full h-[520px] sm:h-[560px] flex items-center justify-center overflow-visible"
@@ -294,7 +337,7 @@ export default function Projects() {
                     animate={{
                       x: translateX,
                       z: translateZ,
-                      rotateY: rotateY,
+                      rotateY: rotateY + mouseTilt,
                       scale: scale,
                       opacity: opacity,
                     }}
@@ -433,10 +476,10 @@ export default function Projects() {
                   title={isPaused ? "Resume autoplay" : "Pause autoplay"}
                 >
                   <i className={isPaused ? "ri-play-fill text-first" : "ri-pause-fill text-first"} />
-                  <span>{isPaused ? "Paused" : "Auto-rotating (3s)"}</span>
+                  <span>{isPaused ? "Paused" : "Auto-rotating (2s)"}</span>
                 </button>
                 <span className="text-slate-600 text-xs">·</span>
-                <span className="text-slate-500 font-montserrat text-[11px]">Continuous 3D rotation</span>
+                <span className="text-slate-500 font-montserrat text-[11px]">Continuous · Touch &amp; Mouse Reactive</span>
               </div>
             </div>
           </div>
