@@ -1,6 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { certifications } from "../../data/portfolio";
+
+const AUTOPLAY_INTERVAL = 4000; // 4.0 seconds per slide
 
 export default function Certifications() {
   const [copiedId, setCopiedId] = useState<number | null>(null);
@@ -8,6 +10,7 @@ export default function Certifications() {
   const [activeFilter, setActiveFilter] = useState<"all" | "hackathon" | "technical">("all");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [viewMode, setViewMode] = useState<"3d" | "grid">("3d");
+  const [isPaused, setIsPaused] = useState(false);
 
   const handleCopy = (id: number, text: string, e?: React.MouseEvent) => {
     if (e) e.stopPropagation();
@@ -35,13 +38,36 @@ export default function Certifications() {
     setCurrentIndex(0);
   }, [activeFilter]);
 
-  const handlePrev = () => {
+  const handlePrev = useCallback(() => {
     setCurrentIndex((prev) => (prev > 0 ? prev - 1 : filteredCerts.length - 1));
-  };
+  }, [filteredCerts.length]);
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     setCurrentIndex((prev) => (prev < filteredCerts.length - 1 ? prev + 1 : 0));
-  };
+  }, [filteredCerts.length]);
+
+  // Autoplay timer
+  useEffect(() => {
+    if (viewMode !== "3d" || isPaused || activeCert || filteredCerts.length <= 1) {
+      return;
+    }
+    const timer = setInterval(() => {
+      handleNext();
+    }, AUTOPLAY_INTERVAL);
+
+    return () => clearInterval(timer);
+  }, [viewMode, isPaused, activeCert, filteredCerts.length, handleNext]);
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (activeCert) return;
+      if (e.key === "ArrowLeft") handlePrev();
+      if (e.key === "ArrowRight") handleNext();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [handlePrev, handleNext, activeCert]);
 
   return (
     <section id="certifications" className="relative py-24 bg-void overflow-hidden">
@@ -158,7 +184,11 @@ export default function Certifications() {
             MODE 1: 3D CYLINDRICAL CAROUSEL (Netflix CoverFlow Style)
             ══════════════════════════════════════════════════ */}
         {viewMode === "3d" ? (
-          <div className="relative py-8 select-none">
+          <div 
+            className="relative py-8 select-none"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+          >
             <div 
               className="relative w-full h-[520px] sm:h-[560px] flex items-center justify-center overflow-visible"
               style={{ perspective: "1200px" }}
@@ -320,38 +350,51 @@ export default function Certifications() {
               })}
             </div>
 
-            {/* Navigation Controls */}
-            <div className="flex items-center justify-center gap-6 mt-8">
-              <button
-                onClick={handlePrev}
-                aria-label="Previous certificate"
-                className="w-12 h-12 rounded-full bg-container border border-white/15 text-white hover:border-first hover:bg-first/20 flex items-center justify-center transition-all shadow-lg shadow-black/40 hover:scale-110"
-              >
-                <i className="ri-arrow-left-s-line text-2xl" />
-              </button>
+            {/* Carousel Navigation Bar (Left / Right controls, auto-slide progress, and pause toggle) */}
+            <div className="flex flex-col items-center gap-3 mt-8">
+              <div className="flex items-center justify-center gap-6">
+                <button
+                  onClick={handlePrev}
+                  aria-label="Previous certificate"
+                  className="w-12 h-12 rounded-full bg-container border border-white/15 text-white hover:border-first hover:bg-first/20 flex items-center justify-center transition-all shadow-lg shadow-black/40 hover:scale-110"
+                >
+                  <i className="ri-arrow-left-s-line text-2xl" />
+                </button>
 
-              <div className="flex items-center gap-2">
-                <span className="font-unbounded text-sm font-bold text-white">
-                  {String(currentIndex + 1).padStart(2, "0")}
-                </span>
-                <span className="text-slate-600 font-montserrat">/</span>
-                <span className="font-montserrat text-xs text-slate-400">
-                  {String(filteredCerts.length).padStart(2, "0")}
-                </span>
+                {/* Position indicator */}
+                <div className="flex items-center gap-2">
+                  <span className="font-unbounded text-sm font-bold text-white">
+                    {String(currentIndex + 1).padStart(2, "0")}
+                  </span>
+                  <span className="text-slate-600 font-montserrat">/</span>
+                  <span className="font-montserrat text-xs text-slate-400">
+                    {String(filteredCerts.length).padStart(2, "0")}
+                  </span>
+                </div>
+
+                <button
+                  onClick={handleNext}
+                  aria-label="Next certificate"
+                  className="w-12 h-12 rounded-full bg-container border border-white/15 text-white hover:border-first hover:bg-first/20 flex items-center justify-center transition-all shadow-lg shadow-black/40 hover:scale-110"
+                >
+                  <i className="ri-arrow-right-s-line text-2xl" />
+                </button>
               </div>
 
-              <button
-                onClick={handleNext}
-                aria-label="Next certificate"
-                className="w-12 h-12 rounded-full bg-container border border-white/15 text-white hover:border-first hover:bg-first/20 flex items-center justify-center transition-all shadow-lg shadow-black/40 hover:scale-110"
-              >
-                <i className="ri-arrow-right-s-line text-2xl" />
-              </button>
+              {/* Autoplay status bar & pause toggle */}
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => setIsPaused(!isPaused)}
+                  className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.04] border border-white/10 hover:border-first/40 text-[11px] font-montserrat text-slate-400 hover:text-white transition-all"
+                  title={isPaused ? "Resume autoplay" : "Pause autoplay"}
+                >
+                  <i className={isPaused ? "ri-play-fill text-first" : "ri-pause-fill text-first"} />
+                  <span>{isPaused ? "Paused" : "Auto-sliding (4.0s)"}</span>
+                </button>
+                <span className="text-slate-600 text-xs">·</span>
+                <span className="text-slate-500 font-montserrat text-[11px]">Hover over cards to inspect</span>
+              </div>
             </div>
-
-            <p className="text-center font-montserrat text-xs text-slate-500 mt-4">
-              Swipe, click left/right arrows, or click any side card to rotate
-            </p>
           </div>
         ) : (
           /* ══════════════════════════════════════════════════

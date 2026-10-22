@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { projects } from "../../data/portfolio";
 
@@ -89,6 +89,8 @@ const filterTabs = [
   { id: "genai", label: "Generative AI", filter: (p: any) => p.category.includes("Generative AI") || p.category.includes("Agent") },
 ];
 
+const AUTOPLAY_INTERVAL = 3800; // 3.8 seconds per slide
+
 export default function Projects() {
   const [activeFilterId, setActiveFilterId] = useState("all");
   const [selectedProject, setSelectedProject] = useState<(typeof projects)[0] | null>(null);
@@ -97,6 +99,7 @@ export default function Projects() {
   const [isSyncing, setIsSyncing] = useState(false);
   const [lastSynced, setLastSynced] = useState<string>("Just now");
   const [viewMode, setViewMode] = useState<"3d" | "grid">("3d");
+  const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
     async function syncGithubRepos() {
@@ -128,13 +131,25 @@ export default function Projects() {
     setCurrentIndex(0);
   }, [activeFilterId]);
 
-  const handlePrev = () => {
+  const handlePrev = useCallback(() => {
     setCurrentIndex((prev) => (prev > 0 ? prev - 1 : filteredProjects.length - 1));
-  };
+  }, [filteredProjects.length]);
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     setCurrentIndex((prev) => (prev < filteredProjects.length - 1 ? prev + 1 : 0));
-  };
+  }, [filteredProjects.length]);
+
+  // Autoplay timer
+  useEffect(() => {
+    if (viewMode !== "3d" || isPaused || selectedProject || filteredProjects.length <= 1) {
+      return;
+    }
+    const timer = setInterval(() => {
+      handleNext();
+    }, AUTOPLAY_INTERVAL);
+
+    return () => clearInterval(timer);
+  }, [viewMode, isPaused, selectedProject, filteredProjects.length, handleNext]);
 
   // Keyboard navigation
   useEffect(() => {
@@ -145,7 +160,7 @@ export default function Projects() {
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [filteredProjects.length, selectedProject]);
+  }, [handlePrev, handleNext, selectedProject]);
 
   return (
     <section id="projects" className="relative py-24 bg-void overflow-hidden">
@@ -177,7 +192,7 @@ export default function Projects() {
           
           <div className="flex flex-col items-start md:items-end gap-3">
             <p className="font-montserrat text-sm text-slate-400 max-w-md md:text-right">
-              {liveRepoCount}+ verified open-source repositories. Rotate left &amp; right to explore.
+              {liveRepoCount}+ verified open-source repositories auto-sliding in 3D. Hover to pause.
             </p>
 
             {/* View Mode Switcher */}
@@ -229,10 +244,14 @@ export default function Projects() {
         </div>
 
         {/* ══════════════════════════════════════════════════
-            MODE 1: 3D CYLINDER ROTATION CAROUSEL (Netflix CoverFlow Style)
+            MODE 1: AUTO-SLIDING 3D CYLINDER CAROUSEL
             ══════════════════════════════════════════════════ */}
         {viewMode === "3d" ? (
-          <div className="relative py-8 select-none">
+          <div 
+            className="relative py-8 select-none"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+          >
             {/* Carousel Stage with 3D Perspective */}
             <div 
               className="relative w-full h-[520px] sm:h-[560px] flex items-center justify-center overflow-visible"
@@ -256,14 +275,14 @@ export default function Projects() {
                 if (wrappedOffset < -total / 2) wrappedOffset += total;
 
                 const isCurrent = wrappedOffset === 0;
-                const isVisible = Math.abs(wrappedOffset) <= 3; // render up to 3 cards on each side
+                const isVisible = Math.abs(wrappedOffset) <= 3;
 
                 if (!isVisible) return null;
 
                 // 3D positioning calculation (cylindrical rotation effect)
-                const translateX = wrappedOffset * 220; // horizontal separation
-                const translateZ = -Math.abs(wrappedOffset) * 160; // depth recession
-                const rotateY = wrappedOffset * -28; // 3D rotation angle towards center
+                const translateX = wrappedOffset * 220;
+                const translateZ = -Math.abs(wrappedOffset) * 160;
+                const rotateY = wrappedOffset * -28;
                 const scale = Math.max(0.72, 1 - Math.abs(wrappedOffset) * 0.12);
                 const opacity = Math.max(0.15, 1 - Math.abs(wrappedOffset) * 0.28);
                 const zIndex = 50 - Math.abs(wrappedOffset) * 10;
@@ -379,47 +398,58 @@ export default function Projects() {
               })}
             </div>
 
-            {/* Carousel Navigation Bar (Left / Right controls & indicators) */}
-            <div className="flex items-center justify-center gap-6 mt-8">
-              <button
-                onClick={handlePrev}
-                aria-label="Previous project"
-                className="w-12 h-12 rounded-full bg-container border border-white/15 text-white hover:border-first hover:bg-first/20 flex items-center justify-center transition-all shadow-lg shadow-black/40 hover:scale-110"
-              >
-                <i className="ri-arrow-left-s-line text-2xl" />
-              </button>
+            {/* Carousel Navigation Bar (Left / Right controls, auto-slide progress, and pause toggle) */}
+            <div className="flex flex-col items-center gap-3 mt-8">
+              <div className="flex items-center justify-center gap-6">
+                <button
+                  onClick={handlePrev}
+                  aria-label="Previous project"
+                  className="w-12 h-12 rounded-full bg-container border border-white/15 text-white hover:border-first hover:bg-first/20 flex items-center justify-center transition-all shadow-lg shadow-black/40 hover:scale-110"
+                >
+                  <i className="ri-arrow-left-s-line text-2xl" />
+                </button>
 
-              {/* Position indicator */}
-              <div className="flex items-center gap-2">
-                <span className="font-unbounded text-sm font-bold text-white">
-                  {String(currentIndex + 1).padStart(2, "0")}
-                </span>
-                <span className="text-slate-600 font-montserrat">/</span>
-                <span className="font-montserrat text-xs text-slate-400">
-                  {String(filteredProjects.length).padStart(2, "0")}
-                </span>
+                {/* Position indicator */}
+                <div className="flex items-center gap-2">
+                  <span className="font-unbounded text-sm font-bold text-white">
+                    {String(currentIndex + 1).padStart(2, "0")}
+                  </span>
+                  <span className="text-slate-600 font-montserrat">/</span>
+                  <span className="font-montserrat text-xs text-slate-400">
+                    {String(filteredProjects.length).padStart(2, "0")}
+                  </span>
+                </div>
+
+                <button
+                  onClick={handleNext}
+                  aria-label="Next project"
+                  className="w-12 h-12 rounded-full bg-container border border-white/15 text-white hover:border-first hover:bg-first/20 flex items-center justify-center transition-all shadow-lg shadow-black/40 hover:scale-110"
+                >
+                  <i className="ri-arrow-right-s-line text-2xl" />
+                </button>
               </div>
 
-              <button
-                onClick={handleNext}
-                aria-label="Next project"
-                className="w-12 h-12 rounded-full bg-container border border-white/15 text-white hover:border-first hover:bg-first/20 flex items-center justify-center transition-all shadow-lg shadow-black/40 hover:scale-110"
-              >
-                <i className="ri-arrow-right-s-line text-2xl" />
-              </button>
+              {/* Autoplay status bar & pause toggle */}
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => setIsPaused(!isPaused)}
+                  className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.04] border border-white/10 hover:border-first/40 text-[11px] font-montserrat text-slate-400 hover:text-white transition-all"
+                  title={isPaused ? "Resume autoplay" : "Pause autoplay"}
+                >
+                  <i className={isPaused ? "ri-play-fill text-first" : "ri-pause-fill text-first"} />
+                  <span>{isPaused ? "Paused" : "Auto-sliding (3.8s)"}</span>
+                </button>
+                <span className="text-slate-600 text-xs">·</span>
+                <span className="text-slate-500 font-montserrat text-[11px]">Hover over cards to inspect</span>
+              </div>
             </div>
-
-            {/* Hint label */}
-            <p className="text-center font-montserrat text-xs text-slate-500 mt-4">
-              Swipe, click left/right arrows, or click any side card to rotate
-            </p>
           </div>
         ) : (
           /* ══════════════════════════════════════════════════
               MODE 2: STATIC 3-COLUMN GRID VIEW
               ══════════════════════════════════════════════════ */
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-7">
-            {filteredProjects.map((project, idx) => {
+            {filteredProjects.map((project) => {
               const grasp = projectQuickGrasp[project.id] || {
                 simpleWhat: project.description,
                 keyHighlights: ["Verified Architecture", "Open Source Repository"],
