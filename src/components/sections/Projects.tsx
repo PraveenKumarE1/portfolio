@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Tilt from "react-parallax-tilt";
 import { projects } from "../../data/portfolio";
 
 const projectQuickGrasp: Record<number, { simpleWhat: string; keyHighlights: string[]; badge: string }> = {
@@ -164,8 +165,8 @@ export default function Projects() {
           </div>
         </div>
 
-        {/* Filter Pills – 3D Flip Rotation Effect */}
-        <div className="flex flex-wrap gap-2.5 mb-12" style={{ perspective: "600px" }}>
+        {/* Filter Pills */}
+        <div className="flex flex-wrap gap-2.5 mb-12">
           {filterTabs.map((tab) => {
             const count = projects.filter(tab.filter).length;
             const isSelected = activeFilterId === tab.id;
@@ -176,29 +177,11 @@ export default function Projects() {
                   setActiveFilterId(tab.id);
                   setShowAllProjects(false);
                 }}
-                whileHover={{
-                  rotateY: 12,
-                  rotateX: -4,
-                  scale: 1.06,
-                  transition: { duration: 0.25, ease: "easeOut" },
-                }}
-                whileTap={{
-                  rotateY: -8,
-                  scale: 0.96,
-                  transition: { duration: 0.15 },
-                }}
-                animate={
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-montserrat font-medium transition-all duration-300 ${
                   isSelected
-                    ? {
-                        rotateY: [0, 180, 360],
-                        transition: { duration: 0.5, ease: "easeInOut" },
-                      }
-                    : { rotateY: 0 }
-                }
-                style={{ transformStyle: "preserve-3d" }}
-                className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-montserrat font-medium transition-colors duration-300 ${
-                  isSelected
-                    ? "bg-first text-white shadow-lg shadow-first/40 border border-first"
+                    ? "bg-first text-white shadow-lg shadow-first/40 border border-first scale-105"
                     : "bg-container border border-white/[0.08] text-slate-300 hover:text-white hover:border-first/40"
                 }`}
               >
@@ -211,7 +194,7 @@ export default function Projects() {
           })}
         </div>
 
-        {/* Projects Grid: Target Site Architecture */}
+        {/* Projects Grid: 3D Tilting & Rotating Cards */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-7">
           {displayedProjects.map((project, idx) => {
             const grasp = projectQuickGrasp[project.id] || {
@@ -222,81 +205,95 @@ export default function Projects() {
             const formattedIndex = String(project.id).padStart(2, "0");
 
             return (
-              <motion.article
+              <Tilt
                 key={project.id}
-                initial={{ opacity: 0, y: 25 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: (idx % 3) * 0.1, duration: 0.5 }}
-                className="relative bg-container rounded-[2.5rem] p-7 border border-white/[0.06] overflow-hidden group hover:border-first/50 transition-all duration-500 flex flex-col justify-between"
+                tiltMaxAngleY={14}
+                tiltMaxAngleX={8}
+                perspective={1000}
+                glareEnable={true}
+                glareMaxOpacity={0.12}
+                glareColor="rgba(138, 111, 232, 0.5)"
+                glarePosition="all"
+                glareBorderRadius="2.5rem"
+                transitionSpeed={1200}
+                scale={1.02}
+                className="h-full"
               >
-                {/* Glowing Corner Blob */}
-                <div 
-                  className="absolute -right-24 -bottom-24 w-52 h-52 rounded-full bg-first/20 blur-[50px] pointer-events-none group-hover:bg-first/35 transition-all duration-500" 
-                />
+                <motion.article
+                  initial={{ opacity: 0, y: 25 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: (idx % 3) * 0.1, duration: 0.5 }}
+                  className="relative bg-container rounded-[2.5rem] p-7 border border-white/[0.06] overflow-hidden group hover:border-first/50 transition-all duration-500 flex flex-col justify-between h-full"
+                >
+                  {/* Glowing Corner Blob */}
+                  <div 
+                    className="absolute -right-24 -bottom-24 w-52 h-52 rounded-full bg-first/20 blur-[50px] pointer-events-none group-hover:bg-first/35 transition-all duration-500" 
+                  />
 
-                {/* Top Number & Category */}
-                <div className="flex items-center justify-between relative z-10 mb-5">
-                  <h1 className="font-unbounded text-4xl sm:text-5xl font-bold text-white/90 group-hover:text-first transition-colors">
-                    {formattedIndex}
-                  </h1>
-                  <span className="font-montserrat text-xs px-3.5 py-1.5 rounded-full bg-first/15 text-first border border-first/30 font-medium">
-                    {grasp.badge}
-                  </span>
-                </div>
-
-                {/* Main Data Section */}
-                <div className="relative z-10 flex-1 flex flex-col justify-between mb-6">
-                  <div>
-                    <h2 className="font-unbounded text-lg sm:text-xl font-bold text-white mb-2 leading-snug group-hover:text-first transition-colors line-clamp-2">
-                      {project.title}
-                    </h2>
-
-                    <p className="font-montserrat text-xs text-slate-300 leading-relaxed mb-4 line-clamp-2">
-                      {grasp.simpleWhat}
-                    </p>
-
-                    <p className="font-montserrat text-[11px] uppercase tracking-wider text-first font-semibold mb-1.5">
-                      Techstack used
-                    </p>
-                    <p className="font-montserrat text-xs text-slate-400 mb-4 line-clamp-1">
-                      {project.tech.slice(0, 4).join(", ")}
-                    </p>
+                  {/* Top Number & Category */}
+                  <div className="flex items-center justify-between relative z-10 mb-5">
+                    <h1 className="font-unbounded text-4xl sm:text-5xl font-bold text-white/90 group-hover:text-first transition-colors">
+                      {formattedIndex}
+                    </h1>
+                    <span className="font-montserrat text-xs px-3.5 py-1.5 rounded-full bg-first/15 text-first border border-first/30 font-medium">
+                      {grasp.badge}
+                    </span>
                   </div>
 
-                  {/* Highlights Box */}
-                  <div className="space-y-1.5 p-3 rounded-2xl bg-void/70 border border-white/[0.05]">
-                    {grasp.keyHighlights.slice(0, 2).map((hl) => (
-                      <div key={hl} className="flex items-center gap-2 text-[11px] font-montserrat text-slate-300">
-                        <i className="ri-checkbox-circle-fill text-first text-xs shrink-0" />
-                        <span className="truncate">{hl}</span>
-                      </div>
-                    ))}
+                  {/* Main Data Section */}
+                  <div className="relative z-10 flex-1 flex flex-col justify-between mb-6">
+                    <div>
+                      <h2 className="font-unbounded text-lg sm:text-xl font-bold text-white mb-2 leading-snug group-hover:text-first transition-colors line-clamp-2">
+                        {project.title}
+                      </h2>
+
+                      <p className="font-montserrat text-xs text-slate-300 leading-relaxed mb-4 line-clamp-2">
+                        {grasp.simpleWhat}
+                      </p>
+
+                      <p className="font-montserrat text-[11px] uppercase tracking-wider text-first font-semibold mb-1.5">
+                        Techstack used
+                      </p>
+                      <p className="font-montserrat text-xs text-slate-400 mb-4 line-clamp-1">
+                        {project.tech.slice(0, 4).join(", ")}
+                      </p>
+                    </div>
+
+                    {/* Highlights Box */}
+                    <div className="space-y-1.5 p-3 rounded-2xl bg-void/70 border border-white/[0.05]">
+                      {grasp.keyHighlights.slice(0, 2).map((hl) => (
+                        <div key={hl} className="flex items-center gap-2 text-[11px] font-montserrat text-slate-300">
+                          <i className="ri-checkbox-circle-fill text-first text-xs shrink-0" />
+                          <span className="truncate">{hl}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
 
-                {/* Bottom Image / Action Bar */}
-                <div className="relative z-10 pt-4 border-t border-white/[0.06] flex items-center justify-between gap-3">
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-void text-xs font-montserrat font-medium text-slate-300 border border-white/10 hover:border-first hover:text-white transition-all"
-                  >
-                    <i className="ri-github-fill text-base" />
-                    <span>View Code</span>
-                  </a>
+                  {/* Bottom Image / Action Bar */}
+                  <div className="relative z-10 pt-4 border-t border-white/[0.06] flex items-center justify-between gap-3">
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-void text-xs font-montserrat font-medium text-slate-300 border border-white/10 hover:border-first hover:text-white transition-all"
+                    >
+                      <i className="ri-github-fill text-base" />
+                      <span>View Code</span>
+                    </a>
 
-                  {/* Signature Round Panda Button to open specs */}
-                  <button
-                    onClick={() => setSelectedProject(project)}
-                    title="View Full Specifications"
-                    className="w-11 h-11 rounded-full bg-void border-2 border-first text-white flex items-center justify-center hover:bg-first hover:text-void hover:scale-110 shadow-lg shadow-first/20 transition-all duration-300 shrink-0"
-                  >
-                    <i className="ri-arrow-right-up-long-line text-lg" />
-                  </button>
-                </div>
-              </motion.article>
+                    {/* Signature Round Panda Button to open specs */}
+                    <button
+                      onClick={() => setSelectedProject(project)}
+                      title="View Full Specifications"
+                      className="w-11 h-11 rounded-full bg-void border-2 border-first text-white flex items-center justify-center hover:bg-first hover:text-void hover:scale-110 shadow-lg shadow-first/20 transition-all duration-300 shrink-0"
+                    >
+                      <i className="ri-arrow-right-up-long-line text-lg" />
+                    </button>
+                  </div>
+                </motion.article>
+              </Tilt>
             );
           })}
         </div>

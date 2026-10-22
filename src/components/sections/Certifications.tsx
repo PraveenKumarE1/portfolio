@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Tilt from "react-parallax-tilt";
 import { certifications } from "../../data/portfolio";
 
 export default function Certifications() {
@@ -66,8 +67,8 @@ export default function Certifications() {
           </div>
         </div>
 
-        {/* Filter Navigation Tabs – 3D Flip Rotation Effect */}
-        <div className="flex flex-wrap gap-2.5 mb-12" style={{ perspective: "600px" }}>
+        {/* Filter Navigation Tabs */}
+        <div className="flex flex-wrap gap-2.5 mb-12">
           {(
             [
               {
@@ -103,29 +104,11 @@ export default function Certifications() {
               <motion.button
                 key={tab.key}
                 onClick={() => setActiveFilter(tab.key)}
-                whileHover={{
-                  rotateY: 12,
-                  rotateX: -4,
-                  scale: 1.06,
-                  transition: { duration: 0.25, ease: "easeOut" },
-                }}
-                whileTap={{
-                  rotateY: -8,
-                  scale: 0.96,
-                  transition: { duration: 0.15 },
-                }}
-                animate={
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-montserrat font-medium transition-all duration-300 ${
                   isSelected
-                    ? {
-                        rotateY: [0, 180, 360],
-                        transition: { duration: 0.5, ease: "easeInOut" },
-                      }
-                    : { rotateY: 0 }
-                }
-                style={{ transformStyle: "preserve-3d" }}
-                className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-montserrat font-medium transition-colors duration-300 ${
-                  isSelected
-                    ? "bg-first text-white shadow-lg shadow-first/40 border border-first"
+                    ? "bg-first text-white shadow-lg shadow-first/40 border border-first scale-105"
                     : "bg-container border border-white/[0.08] text-slate-300 hover:text-white hover:border-first/40"
                 }`}
               >
@@ -140,23 +123,36 @@ export default function Certifications() {
         </div>
 
         {/* ══════════════════════════════════════════════════
-            Official Certifications Grid (Panda Coders Card Style)
+            Official Certifications Grid: 3D Tilting & Rotating Cards
             ══════════════════════════════════════════════════ */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-7">
           {filteredCerts.map((cert, idx) => (
-            <motion.article
+            <Tilt
               key={cert.id}
-              initial={{ opacity: 0, y: 25 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: (idx % 3) * 0.1, duration: 0.5 }}
-              onClick={() => setActiveCert(cert)}
-              className="relative bg-container rounded-[2.5rem] p-7 border border-white/[0.06] overflow-hidden group hover:border-first/50 transition-all duration-500 flex flex-col justify-between cursor-pointer"
+              tiltMaxAngleY={14}
+              tiltMaxAngleX={8}
+              perspective={1000}
+              glareEnable={true}
+              glareMaxOpacity={0.12}
+              glareColor="rgba(138, 111, 232, 0.5)"
+              glarePosition="all"
+              glareBorderRadius="2.5rem"
+              transitionSpeed={1200}
+              scale={1.02}
+              className="h-full"
             >
-              {/* Glowing Corner Blob */}
-              <div 
-                className="absolute -right-24 -bottom-24 w-52 h-52 rounded-full bg-first/20 blur-[50px] pointer-events-none group-hover:bg-first/35 transition-all duration-500" 
-              />
+              <motion.article
+                initial={{ opacity: 0, y: 25 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: (idx % 3) * 0.1, duration: 0.5 }}
+                onClick={() => setActiveCert(cert)}
+                className="relative bg-container rounded-[2.5rem] p-7 border border-white/[0.06] overflow-hidden group hover:border-first/50 transition-all duration-500 flex flex-col justify-between cursor-pointer h-full"
+              >
+                {/* Glowing Corner Blob */}
+                <div 
+                  className="absolute -right-24 -bottom-24 w-52 h-52 rounded-full bg-first/20 blur-[50px] pointer-events-none group-hover:bg-first/35 transition-all duration-500" 
+                />
 
               {/* Top Badge & Verified Stars */}
               <div className="relative z-10 mb-4 flex items-center justify-between">
@@ -245,8 +241,9 @@ export default function Certifications() {
                 </span>
               </div>
             </motion.article>
-          ))}
-        </div>
+          </Tilt>
+        ))}
+      </div>
 
       </div>
 
