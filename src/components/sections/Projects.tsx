@@ -89,7 +89,7 @@ const filterTabs = [
   { id: "genai", label: "Generative AI", filter: (p: any) => p.category.includes("Generative AI") || p.category.includes("Agent") },
 ];
 
-const AUTOPLAY_INTERVAL = 2000; // 2 seconds per slide
+const AUTOPLAY_INTERVAL = 2800; // 2.8 seconds per slide
 
 export default function Projects() {
   const [activeFilterId, setActiveFilterId] = useState("all");
@@ -228,7 +228,7 @@ export default function Projects() {
           
           <div className="flex flex-col items-start md:items-end gap-3">
             <p className="font-montserrat text-sm text-slate-400 max-w-md md:text-right">
-              {liveRepoCount}+ verified open-source repositories auto-sliding in 3D (2s). Touch swipe &amp; mouse tracking active.
+              {liveRepoCount}+ verified open-source repositories auto-sliding in 3D (2.8s). Touch swipe &amp; mouse tracking active.
             </p>
 
             {/* View Mode Switcher */}
@@ -476,7 +476,7 @@ export default function Projects() {
                   title={isPaused ? "Resume autoplay" : "Pause autoplay"}
                 >
                   <i className={isPaused ? "ri-play-fill text-first" : "ri-pause-fill text-first"} />
-                  <span>{isPaused ? "Paused" : "Auto-rotating (2s)"}</span>
+                  <span>{isPaused ? "Paused" : "Auto-rotating (2.8s)"}</span>
                 </button>
                 <span className="text-slate-600 text-xs">·</span>
                 <span className="text-slate-500 font-montserrat text-[11px]">Continuous · Touch &amp; Mouse Reactive</span>

@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { certifications } from "../../data/portfolio";
 
-const AUTOPLAY_INTERVAL = 2000; // 2 seconds per slide
+const AUTOPLAY_INTERVAL = 2800; // 2.8 seconds per slide
 
 export default function Certifications() {
   const [copiedId, setCopiedId] = useState<number | null>(null);
@@ -428,7 +428,7 @@ export default function Certifications() {
                   title={isPaused ? "Resume autoplay" : "Pause autoplay"}
                 >
                   <i className={isPaused ? "ri-play-fill text-first" : "ri-pause-fill text-first"} />
-                  <span>{isPaused ? "Paused" : "Auto-rotating (2s)"}</span>
+                  <span>{isPaused ? "Paused" : "Auto-rotating (2.8s)"}</span>
                 </button>
                 <span className="text-slate-600 text-xs">·</span>
                 <span className="text-slate-500 font-montserrat text-[11px]">Continuous · Touch &amp; Mouse Reactive</span>

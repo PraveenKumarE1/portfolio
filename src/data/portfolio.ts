@@ -26,33 +26,36 @@ export const stats = [
 ];
 
 export const skills = {
-  programming: [
-    { name: "Python", desc: "Primary language for AI/ML, data analysis, Flask, PyTorch, and scripting.", level: 90 },
-    { name: "Java", desc: "Object-oriented programming and DSA fundamentals.", level: 70 },
-    { name: "C", desc: "Low-level systems programming and DSA concepts.", level: 65 },
-    { name: "SQL", desc: "Database querying, relational schema design, SQLite.", level: 78 },
-    { name: "MongoDB", desc: "NoSQL document database design and CRUD integration.", level: 72 },
-    { name: "TypeScript", desc: "Typed JavaScript development for scalable React web applications.", level: 80 },
+  domains: [
+    { name: "Artificial Intelligence", desc: "Intelligent systems, cognitive computing, and model architectures.", level: 90 },
+    { name: "Data Science", desc: "Exploratory analytics, statistical modeling, and insights extraction.", level: 88 },
+    { name: "Full-Stack Web Development", desc: "Scalable modern web applications, responsive client interfaces, and backend APIs.", level: 85 },
   ],
-  ai: [
-    { name: "Machine Learning", desc: "Random Forest, Linear Regression, scikit-learn training & validation.", level: 85 },
-    { name: "Computer Vision", desc: "OpenCV, retinal image quality checking, vessel analysis & PyTorch CNN models.", level: 82 },
-    { name: "Data Science", desc: "EDA, Pandas, NumPy, Matplotlib, synthetic data generation.", level: 88 },
-    { name: "Gen AI", desc: "Google Gemini 2.5 Flash API, prompt engineering, Streamlit AI bots, Claude 101.", level: 80 },
+  coreAreas: [
+    { name: "Data Analysis", desc: "Exploratory data analysis (EDA), pattern recognition, and statistical validation.", level: 88 },
+    { name: "AI", desc: "Artificial intelligence architectures, autonomous agents, and conversational engines.", level: 86 },
+    { name: "ML", desc: "Machine learning algorithms, Random Forest, Linear Regression, and predictive scoring.", level: 85 },
   ],
-  web: [
-    { name: "React 18", desc: "Modern component architectures, hooks, state management.", level: 85 },
-    { name: "HTML / CSS", desc: "Semantic markup, Tailwind CSS, Bootstrap 5, responsive design.", level: 90 },
-    { name: "JavaScript", desc: "ES6+, async/await, DOM manipulation, REST APIs.", level: 85 },
-    { name: "Node.js / Express", desc: "RESTful server APIs, routing, backend integration.", level: 72 },
-    { name: "Flask & Streamlit", desc: "Python web microframeworks for deploying ML/AI models.", level: 80 },
+  languages: [
+    { name: "Python", desc: "Primary language for AI/ML, data analysis, automation, and backend development.", level: 92 },
+    { name: "SQL", desc: "Relational database querying, structured data aggregation, and schema design.", level: 82 },
+    { name: "JavaScript", desc: "Modern ES6+, async/await, interactive DOM logic, and REST API integration.", level: 85 },
+    { name: "HTML", desc: "Semantic structure, accessibility standards, and modern document layout.", level: 90 },
+    { name: "CSS", desc: "Responsive styling, Flexbox, CSS Grid, and custom animation design.", level: 88 },
+  ],
+  databaseAndFramework: [
+    { name: "MongoDB", desc: "NoSQL document database design, schema modeling, and CRUD persistence.", level: 80 },
+    { name: "React.js", desc: "Modern React component architecture, reactive hooks, and state management.", level: 86 },
+    { name: "Node.js", desc: "Asynchronous JavaScript server-side runtime for high-throughput APIs.", level: 80 },
+    { name: "Express.js", desc: "Fast minimalist web framework for RESTful routing and middleware.", level: 82 },
   ],
   tools: [
-    { name: "GitHub", desc: "Version control, repositories, collaboration, project workflows.", level: 88 },
-    { name: "Supabase", desc: "BaaS database integration, auth, and real-time backend.", level: 75 },
-    { name: "Leaflet", desc: "Interactive map integration with React Leaflet.", level: 75 },
-    { name: "VS Code & Jupyter", desc: "Primary IDEs for full-stack and data science experimentation.", level: 92 },
-    { name: "MATLAB", desc: "Retinal image analysis and medical engineering research baseline.", level: 70 },
+    { name: "Claude", desc: "Anthropic LLM platform for deep agentic synthesis and code engineering.", level: 90 },
+    { name: "ChatGPT", desc: "OpenAI generative copilot for architecture planning and productivity.", level: 90 },
+    { name: "GitHub", desc: "Distributed version control, repository management, and continuous workflows.", level: 88 },
+    { name: "Jupyter Notebook", desc: "Interactive environment for data science, visualization, and rapid prototyping.", level: 92 },
+    { name: "VS Code", desc: "Primary development IDE configured with advanced extensions and tooling.", level: 94 },
+    { name: "AWS", desc: "Cloud computing infrastructure, server hosting, and cloud deployment pipelines.", level: 75 },
   ],
 };
 
